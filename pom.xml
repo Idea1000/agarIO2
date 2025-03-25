@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>fr.unicaen.iutcaen.agario3/fr.unicaen.iutcaen.agario3.HelloApplication
+                            <mainClass>fr.unicaen.iutcaen.agario3/fr.unicaen.iutcaen.agario2.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
