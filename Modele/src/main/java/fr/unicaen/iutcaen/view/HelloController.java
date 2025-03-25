@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.view;
+/*package fr.unicaen.iutcaen.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,4 +11,4 @@ public class HelloController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
-}
+}*/
