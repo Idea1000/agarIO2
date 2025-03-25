@@ -59,7 +59,7 @@
                 <plugin>
                     <groupId>org.openjfx</groupId>
                     <artifactId>javafx-maven-plugin</artifactId>
-                    <version>0.0.8</version>
+                    <version>0.0.8</version> <!-- You can specify the version here -->
                 </plugin>
 
                 <!-- Maven Compiler Plugin -->
@@ -101,6 +101,29 @@
                         <configLocation>src/test/resources/iut-caen-checks.xml</configLocation> <!-- Checkstyle rules file -->
                         <excludes>**/module-info.java</excludes> <!-- Correct format for excludes -->
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>run-javafx-from-parent</id>
+                            <phase>compile</phase> <!-- Bind it to a phase like compile, verify, etc. -->
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>mvn</executable>
+                                <arguments>
+                                    <argument>-pl</argument>
+                                    <argument>Client</argument> <!-- Specify the child module -->
+                                    <argument>javafx:run</argument> <!-- Execute javafx:run in the child -->
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
