@@ -1,6 +1,5 @@
 package fr.unicaen.iutcaen.network;
 
-<<<<<<< HEAD
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -51,7 +50,7 @@ public class Client {
 
     // Thread qui reçoit les mises à jour envoyées par le serveur
     public void receiveUpdates() {
-<<<<<<< HEAD
+
         new Thread(() -> {
             try {
                 while (true) {
