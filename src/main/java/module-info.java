@@ -3,6 +3,6 @@ module fr.unicaen.iutcaen.agario2 {
     requires javafx.fxml;
 
 
-    opens fr.unicaen.iutcaen.agario3 to javafx.fxml;
+    opens fr.unicaen.iutcaen.agario2 to javafx.fxml;
     exports fr.unicaen.iutcaen.agario2;
 }
