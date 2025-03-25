@@ -1,5 +1,7 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.model.entities.Entity;
+
 public class Boundary {
     private double x, y, width, height;
 

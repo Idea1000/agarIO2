@@ -4,7 +4,7 @@ package fr.unicaen.iutcaen.view;
 
 import javafx.scene.layout.Pane;
 import fr.unicaen.iutcaen.model.World;
-import fr.unicaen.iutcaen.model.Entity;
+import fr.unicaen.iutcaen.model.entities.Entity;
 import javafx.scene.shape.Circle;
 
 public class GameView extends Pane {

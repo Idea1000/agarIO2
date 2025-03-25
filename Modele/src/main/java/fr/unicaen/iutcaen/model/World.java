@@ -1,7 +1,9 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.model.entities.Pellet;
+
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 

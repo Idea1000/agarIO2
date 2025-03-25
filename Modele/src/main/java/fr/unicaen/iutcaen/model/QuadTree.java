@@ -1,5 +1,7 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.model.entities.Entity;
+
 import java.util.List;
 
 public class QuadTree {
