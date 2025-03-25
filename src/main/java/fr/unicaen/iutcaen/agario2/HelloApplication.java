@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario3;
+package fr.unicaen.iutcaen.agario2;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
