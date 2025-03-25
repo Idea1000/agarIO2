@@ -10,83 +10,87 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class ClientHandler extends Thread {
-	
-    private Socket socket;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
-    private List<ClientHandler> clientHandlers;
-    private WorldHandler worldHandler; 
-    
-    private boolean ready; 
-    
-    
-    public ClientHandler(Socket socket, List<ClientHandler> clientHandlers, WorldHandler worldHandler) {
+
+    private final Socket socket;
+    private final ObjectInputStream in;
+    private final ObjectOutputStream out;
+    private final List<ClientHandler> clientHandlers;
+    private final WorldHandler worldHandler;
+
+    private volatile boolean ready = false;
+
+    public ClientHandler(Socket socket, List<ClientHandler> clientHandlers, WorldHandler worldHandler) throws IOException {
         this.socket = socket;
-        this.clientHandlers = clientHandlers; 
-        ready = false; 
-        this.worldHandler = worldHandler; 
-        try {
-        	out = new ObjectOutputStream(socket.getOutputStream());
-        	out.flush(); 
-        	in = new ObjectInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+        this.clientHandlers = clientHandlers;
+        this.worldHandler = worldHandler;
+
+        out = new ObjectOutputStream(socket.getOutputStream());
+        out.flush(); 
+        in = new ObjectInputStream(socket.getInputStream());
     }
     
     /**
-     * 
+     * waits for new messages from the client.
+     *  When a new message arrives, it is processed by processReceivedMessage function
      */
     @Override
     public void run() {
-    
-    	Message message; 
-    	
-        while(!socket.isClosed()) {
-        	try {
-        		message = (Message) in.readObject(); 
-        		processRecievedMessage(message); 
-        	}
-        	catch(Exception e) {
-        		e.printStackTrace();
-        	}
+        try {
+            while (!socket.isClosed()) {
+                Object obj = in.readObject();
+                if (obj instanceof Message message) {
+                    processReceivedMessage(message);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Client déconnecté : " + socket.getRemoteSocketAddress());
+        } finally {
+            cleanup();
         }
-        
-        synchronized(clientHandlers) {
-        	clientHandlers.remove(this); 
-        }
-        
-        System.out.println("Client "+socket.getRemoteSocketAddress()+" déconnecté"); 
     }
     
+    
     /**
-     * Processes a message received from the client and does what is needed
-     * @param message Message the message received from the client  
+     * Cleans up the connection with the client by closing the socket and removing the thread from the list.
      */
-    public void processRecievedMessage(Message message) {
-    	
+    private void cleanup() {
+        try {
+            socket.close();
+        } catch (IOException ignored) {}
+        clientHandlers.remove(this);
+        System.out.println("Client " + socket.getRemoteSocketAddress() + " supprimé.");
     }
-    
-    
+
     /**
-     * Checks weather the client is ready to play or not
-     * @return
-     */
-    public synchronized Boolean isReady() {
-    	return ready; 
-    }
-    
-    /**
-     * Sends a message to the client
-     * @param message the message to send
+     * Sends a message to the client. 
+     * @param message
      */
     public synchronized void sendMessage(Message message) {
-    	try {
-			out.writeObject(message);
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        try {
+            out.reset(); 
+            out.writeObject(message);
+            out.flush();
+        } catch (IOException e) {
+            System.err.println("Erreur d’envoi au client " + socket.getRemoteSocketAddress());
+            cleanup();
+        }
     }
     
+    /**
+     * checks weather the client is ready to play or not. 
+     * @return
+     */
+    public synchronized boolean isReady() {
+        return ready;
+    }
+    
+    
+    public synchronized void setReady(boolean value) {
+        this.ready = value;
+    }
+    
+    
+    public void processReceivedMessage(Message message) {
+
+    }
 }

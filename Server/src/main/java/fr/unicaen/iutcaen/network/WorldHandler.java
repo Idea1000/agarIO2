@@ -17,7 +17,7 @@ public class WorldHandler extends Thread{
 	
 	@Override
 	public void run() {
-		while(true) {
+		while(!isInterrupted()) {
 			
 			try {
 				this.sleep(33);
