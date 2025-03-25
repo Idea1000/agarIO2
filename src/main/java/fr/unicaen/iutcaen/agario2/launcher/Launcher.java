@@ -12,8 +12,8 @@ import java.io.IOException;
 
 public class Launcher extends Application {
 
-    public static final int HORIZONTAL = 600;
-    public static final int VERTICAL = 350;
+    public static final int HORIZONTAL = 515;
+    public static final int VERTICAL = 277;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -24,8 +24,8 @@ public class Launcher extends Application {
         Scene scene = new Scene(fxmlLoader.load(), HORIZONTAL, VERTICAL);
         primaryStage.setTitle("AgarIO 2");
         primaryStage.setScene(scene);
-        primaryStage.setMinHeight(350.0);
-        primaryStage.setMinWidth(600.0);
+        primaryStage.setMinHeight(277.0);
+        primaryStage.setMinWidth(515.0);
         primaryStage.show();
     }
 
