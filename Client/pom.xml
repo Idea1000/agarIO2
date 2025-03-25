@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.unicaen.iutcaen</groupId>
-    <artifactId>agarIO2</artifactId>
+    <artifactId>agarIO2Client</artifactId>
     <version>1.0.0</version>
     <name>agarIO2Client</name>
 
