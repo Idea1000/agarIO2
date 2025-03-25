@@ -1,7 +1,9 @@
 package fr.unicaen.iutcaen.agario2.model;
 
+import fr.unicaen.iutcaen.agario2.model.entities.Entity;
+import fr.unicaen.iutcaen.agario2.model.entities.Pellet;
+
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 

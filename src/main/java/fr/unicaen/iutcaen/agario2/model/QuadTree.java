@@ -1,5 +1,7 @@
 package fr.unicaen.iutcaen.agario2.model;
 
+import fr.unicaen.iutcaen.agario2.model.entities.Entity;
+
 import java.util.List;
 
 public class QuadTree {

@@ -2,7 +2,7 @@ package fr.unicaen.iutcaen.agario2.view;
 
 import javafx.scene.layout.Pane;
 import fr.unicaen.iutcaen.agario2.model.World;
-import fr.unicaen.iutcaen.agario2.model.Entity;
+import fr.unicaen.iutcaen.agario2.model.entities.Entity;
 import javafx.scene.shape.Circle;
 
 public class GameView extends Pane {

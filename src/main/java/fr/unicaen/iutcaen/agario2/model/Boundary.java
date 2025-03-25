@@ -1,5 +1,7 @@
 package fr.unicaen.iutcaen.agario2.model;
 
+import fr.unicaen.iutcaen.agario2.model.entities.Entity;
+
 public class Boundary {
     private double x, y, width, height;
 

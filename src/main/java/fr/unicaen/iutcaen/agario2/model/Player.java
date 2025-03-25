@@ -1,17 +1,19 @@
 package fr.unicaen.iutcaen.agario2.model;
 
+import fr.unicaen.iutcaen.agario2.model.entities.CellPack;
+import fr.unicaen.iutcaen.agario2.model.entities.Entity;
+import fr.unicaen.iutcaen.agario2.model.factories.FactoryCellPack;
 import javafx.geometry.Point2D;
-import java.util.List;
+import javafx.scene.paint.Color;
 
-public class Player extends Entity {
+public class Player {
     private double speed;
     // Pour la gestion du joueur composé de plusieurs cellules (Composite Pattern)
-    private List<Player> cells;
     // D'autres attributs : direction, état, etc.
+    private CellPack cells;
 
-    public Player(String id, Point2D position, double mass, double speed) {
-        super(id, position, mass);
-        this.speed = speed;
+    public Player(Point2D position, double mass, Color color) {
+        cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
     }
 
     // Déplacement du joueur
@@ -27,11 +29,6 @@ public class Player extends Entity {
     // Division cellulaire du joueur
     public void split() {
         // Diviser le joueur en deux entités de masse réduite
-    }
-
-    @Override
-    public void update() {
-        // Met à jour la position, la vitesse ou autres propriétés dynamiques
     }
 
     // Getters et setters supplémentaires
