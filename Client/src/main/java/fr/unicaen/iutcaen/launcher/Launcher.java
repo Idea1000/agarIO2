@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 /*package fr.unicaen.iutcaen.agario2.launcher;
 
 import fr.unicaen.iutcaen.agario2.view.GameView;
 
 import fr.unicaen.iutcaen.agario2.view.HelloApplication;
+=======
+package fr.unicaen.iutcaen.launcher;
+
+import fr.unicaen.iutcaen.view.HelloApplication;
+>>>>>>> archi
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

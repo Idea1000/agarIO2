@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 /*package fr.unicaen.iutcaen.agario2.view;
+=======
+package fr.unicaen.iutcaen.view;
+>>>>>>> archi
 
 import javafx.scene.layout.Pane;
-import fr.unicaen.iutcaen.agario2.model.World;
-import fr.unicaen.iutcaen.agario2.model.Entity;
+import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.model.Entity;
 import javafx.scene.shape.Circle;
 
 public class GameView extends Pane {
