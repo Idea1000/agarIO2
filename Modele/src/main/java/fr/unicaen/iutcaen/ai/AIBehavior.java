@@ -1,7 +1,7 @@
-package fr.unicaen.iutcaen.agario2.ai;
+package fr.unicaen.iutcaen.ai;
 
-import fr.unicaen.iutcaen.agario2.model.Player;
-import fr.unicaen.iutcaen.agario2.model.World;
+import fr.unicaen.iutcaen.model.Player;
+import fr.unicaen.iutcaen.model.World;
 import javafx.geometry.Point2D;
 
 public interface AIBehavior {

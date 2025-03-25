@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario2.model;
+package fr.unicaen.iutcaen.model;
 
 import java.util.List;
 import java.util.ArrayList;

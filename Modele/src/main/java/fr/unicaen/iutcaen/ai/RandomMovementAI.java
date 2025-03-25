@@ -1,9 +1,9 @@
-package fr.unicaen.iutcaen.agario2.ai;
+package fr.unicaen.iutcaen.ai;
 
-import fr.unicaen.iutcaen.agario2.model.Player;
-import fr.unicaen.iutcaen.agario2.model.World;
-import javafx.geometry.Point2D;
+import fr.unicaen.iutcaen.model.Player;
+import fr.unicaen.iutcaen.model.World;
 import java.util.Random;
+import javafx.geometry.Point2D;
 
 public class RandomMovementAI implements AIBehavior {
     private Random random = new Random();

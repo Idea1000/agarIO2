@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario2.model;
+package fr.unicaen.iutcaen.model;
 
 public class Boundary {
     private double x, y, width, height;

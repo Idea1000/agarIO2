@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario2.model;
+package fr.unicaen.iutcaen.model;
 
 import javafx.geometry.Point2D;
 
@@ -11,4 +11,3 @@ public class EntityFactory {
         return new Pellet(id, position, mass, type);
     }
 }
-
