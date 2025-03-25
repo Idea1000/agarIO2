@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*package fr.unicaen.iutcaen.agario2.launcher;
 
 import fr.unicaen.iutcaen.agario2.view.GameView;

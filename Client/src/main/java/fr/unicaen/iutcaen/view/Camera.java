@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-/*package fr.unicaen.iutcaen.agario2.view;
-=======
 package fr.unicaen.iutcaen.view;
->>>>>>> archi
+
 
 import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Player;
@@ -24,4 +21,3 @@ public class Camera {
         this.zoom = zoom;
     }
 }
-*/

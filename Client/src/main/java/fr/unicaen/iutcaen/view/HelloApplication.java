@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-/*package fr.unicaen.iutcaen.agario2.view;
-=======
+
 package fr.unicaen.iutcaen.view;
->>>>>>> archi
+
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,4 +25,4 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-}*/
+}
