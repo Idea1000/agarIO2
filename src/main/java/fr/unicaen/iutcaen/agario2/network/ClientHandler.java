@@ -1,27 +1,45 @@
 package fr.unicaen.iutcaen.agario2.network;
 
+import java.io.*;
 import java.net.Socket;
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.InputStreamReader;
 
 public class ClientHandler extends Thread {
     private Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private boolean ready;
 
-    public ClientHandler(Socket socket) {
+    public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
-        // Initialisation des flux d'entrée et sortie
+        in = new ObjectInputStream(socket.getInputStream());
+        out = new ObjectOutputStream(socket.getOutputStream());
     }
 
     @Override
     public void run() {
-        // Boucle de lecture des messages envoyés par le client et mise à jour du serveur en conséquence
+        while(true){
+            try{
+                Message message = (Message) in.readObject();
+                processMessage(message);
+            } catch (IOException e) {
+
+            } catch (ClassNotFoundException e) {
+
+            }
+        }
     }
 
-    // Envoie un message au client
-    public void sendMessage(String message) {
-        // Utilise le PrintWriter pour envoyer le message
+    public void sendMessage(Message message){
+        try {
+            out.writeObject(message);
+            out.flush();
+        } catch (IOException e) {
+
+        }
     }
+
+    public void processMessage(Message message){
+
+    }
+
 }

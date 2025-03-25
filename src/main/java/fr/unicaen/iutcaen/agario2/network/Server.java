@@ -1,6 +1,7 @@
 package fr.unicaen.iutcaen.agario2.network;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
@@ -8,29 +9,39 @@ import java.util.ArrayList;
 import fr.unicaen.iutcaen.agario2.model.World;
 
 public class Server {
-    private ServerSocket serverSocket;
-    private List<ClientHandler> clientHandlers;
-    private World world;
 
-    public Server(int port) throws IOException {
+    final static int PORT = 8000;
+    private static Server instance;
+    protected ServerSocket serverSocket;
+    protected List<ClientHandler> clientHandlers;
+
+    public static Server getInstance() throws IOException {
+        if(instance == null){
+            instance = new Server(PORT);
+        }
+        return instance;
+    }
+
+    private Server(int port) throws IOException {
         // Initialisation du ServerSocket, de la liste des clients et du monde
-        ServerSocket socket = new ServerSocket();
-
+        serverSocket = new ServerSocket(port);
+        clientHandlers = new ArrayList<ClientHandler>();
     }
 
-    // Démarre le serveur et l'écoute des connexions
+    /**
+     * Starts the server and waits for new connection
+      */
     public void start() {
-        // Boucle accept() pour créer des ClientHandler pour chaque connexion
-        
+        Socket socket;
+
+        while(true){
+            try {
+                socket = serverSocket.accept();
+                clientHandlers.add(new ClientHandler(socket));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
-    // Diffuse un message à tous les clients connectés
-    public void broadcast(String message) {
-        // Parcourt la liste des clients et envoie le message via chacun d'eux
-    }
-
-    // Boucle d'actualisation du monde à intervalle régulier (ex. toutes les 33ms)
-    public void updateWorld() {
-        // Met à jour l'état du monde et envoie les mises à jour aux clients
-    }
 }
