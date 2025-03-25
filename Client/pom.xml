@@ -6,12 +6,14 @@
 
     <groupId>fr.unicaen.iutcaen</groupId>
     <artifactId>agarIO2</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>agarIO2Client</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.1</junit.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -62,7 +64,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>fr.unicaen.iutcaen.agario2.view/fr.unicaen.iutcaen.agario2.view.HelloApplication</mainClass>
+                            <mainClass>fr.unicaen.iutcaen.launcher/fr.unicaen.iutcaen.launcher.Launcher</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -5,21 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eed7740-7b11-4430-9779-f8314ca93e48" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/ai/AIBehavior.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/ai/RandomMovementAI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/model/Boundary.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/model/Entity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/model/EntityFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/model/Pellet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/model/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/model/QuadTree.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/model/World.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/network/ClientHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/network/ConfigParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/network/Message.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/network/Server.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/java/fr/unicaen/iutcaen/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/launcher/Launcher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/network/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/view/Camera.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/view/GameView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/view/HelloApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/view/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/agario2/view/MiniMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/resources/fr/unicaen/iutcaen/agario2/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/resources/fr/unicaen/iutcaen/agario2/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +52,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/brault231/IdeaProjects/agarIO2/Modele"
+    "last_opened_file_path": "C:/Users/brault231/IdeaProjects/agarIO2"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\brault231\IdeaProjects\agarIO2\Modele\src\main\resources" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Modele" />
