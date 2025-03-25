@@ -1,7 +1,7 @@
-package fr.unicaen.iutcaen.agario2.launcher;
+/*package fr.unicaen.iutcaen.agario2.launcher;
 
 import fr.unicaen.iutcaen.agario2.view.GameView;
-import fr.unicaen.iutcaen.agario2.model.World;
+
 import fr.unicaen.iutcaen.agario2.view.HelloApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -33,3 +33,4 @@ public class Launcher extends Application {
     }
 }
 
+*/

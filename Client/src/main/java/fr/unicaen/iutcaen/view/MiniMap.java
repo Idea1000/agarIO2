@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario2.view;
+/*package fr.unicaen.iutcaen.agario2.view;
 
 import javafx.scene.layout.Pane;
 import fr.unicaen.iutcaen.agario2.model.World;
@@ -16,3 +16,4 @@ public class MiniMap extends Pane {
         // Affiche les positions des joueurs dans la zone réduite
     }
 }
+*/

@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario2.view;
+/*package fr.unicaen.iutcaen.agario2.view;
 
 import fr.unicaen.iutcaen.agario2.model.Boundary;
 import fr.unicaen.iutcaen.agario2.model.Player;
@@ -20,3 +20,4 @@ public class Camera {
         this.zoom = zoom;
     }
 }
+*/

@@ -3,9 +3,9 @@ module fr.unicaen.iutcaen.agario2 {
     requires javafx.fxml;
 
 
-    opens fr.unicaen.iutcaen.agario2.view to javafx.fxml;
-    exports fr.unicaen.iutcaen.agario2.view;
+    /*opens fr.unicaen.iutcaen.agario2.view to javafx.fxml;
+   exports fr.unicaen.iutcaen.agario2.view;
 
     opens fr.unicaen.iutcaen.agario2.launcher to javafx.fxml;
-    exports fr.unicaen.iutcaen.agario2.launcher;
+    exports fr.unicaen.iutcaen.agario2.launcher;*/
 }
