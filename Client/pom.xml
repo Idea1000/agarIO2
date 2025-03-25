@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath> <!-- Path to parent pom -->
     </parent>
 
-    <artifactId>agarIO2Client</artifactId>
+    <artifactId>Client</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -47,7 +47,7 @@
 
         <dependency>
             <groupId>fr.unicaen.iutcaen</groupId>
-            <artifactId>agarIO2Modele</artifactId>
+            <artifactId>Modele</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>

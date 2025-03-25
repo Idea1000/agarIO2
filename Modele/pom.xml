@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath> <!-- Path to parent pom -->
     </parent>
 
-    <artifactId>agarIO2Modele</artifactId>
+    <artifactId>Modele</artifactId>
 
     <dependencies>
         <dependency>
