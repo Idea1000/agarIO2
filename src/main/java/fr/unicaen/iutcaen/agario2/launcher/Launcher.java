@@ -24,8 +24,7 @@ public class Launcher extends Application {
         Scene scene = new Scene(fxmlLoader.load(), HORIZONTAL, VERTICAL);
         primaryStage.setTitle("AgarIO 2");
         primaryStage.setScene(scene);
-        primaryStage.setMinHeight(277.0);
-        primaryStage.setMinWidth(515.0);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
