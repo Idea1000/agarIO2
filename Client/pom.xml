@@ -7,7 +7,7 @@
     <groupId>fr.unicaen.iutcaen</groupId>
     <artifactId>agarIO2</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>agarIO2</name>
+    <name>agarIO2Client</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,7 +62,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>fr.unicaen.iutcaen.agario2.v/fr.unicaen.iutcaen.agario2.view.HelloApplication</mainClass>
+                            <mainClass>fr.unicaen.iutcaen.agario2.view/fr.unicaen.iutcaen.agario2.view.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
