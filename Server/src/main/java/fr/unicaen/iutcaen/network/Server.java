@@ -1,32 +1,56 @@
-package fr.unicaen.iutcaen.agario2.network;
+package fr.unicaen.iutcaen.network;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 import java.util.ArrayList;
-import fr.unicaen.iutcaen.agario2.model.World;
 
 public class Server {
+	
+	private static Server instance; 
+	public static int PORT = 8000; 
+	
     private ServerSocket serverSocket;
     private List<ClientHandler> clientHandlers;
-    private World world;
+    
+    public static Server getInstance() throws IOException {
+    	if(instance == null) {
+    		instance = new Server(PORT); 
+    	}
+    	return instance; 
+    }
+    
 
-    public Server(int port) {
-        // Initialisation du ServerSocket, de la liste des clients et du monde
+    private Server(int port) throws IOException {
+        serverSocket = new ServerSocket(port); 
+        clientHandlers = new ArrayList<ClientHandler>(); 
     }
 
-    // Démarre le serveur et l'écoute des connexions
-    public void start() {
-        // Boucle accept() pour créer des ClientHandler pour chaque connexion
+    /**
+     * Starts the server and listens for new connections
+     * @throws IOException 
+     */
+    public void start()  {
+    	Socket socket; 
+    	ClientHandler client; 
+        while(true) {
+        	
+        	try {
+        		System.out.println("Le serveur écoute"); 
+        		socket = serverSocket.accept(); 
+        		System.out.println("Demande reçu"); 
+        		client = new ClientHandler(socket); 
+        		System.out.println("Thread pour le client crée"); 
+        		client.start();
+        		clientHandlers.add(client); 
+        		System.out.println("CLient ajouté par le serveur"); 
+        	}
+        	catch(IOException e) {
+        		e.printStackTrace();
+        	}
+        	
+        }
     }
-
-    // Diffuse un message à tous les clients connectés
-    public void broadcast(String message) {
-        // Parcourt la liste des clients et envoie le message via chacun d'eux
-    }
-
-    // Boucle d'actualisation du monde à intervalle régulier (ex. toutes les 33ms)
-    public void updateWorld() {
-        // Met à jour l'état du monde et envoie les mises à jour aux clients
-    }
+    
 }

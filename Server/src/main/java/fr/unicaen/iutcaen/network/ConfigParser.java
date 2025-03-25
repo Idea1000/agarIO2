@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario2.network;
+package fr.unicaen.iutcaen.network;
 
 import java.util.Properties;
 import java.io.InputStream;
