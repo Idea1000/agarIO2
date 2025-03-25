@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=../Modele/target/agario2Module-jar-with-dependencies.jar -DgroupId=fr.unicaen.iutcaen -DartifactId=agarIO2Modele -Dversion=0.0.1 -Dpackaging=jar

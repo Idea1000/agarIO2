@@ -1,11 +1,11 @@
-package fr.unicaen.iutcaen.agario2.network;
+package fr.unicaen.iutcaen.network;
 
 import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.io.InputStreamReader;
-import fr.unicaen.iutcaen.agario2.view.GameView;
-import fr.unicaen.iutcaen.agario2.model.World;
+
+import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.view.GameView;
 
 public class Client {
     private Socket socket;

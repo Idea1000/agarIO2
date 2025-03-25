@@ -1,8 +1,6 @@
-package fr.unicaen.iutcaen.agario2.launcher;
+package fr.unicaen.iutcaen.launcher;
 
-import fr.unicaen.iutcaen.agario2.view.GameView;
-import fr.unicaen.iutcaen.agario2.model.World;
-import fr.unicaen.iutcaen.agario2.view.HelloApplication;
+import fr.unicaen.iutcaen.view.HelloApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

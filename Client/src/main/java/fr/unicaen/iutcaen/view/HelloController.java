@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.agario2.view;
+package fr.unicaen.iutcaen.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
