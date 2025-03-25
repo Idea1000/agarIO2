@@ -2,18 +2,33 @@ package fr.unicaen.iutcaen.agario2.launcher;
 
 import fr.unicaen.iutcaen.agario2.view.GameView;
 import fr.unicaen.iutcaen.agario2.model.World;
+import fr.unicaen.iutcaen.agario2.view.HelloApplication;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Launcher extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
+
+    public static final int HORIZONTAL = 600;
+    public static final int VERTICAL = 350;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         // Affichage du menu de sélection (local ou en ligne)
         // Création d'une instance World et GameView puis démarrage du jeu
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fr/unicaen/iutcaen/agario2/launcher.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HORIZONTAL, VERTICAL);
+        primaryStage.setTitle("AgarIO 2");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
 
