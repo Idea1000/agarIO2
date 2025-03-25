@@ -62,7 +62,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>fr.unicaen.iutcaen.agario2/fr.unicaen.iutcaen.agario2.HelloApplication</mainClass>
+                            <mainClass>fr.unicaen.iutcaen.agario2.View/fr.unicaen.iutcaen.agario2.View.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -100,7 +100,6 @@
                 </executions>
                 <configuration>
                     <configLocation>src/test/resources/iut-caen-checks.xml</configLocation> <!-- Checkstyle rules file -->
-                    <encoding>UTF-8</encoding>
                     <excludes>**/module-info.java</excludes> <!-- Correct format for excludes -->
                 </configuration>
             </plugin>
@@ -144,7 +143,6 @@
                 </reportSets>
                 <configuration>
                     <configLocation>src/test/resources/iut-caen-checks.xml</configLocation> <!-- Path to your checkstyle config -->
-                    <encoding>UTF-8</encoding>
                     <excludes>**/module-info.java</excludes> <!-- Correct format for excludes -->
                 </configuration>
             </plugin>
