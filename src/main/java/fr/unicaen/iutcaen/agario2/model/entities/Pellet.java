@@ -1,12 +1,13 @@
 package fr.unicaen.iutcaen.agario2.model.entities;
 
 import fr.unicaen.iutcaen.agario2.model.Player;
+import fr.unicaen.iutcaen.agario2.model.Point;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class Pellet extends Entity {
 
-    public Pellet(int id, Point2D position, double mass, Color color) {
+    public Pellet(int id, Point position, double mass, Color color) {
         super(id, position, mass, color);
     }
 
