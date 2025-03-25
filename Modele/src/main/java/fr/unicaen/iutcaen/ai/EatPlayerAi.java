@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 
 public class EatPlayerAi implements AIBehavior{
     @Override
-    public Point2D computeDirection(Player player, World world) {
-        return null;
+    public void update(IA ia) {
+
     }
 }

@@ -1,5 +1,7 @@
 package fr.unicaen.iutcaen.view;
 
+import fr.unicaen.iutcaen.ai.IA;
+import fr.unicaen.iutcaen.ai.RandomMovementAI;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.entities.Cell;
@@ -49,6 +51,10 @@ public class HelloApplication extends Application {
         });
 
         Player p = new Player(new Point(200.0,200.0), 100, Color.RED);
+        //test louison ia
+        IA random = new IA(new Point(200.0,200.0), 100, Color.RED);
+        random.setBehavior(new RandomMovementAI());
+        //IA randomIA = new RandomMovementAI(new Point(200.0,200.0), 100, Color.RED);
         PlayerView pv = new PlayerView(p, root);
         for (Cell allCell : p.getCells().getAllCells()) {
             System.out.println(allCell.getPosition());
