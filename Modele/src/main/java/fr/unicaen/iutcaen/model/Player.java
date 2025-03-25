@@ -4,6 +4,8 @@ import fr.unicaen.iutcaen.model.entities.CellPack;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class Player {
@@ -12,13 +14,13 @@ public class Player {
     // D'autres attributs : direction, état, etc.
     private CellPack cells;
 
-    public Player(Point2D position, double mass, Color color) {
+    public Player(Point position, double mass, Color color) {
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
     }
 
     // Déplacement du joueur
-    public void move(Point2D direction) {
-        // Mise à jour de la position selon la direction
+    public void movePlayer(Point direction) {
+        cells.move(direction);
     }
 
     // Absorption d'une entité (pastille ou autre joueur)
@@ -31,7 +33,13 @@ public class Player {
         // Diviser le joueur en deux entités de masse réduite
     }
 
+    public CellPack getCells() {
+        return cells;
+    }
+
+    public Point getPosition(){
+        return cells.getPosition();
+    }
+
     // Getters et setters supplémentaires
-    public double getSpeed() { return speed; }
-    public void setSpeed(double speed) { this.speed = speed; }
 }
