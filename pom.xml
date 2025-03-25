@@ -62,7 +62,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>fr.unicaen.iutcaen.agario2.View/fr.unicaen.iutcaen.agario2.View.HelloApplication</mainClass>
+                            <mainClass>fr.unicaen.iutcaen.agario2.v/fr.unicaen.iutcaen.agario2.view.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
