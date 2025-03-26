@@ -30,7 +30,7 @@ public class Player {
 
     // Division cellulaire du joueur
     public void split() {
-        // Diviser le joueur en deux entités de masse réduite
+        cells.split();
     }
 
     public CellPack getCells() {

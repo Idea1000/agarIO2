@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -35,8 +36,8 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(main, 1500, 900);
         stage.setTitle("Hello!");
         stage.setScene(scene);
-
         stage.show();
+        main.requestFocus();
     }
 
     private double mX;
@@ -53,6 +54,13 @@ public class HelloApplication extends Application {
         for (Cell allCell : p.getCells().getAllCells()) {
             System.out.println(allCell.getPosition());
         }
+        root.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE){
+                System.out.println("space");
+                p.split();
+            }
+        });
+
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(33), event -> {
                     p.movePlayer(new Point(mX, mY));
@@ -64,6 +72,7 @@ public class HelloApplication extends Application {
             System.out.println(allCell.getPosition());
         }
     }
+
 
     public static void main(String[] args) {
         launch();

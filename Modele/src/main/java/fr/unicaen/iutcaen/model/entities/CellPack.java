@@ -14,7 +14,8 @@ public class CellPack extends Cell{
         super(id, position, mass, color);
         cells = new ArrayList<>();
         cells.add(new Cell(IdDistributor.getInstance().getNextId(), position, mass, Color.ALICEBLUE));
-        cells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass - 50, Color.BLACK));
+        cells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass - 70, Color.BLACK));
+        cells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass +50, Color.RED));
     }
 
     public void addCell(Cell cell){
@@ -46,6 +47,12 @@ public class CellPack extends Cell{
     public void move(Point direction){
         for (Cell cell : cells) {
             cell.move(direction);
+        }
+    }
+
+    public void split(){
+        for (Cell cell : getAllCells()){
+            cell.setNeighbor(getAllCells());
         }
     }
 
