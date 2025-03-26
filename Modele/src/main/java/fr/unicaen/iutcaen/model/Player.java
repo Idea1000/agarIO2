@@ -45,7 +45,7 @@ public class Player {
 
     // Division cellulaire du joueur
     public void split() {
-        cells.split();
+        cells.splitCells();
     }
 
     public CellPack getCells() {

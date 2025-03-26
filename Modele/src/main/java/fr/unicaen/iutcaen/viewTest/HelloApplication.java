@@ -75,12 +75,14 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+
     private void setupGame(Pane worldPane) {
         worldPane.setOnMouseMoved(mouseEvent -> {
             mX = mouseEvent.getX();
             mY = mouseEvent.getY();
             vector = new Point(mX - p.getCenter().getX(), mY - p.getCenter().getY());
         });
+
 
         QuadTree quadTree = new QuadTree(new Boundary(0, 0, WORLD_WIDTH, WORLD_HEIGHT), 0);
         FactoryPellet factoryPellet = new FactoryPellet();

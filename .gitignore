@@ -3,6 +3,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+!**/src/main/**/out/
+Modele/out
+
 ### IntelliJ IDEA ###
 */.idea/modules.xml
 */.idea/jarRepositories.xml
@@ -37,3 +40,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+*class

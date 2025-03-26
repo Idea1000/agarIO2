@@ -3,6 +3,7 @@ package fr.unicaen.iutcaen.model.entities;
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Point;
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -10,14 +11,14 @@ import javafx.scene.paint.Color;
 public abstract class Entity {
     protected int id;
     protected Point position;
-    protected double mass;
+    protected SimpleDoubleProperty mass = new SimpleDoubleProperty();
 
     protected Color color;
 
     public Entity(int id, Point position, double mass, Color color) {
         this.id = id;
         this.position = position;
-        this.mass = mass;
+        this.mass.set(mass);
         this.color = color;
     }
 
@@ -26,9 +27,9 @@ public abstract class Entity {
     // Getters et setters
     public int getId() { return id; }
     public Point getPosition() { return position; }
-    public double getMass() { return mass; }
+    public double getMass() { return mass.getValue(); }
     public void setPosition(Point position) { this.position = position; }
-    public void setMass(double mass) { this.mass = mass; }
+    public void setMass(double mass) { this.mass.set(mass); }
 
     public Color getColor() {
         return color;
@@ -36,6 +37,10 @@ public abstract class Entity {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public SimpleDoubleProperty getMassProperty(){
+        return mass;
     }
 
     public double getSize(){
