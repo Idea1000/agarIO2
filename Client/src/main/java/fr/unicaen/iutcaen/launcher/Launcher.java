@@ -14,6 +14,11 @@ public class Launcher extends Application {
     public static final int HORIZONTAL = 515;
     public static final int VERTICAL = 277;
 
+    /**
+     * Launches the scene with the launcher
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Affichage du menu de sélection (local ou en ligne)

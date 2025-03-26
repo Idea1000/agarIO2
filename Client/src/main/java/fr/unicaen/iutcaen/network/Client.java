@@ -12,7 +12,12 @@ public class Client {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-
+    /**
+     * Initialize a client and connect it to the server
+     * @param serverIp
+     * @param port
+     * @throws IOException
+     */
     public Client(String serverIp, int port) throws IOException {
         // Initialisation de la connexion au serveur
 
@@ -35,6 +40,12 @@ public class Client {
 
 
     // Envoi d'un message au serveur avec un objet Message
+
+    /**
+     * Send a message to the server with a Message object
+     * @param type
+     * @param data
+     */
     public void sendMessage(String type, Object data) {
         try {
             Message message = new Message(type, data);  // Create message with type and data
@@ -49,6 +60,10 @@ public class Client {
     }
 
     // Thread qui reçoit les mises à jour envoyées par le serveur
+
+    /**
+     * Creates a thread with the updates sent by the server
+     */
     public void receiveUpdates() {
 
         new Thread(() -> {
@@ -66,6 +81,10 @@ public class Client {
     }
 
     // Fermer la connexion
+
+    /**
+     * Close the connexion
+     */
     public void close() {
         try {
             if (socket != null) {
@@ -78,6 +97,11 @@ public class Client {
     }
 
     // Point d'entrée de l'application
+
+    /**
+     * Main method
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             Client client = new Client("10.42.17.154", 8000);
