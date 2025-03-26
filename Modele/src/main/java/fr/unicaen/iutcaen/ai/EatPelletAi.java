@@ -4,8 +4,9 @@ import fr.unicaen.iutcaen.model.Point;
 
 /**
  * Define the AI behavior as eat a pellet
+ * @author courtoi223, Idea1000
  */
-public class EatPelletAi implements AIBehavior{
+public class EatPelletAi implements AIBehavior {
 
     /**
      * the X position of the target

@@ -3,7 +3,6 @@ package fr.unicaen.iutcaen.ai;
 import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.entities.CellPack;
 import fr.unicaen.iutcaen.model.entities.Entity;
-import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
 import javafx.scene.paint.Color;
 
@@ -11,8 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Define an AI logic
- *
- * @author courtoi223 & Idea1000
+ * @author courtoi223, Idea1000
  */
 public class IA {
 
@@ -56,7 +54,14 @@ public class IA {
     }
 
     /**
-     * Update the AI behavior
+     * <h1>Updates the AI behavior</h1>
+     * <br>
+     * logic in order of priority:
+     * <ul>
+     *     <li>Chase player</li>
+     *     <li>Go to nearest pellet</li>
+     *     <li>Do random movement</li>
+     * </ul>
      * @return the new AI behavior
      */
     private AIBehavior manageState() {
@@ -80,10 +85,12 @@ public class IA {
                     }
                 }
             }
+            // If no player detected go to the closest pellet found
             setTarget(tempTarget);
             return new EatPelletAi();
         }
         if (target == null) {
+            // If no target available in range, do random move
             return new RandomMovementAI();
         }
         return null;

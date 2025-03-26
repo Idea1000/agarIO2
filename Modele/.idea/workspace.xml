@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2eed7740-7b11-4430-9779-f8314ca93e48" name="Changes" comment="" />
+    <list default="true" id="2eed7740-7b11-4430-9779-f8314ca93e48" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/launcher/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/network/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/network/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/network/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/network/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/MiniMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/MiniMap.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +33,11 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="workspaceImportEnabled" value="true" />
@@ -40,14 +54,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-<<<<<<< HEAD
-    "last_opened_file_path": "Z:/Bureau/c/SAE_Agar/agarIO2/Modele"
-=======
-    "last_opened_file_path": "Z:/S4/SAE/agar2/Modele",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
->>>>>>> archi
+    "last_opened_file_path": "Z:/Bureau/c/SAE_Agar/agarIO2/Client"
   }
 }]]></component>
   <component name="RecentsManager">
