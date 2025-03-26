@@ -13,6 +13,11 @@ public class HelloApplication extends Application {
     public static final int HORIZONTAL = 320;
     public static final int VERTICAL = 320;
 
+    /**
+     * Starts the window
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fr/unicaen/iutcaen/agario2/hello-view.fxml"));
@@ -22,6 +27,10 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    /**
+     * The main method
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }
