@@ -13,8 +13,7 @@ public class CellPack extends Cell{
     public CellPack(int id, Point position, double mass, Color color) {
         super(id, position, mass, color);
         cells = new ArrayList<>();
-        cells.add(new Cell(IdDistributor.getInstance().getNextId(), position, mass, Color.ALICEBLUE));
-        cells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass - 50, Color.BLACK));
+        cells.add(new Cell(IdDistributor.getInstance().getNextId(), position, mass, color));
     }
 
     public void addCell(Cell cell){

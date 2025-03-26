@@ -8,7 +8,7 @@ import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
 import javafx.scene.paint.Color;
 
 public class IA {
-    private int x, y; // Position de l'IA
+
     private AIBehavior behavior; // Stratégie actuelle
     private CellPack cells;
 
@@ -20,21 +20,17 @@ public class IA {
         this.behavior = behavior;
     }
 
-    public void update() {
-        if (behavior != null) {
-            behavior.update(this); // Appliquer la stratégie
-        }
-    }
 
     // Déplacement de l'IA
-    public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
+    public void move(Point direction) {
+        behavior.move(this, direction);
     }
 
     // Getter et setters
-    public int getX() { return x; }
-    public int getY() { return y; }
+    public CellPack getCells() {
+        return cells;
+    }
+
 
     public Pellet findClosestPellet() {
         //logiqueeeeeeee

@@ -52,23 +52,24 @@ public class HelloApplication extends Application {
 
         Player p = new Player(new Point(200.0,200.0), 100, Color.RED);
         //test louison ia
-        IA random = new IA(new Point(200.0,200.0), 100, Color.RED);
+        IA random = new IA(new Point(300.0,300.0), 100, Color.BLUE);
         random.setBehavior(new RandomMovementAI());
-        //IA randomIA = new RandomMovementAI(new Point(200.0,200.0), 100, Color.RED);
+        IaView iv = new IaView(random,root);
+        //
+
+
         PlayerView pv = new PlayerView(p, root);
-        for (Cell allCell : p.getCells().getAllCells()) {
-            System.out.println(allCell.getPosition());
-        }
+
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(33), event -> {
                     p.movePlayer(new Point(mX, mY));
+                    random.move(new Point(mX, mY));
                 })
         );
+
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        for (Cell allCell : p.getCells().getAllCells()) {
-            System.out.println(allCell.getPosition());
-        }
+
     }
 
     public static void main(String[] args) {
