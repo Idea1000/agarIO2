@@ -10,5 +10,5 @@ module agarIO2Modele {
     exports fr.unicaen.iutcaen.ai;
     opens fr.unicaen.iutcaen.viewTest to javafx.fxml;
     exports fr.unicaen.iutcaen.viewTest;
-    exports fr.unicaen.iutcaen.model.quadtree;
+    //exports fr.unicaen.iutcaen.model.quadtree;
 }

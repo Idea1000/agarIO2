@@ -4,26 +4,22 @@ import fr.unicaen.iutcaen.ai.IA;
 import fr.unicaen.iutcaen.ai.RandomMovementAI;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
-import fr.unicaen.iutcaen.model.entities.Cell;
-import fr.unicaen.iutcaen.model.entities.CellPack;
+import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.model.entities.Pellet;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HelloApplication extends Application {
     public static final int HORIZONTAL = 320;
@@ -51,19 +47,41 @@ public class HelloApplication extends Application {
         });
 
         Player p = new Player(new Point(200.0,200.0), 100, Color.RED);
+
         //test louison ia
-        IA random = new IA(new Point(300.0,300.0), 100, Color.BLUE);
-        random.setBehavior(new RandomMovementAI());
-        IaView iv = new IaView(random,root);
+        IA randomIA = new IA(new Point(300.0,300.0), 150, Color.BLUE);
+        ArrayList<Entity> test = new ArrayList<Entity>();
+
+        // Test distance euclidienne lag ?
+        Random r = new Random();
+        for (int i = 0; i < 3; i++) {
+            Pellet pe = new Pellet(i,
+                    new Point(r.nextDouble(300, 1000), r.nextDouble(300, 1000)),
+                    r.nextDouble(1, 3),
+                    Color.color(r.nextInt(256)/255.0, r.nextInt(256)/255.0, r.nextInt(256)/255.0));
+            PelletView pv = new PelletView(pe,root);
+            test.add(pe);
+        }
+        test.add(p.getCells());
+
+        randomIA.setEntitiesInRange(test);
+        randomIA.setBehavior(new RandomMovementAI());
+        IaView iv = new IaView(randomIA,root);
         //
 
 
         PlayerView pv = new PlayerView(p, root);
-
+        AtomicInteger count = new AtomicInteger();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(33), event -> {
                     p.movePlayer(new Point(mX, mY));
-                    random.move(new Point(mX, mY));
+                    randomIA.move();
+                    if(count.get() > 10){
+                        randomIA.update();
+                        count.set(0);
+                    }else{
+                        count.set(count.addAndGet(1));
+                    }
                 })
         );
 

@@ -6,7 +6,10 @@ import fr.unicaen.iutcaen.model.World;
 import javafx.geometry.Point2D;
 
 public interface AIBehavior {
-    void move(IA ia, Point direction);
+
+    void move(IA ia);
+
+    void update(IA ia);
 
 }
 

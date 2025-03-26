@@ -13,7 +13,9 @@ public class IA {
 
     private AIBehavior behavior; // Stratégie actuelle
     private CellPack cells;
-    private ArrayList<Entity> entitiesInRange;
+    protected ArrayList<Entity> entitiesInRange;
+
+    private Entity target;
 
     public IA(Point position, double mass, Color color) {
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
@@ -23,46 +25,69 @@ public class IA {
         this.behavior = behavior;
     }
 
-<<<<<<< HEAD
-
     // Déplacement de l'IA
-    public void move(Point direction) {
-        behavior.move(this, direction);
-=======
+    public void move() {
+        behavior.move(this);
+    }
+
+    public Entity getTarget() {
+        return target;
+    }
+
+    public void setTarget(Entity target) {
+        this.target = target;
+    }
+
+
     public void setEntitiesInRange(ArrayList<Entity> entities) {
         entitiesInRange = entities;
     }
 
-    public void update() {
-        if (behavior == null) {
-            behavior = new RandomMovementAI();
-        }
-        Entity targetVisible = null;
-        for (Entity e : entitiesInRange) {
-            if (e instanceof CellPack && e != cells) {
-                // If target detected go chase him
-                setBehavior(new EatPlayerAi());
-                targetVisible = e;
-                break;
-            }
-        }
-        if (targetVisible == null) {
-            setBehavior(new RandomMovementAI());
-        }
-        behavior.update(this, targetVisible);
+    private double euclidean(Point target) {
+        Point pos = cells.getPosition();
+        double dx = Math.abs(target.getX() - pos.getX());
+        double dy = Math.abs(target.getY() - pos.getY());
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
-    // Déplacement de l'IA
-    public void move(double dx, double dy) {
-        cells.move(new Point(dx, dy));
->>>>>>> ba6cd46483753db33fdb32e8460d86bc0391571c
+    public void update() {
+        setBehavior(manageState());
+        behavior.update(this);
+
+    }
+    public AIBehavior manageState() {
+        if (behavior == null) {
+            return new RandomMovementAI();
+        }
+        double distance = Double.POSITIVE_INFINITY;
+        Entity tempTarget = null;
+        if (entitiesInRange != null) {
+            for (Entity e : entitiesInRange) {
+                if (e instanceof CellPack && e != cells) {
+                    // If target detected go chase him
+                    target = e;
+                    return new EatPlayerAi();
+                } else{
+                    double euclide = euclidean(e.getPosition());
+                    if (euclide < distance) {
+                        tempTarget = e;
+                        distance = euclide;
+                    }
+                }
+            }
+            target = tempTarget;
+            return new EatPelletAi();
+        }
+        if (target == null) {
+            return new RandomMovementAI();
+        }
+        return null;
     }
 
     // Getter et setters
     public CellPack getCells() {
         return cells;
     }
-
 
     public Pellet findClosestPellet() {
         //logiqueeeeeeee
