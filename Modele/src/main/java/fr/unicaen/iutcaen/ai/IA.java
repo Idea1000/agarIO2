@@ -32,7 +32,7 @@ public class IA {
     /**
      * The current target
      */
-    private Entity target;
+    private Entity target = null;
 
     public IA(Point position, double mass, Color color) {
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
@@ -49,7 +49,10 @@ public class IA {
      * Update the AI behavior and target
      */
     public void update() {
-        setBehavior(manageState()); // Update the behavior depending on what is currently near the AI
+        AIBehavior newBehavior = manageState(); // Update the behavior depending on what is currently near the AI
+        if (newBehavior.getClass() != behavior.getClass()) {
+            setBehavior(newBehavior);
+        }
         behavior.update(this);
     }
 
@@ -70,7 +73,7 @@ public class IA {
         }
         double distance = Double.POSITIVE_INFINITY;
         Entity tempTarget = null;
-        if (entitiesInRange != null) {
+        if (entitiesInRange != null && entitiesInRange.size() > 0) {
             for (Entity e : entitiesInRange) {
                 if (e instanceof CellPack && e != cells) {
                     // If target detected go chase him
@@ -86,8 +89,12 @@ public class IA {
                 }
             }
             // If no player detected go to the closest pellet found
-            setTarget(tempTarget);
-            return new EatPelletAi();
+            if (tempTarget != null) {
+                setTarget(tempTarget);
+                return new EatPelletAi();
+            }
+        } else {
+            return new RandomMovementAI();
         }
         if (target == null) {
             // If no target available in range, do random move

@@ -22,6 +22,10 @@ public class RandomMovementAI implements AIBehavior {
      */
     private double targetY = 0;
 
+    private Direction actualDirection = null;
+
+    private int timeBeforeNewDirection = 5;
+
     private Random random = new Random();
 
     /**
@@ -40,9 +44,71 @@ public class RandomMovementAI implements AIBehavior {
      */
     @Override
     public void update(IA ia) {
-        Point actualD = ia.getCells().getPosition();
-        targetX = Math.abs(random.nextDouble(-Config.BASESPEED*70,Config.BASESPEED*70) + actualD.getX());
-        targetY = Math.abs(random.nextDouble(-Config.BASESPEED*70,Config.BASESPEED*70) +actualD.getY());
+        if (targetX == 0) {
+            targetX = ia.getCells().getPosition().getX();
+        }
+        if (targetY == 0) {
+            targetY = ia.getCells().getPosition().getY();
+        }
+
+        if (actualDirection == null) {
+            timeBeforeNewDirection = 0;
+        }
+
+        if (timeBeforeNewDirection == 0) {
+            actualDirection = Direction.values()[random.nextInt(Direction.values().length)];
+            timeBeforeNewDirection = 5;
+        }
+
+        double speed = Config.BASESPEED * 10;
+
+        double xMath = speed * Math.cos(Math.toRadians(45));
+        double yMath = speed * Math.sin(Math.toRadians(45));
+
+        switch (actualDirection) {
+            case NORTH:
+                targetY -= speed;  // Move up on the Y-axis
+                break;
+            case SOUTH:
+                targetY += targetY;  // Move down on the Y-axis
+                break;
+            case EAST:
+                targetX =+ speed;  // Move right on the X-axis
+                break;
+            case WEST:
+                targetX -=speed;  // Move left on the X-axis
+                break;
+            case NORTHEAST:
+                targetX += xMath;  // Move diagonally
+                targetY -= yMath;  // Move diagonally
+                break;
+            case NORTHWEST:
+                targetX -= xMath;  // Move diagonally
+                targetY -= yMath;  // Move diagonally
+                break;
+            case SOUTHEAST:
+                targetX += xMath;  // Move diagonally
+                targetY += yMath;  // Move diagonally
+                break;
+            case SOUTHWEST:
+                targetX -= xMath;  // Move diagonally
+                targetY += yMath;  // Move diagonally
+                break;
+        }
+
+        if (targetX < 0) {
+            targetX = 0;
+        } else if (targetX > 2000) {
+            targetX = 2000;
+        }
+
+        if (targetY < 0) {
+            targetY = 0;
+        } else if (targetY > 1000) {
+            targetY = 1000;
+        }
+
+        timeBeforeNewDirection-=1;
     }
 }
 

@@ -76,7 +76,7 @@ public class HelloApplication extends Application {
                 new KeyFrame(Duration.millis(33), event -> {
                     p.movePlayer(new Point(mX, mY));
                     randomIA.move();
-                    if(count.get() > 10){
+                    if(count.get() > 5){
                         randomIA.update();
                         count.set(0);
                     }else{
