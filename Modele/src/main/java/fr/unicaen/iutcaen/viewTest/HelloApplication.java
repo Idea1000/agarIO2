@@ -29,8 +29,10 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fr/unicaen/iutcaen/agario2/hello-view.fxml"));
         Pane main = new Pane();
-        test(main);
         Scene scene = new Scene(main, 1500, 900);
+        test(main);
+        System.out.println(main.getWidth());
+        System.out.println(main.getHeight());
         stage.setTitle("Hello!");
         stage.setScene(scene);
 
@@ -46,7 +48,7 @@ public class HelloApplication extends Application {
             mY = mouseEvent.getY();
         });
 
-        Player p = new Player(new Point(200.0,200.0), 100, Color.RED);
+        Player p = new Player(new Point(750.0,450.0), 25, Color.RED);
         WorldView worldv = new WorldView(p,root);
         //test louison ia
         Timeline timeline = new Timeline(
@@ -57,7 +59,6 @@ public class HelloApplication extends Application {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
     }
 
     public static void main(String[] args) {

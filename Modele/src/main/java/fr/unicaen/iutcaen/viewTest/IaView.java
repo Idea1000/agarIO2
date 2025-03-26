@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.viewTest;
+/*package fr.unicaen.iutcaen.viewTest;
 
 import fr.unicaen.iutcaen.ai.IA;
 import fr.unicaen.iutcaen.model.Player;
@@ -23,3 +23,4 @@ public class IaView {
 
     }
 }
+*/

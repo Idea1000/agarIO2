@@ -1,6 +1,6 @@
 package fr.unicaen.iutcaen.viewTest;
 
-import fr.unicaen.iutcaen.ai.IA;
+//import fr.unicaen.iutcaen.ai.IA;
 import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import javafx.beans.property.SimpleDoubleProperty;

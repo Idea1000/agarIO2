@@ -22,18 +22,18 @@ public class FactoryPellet extends FactoryEntity {
      * @param mapWidth this width of the map of the game
      * @return Pellet the generated pellet
      */
-    public Entity randomFabtique() {
+    public Pellet randomPellet() {
     	Random r = new Random(); 
     	
     	double randomX = r.nextDouble(Config.MAP_WIDTH); 
-    	double randomY = r.nextDouble(Config.MAP_LENGTH);
+    	double randomY = r.nextDouble(Config.MAP_HEIGHT);
     	
     	Point p = new Point(randomX, randomY); 
     	
-    	double randomMass = r.nextDouble(10); 
+    	double randomMass = r.nextDouble(1);
     	
-    	Color color = Color.color(r.nextDouble(255), r.nextDouble(255), r.nextDouble(255)); 
+    	Color color = Color.color(r.nextDouble(), r.nextDouble(), r.nextDouble());
     	
-    	return new Pellet(IdDistributor.getInstance().getNextId(), p, randomMass, color); 
+    	return new Pellet(IdDistributor.getInstance().getNextId(), p, randomMass, Color.BLUE);
     }
 }

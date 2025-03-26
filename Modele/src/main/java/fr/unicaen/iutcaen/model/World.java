@@ -31,12 +31,13 @@ public class World {
      * The main boundary's size values are created using the config file values for map's length and width values.
      */
     private World() {
-    	quadTree = new QuadTree(new Boundary(Config.MAP_WIDTH%2, Config.MAP_LENGTH%2, Config.MAP_WIDTH, Config.MAP_LENGTH), 0);  
+    	quadTree = new QuadTree(new Boundary(0, 0, Config.MAP_WIDTH, Config.MAP_HEIGHT), 0);
     	absorptions = new HashMap<Player, List<Entity>>(); 
     	
     	FactoryPellet factory = new FactoryPellet(); 
     	for(int i = 0 ; Config.PELLETS_NUM > i ; i++ ) {
-    		this.addEntity(factory.randomFabtique());
+            Pellet pellet = factory.randomPellet();
+    		this.addEntity(pellet);
     	}
     }
 
@@ -62,10 +63,9 @@ public class World {
     	if( x >= Config.MAP_WIDTH) {
     		entity.getPosition().setX(x%Config.MAP_WIDTH);
     	}
-    	if( y >= Config.MAP_LENGTH) {
-    		entity.getPosition().setY(y%Config.MAP_LENGTH);
+    	if( y >= Config.MAP_HEIGHT) {
+    		entity.getPosition().setY(y%Config.MAP_HEIGHT);
     	}
-
         return quadTree.insert(entity);
     }
 
@@ -97,8 +97,8 @@ public class World {
     }
 
 
-	public List<Entity> getEntitiesAround(Entity entity){
-		return quadTree.getEntitiesAround(entity);
+	public List<Entity> getEntitiesAround(Boundary boundary){
+		return quadTree.query(boundary);
 	}
 
     public boolean containsEntity(Entity entity) {

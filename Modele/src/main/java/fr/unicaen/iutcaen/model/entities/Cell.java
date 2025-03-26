@@ -28,7 +28,7 @@ public class Cell extends Entity{
     }
 
     public double getSpeed(){
-        System.out.println(Config.MINSPEED + (Config.BASESPEED / Math.sqrt(mass)));
+        //System.out.println(Config.MINSPEED + (Config.BASESPEED / Math.sqrt(mass)));
         return Config.MINSPEED + (Config.BASESPEED / Math.sqrt(mass));
 
     }
