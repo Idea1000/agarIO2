@@ -47,7 +47,22 @@ public class CellPack extends Cell{
         for (Cell cell : cells) {
             cell.move(direction);
         }
+
+        position = getCenter();
     }
 
+    public Point getCenter(){
+        ArrayList<Cell> cells = getAllCells();
+        double avgX = 0;
+        double avgY = 0;
+
+        for (Cell cell : cells) {
+            avgX += cell.getPosition().getX();
+            avgY += cell.getPosition().getY();
+        }
+        avgX /= cells.size();
+        avgY /= cells.size();
+        return new Point(avgX, avgY);
+    }
 
 }

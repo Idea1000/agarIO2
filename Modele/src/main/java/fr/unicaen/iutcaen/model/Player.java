@@ -41,5 +41,7 @@ public class Player {
         return cells.getPosition();
     }
 
+    public Point getCenter(){return cells.getCenter(); }
+
     // Getters et setters supplémentaires
 }

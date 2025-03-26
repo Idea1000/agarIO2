@@ -35,6 +35,13 @@ public class Cell extends Entity{
     public void move(Point direction){
 
         Point vecteurD = new Point(direction.getX()-position.getX(), direction.getY() - position.getY());
+
+        double distance = Math.sqrt(vecteurD.getX() * vecteurD.getX() + vecteurD.getY() * vecteurD.getY());
+        if (distance < 0.1) {
+            vecteurD = vecteurD.multiply(100.0 / distance);  // Normalize the vector
+        }
+
+
         Point newPos = position.add(vecteurD.multiply(getSpeed()/Config.SPEEDCOEF));
         position.setX(newPos.getX());
         position.setY(newPos.getY());

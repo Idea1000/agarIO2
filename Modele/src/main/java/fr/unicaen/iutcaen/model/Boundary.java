@@ -1,19 +1,36 @@
 package fr.unicaen.iutcaen.model;
 
 import fr.unicaen.iutcaen.model.entities.Entity;
+import javafx.beans.property.SimpleDoubleProperty;
 
 public class Boundary {
-    private double x;
-    private double y;
+    private SimpleDoubleProperty x;
+    private SimpleDoubleProperty y;
     private double width;
     private double height;
 
-    public double getX() {
+    public SimpleDoubleProperty xProperty() {
         return x;
     }
 
-    public double getY() {
+    public void setX(double x) {
+        this.x.set(x);
+    }
+
+    public SimpleDoubleProperty yProperty() {
         return y;
+    }
+
+    public void setY(double y) {
+        this.y.set(y);
+    }
+
+    public double getX() {
+        return x.get();
+    }
+
+    public double getY() {
+        return y.get();
     }
 
     public double getWidth() {
@@ -25,25 +42,25 @@ public class Boundary {
     }
 
     public Boundary(double x, double y, double width, double height) {
-        this.x = x;
-        this.y = y;
+        this.x = new SimpleDoubleProperty(x);
+        this.y = new SimpleDoubleProperty(y);
         this.width = width;
         this.height = height;
     }
 
     // Vérifie si l'entité se trouve dans cette zone
     public boolean contains(Entity entity) {
-        return entity.getPosition().getX() > x &&
-                entity.getPosition().getX() <= x+width &&
-                entity.getPosition().getY() > y &&
-                entity.getPosition().getY() <= y + height;
+        return entity.getPosition().getX() > x.get() &&
+                entity.getPosition().getX() <= x.get()+width &&
+                entity.getPosition().getY() > y.get() &&
+                entity.getPosition().getY() <= y.get() + height;
     }
 
     // Vérifie si cette zone intersecte une autre zone
     public boolean intersects(Boundary other) {
-        return this.x < other.x + other.width &&
-                this.x + this.width > other.x &&
-                this.y < other.y + other.height &&
-                this.y + this.height > other.y;
+        return this.x.get() < other.x.get() + other.width &&
+                this.x.get() + this.width > other.x.get() &&
+                this.y.get() < other.y.get() + other.height &&
+                this.y.get() + this.height > other.y.get();
     }
 }
