@@ -124,5 +124,29 @@ public class CellPack extends Cell{
     	return cells.size() == 0; 
     }
 
+    public Cell getBiggestCell(){
+        double max = 0;
+        Cell biggest = null;
+        double size;
+        for(Cell cell : cells){
+            if(cell instanceof CellPack){
+                Cell cell2 = ((CellPack) cell).getBiggestCell();
+                size = cell2.getSize();
+                if(size > max){
+                    max = size;
+                    biggest = cell2;
+                }
+            }
+            else {
+                size = cell.getSize();
+                if(size > max){
+                    max = size;
+                    biggest = cell;
+                }
+            }
+        }
+        return biggest;
+    }
+
 
 }

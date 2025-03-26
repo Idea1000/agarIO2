@@ -52,12 +52,12 @@ public class World {
 
     /**
      * adds a player to the world by adding it to the quadTree
-     * @param player
+     * @param entity
      */
     public boolean addEntity(Entity entity) {
-    	double x = entity.getPosition().getX();  
+    	double x = entity.getPosition().getX();
     	double y = entity.getPosition().getY();
-    	
+
     	//Position normalization
     	if( x >= Config.MAP_WIDTH) {
     		entity.getPosition().setX(x%Config.MAP_WIDTH);
@@ -65,44 +65,48 @@ public class World {
     	if( y >= Config.MAP_LENGTH) {
     		entity.getPosition().setY(y%Config.MAP_LENGTH);
     	}
-    	
+
         return quadTree.insert(entity);
     }
-    
+
     public boolean removeEntity(Entity entity) {
-    	return quadTree.removeEntity(entity); 
+    	return quadTree.removeEntity(entity);
     }
-    
+
     /**
      * adds a player to this world
      * @param player
-     * @return true if the adding is done successfully or not 
+     * @return true if the adding is done successfully or not
      */
     public boolean addPlayer(Player player) {
-    	boolean cellInserted = addEntity(player.getCells()); 
+    	boolean cellInserted = addEntity(player.getCells());
     	if(cellInserted) {
-    		absorptions.put(player, new ArrayList<Entity>()); 
+    		absorptions.put(player, new ArrayList<Entity>());
     	}
-    	return cellInserted; 
+    	return cellInserted;
     }
-    
+
     /**
-     * adds an absorption associated to the player. 
+     * adds an absorption associated to the player.
      * @param player
      * @param entity
      * @return true if the adding is done successfully
      */
     public boolean addAbsorption(Player player, Entity entity) {
-    	return absorptions.get(player).add(entity); 
+    	return absorptions.get(player).add(entity);
     }
-    
- 
+
+
+	public List<Entity> getEntitiesAround(Entity entity){
+		return quadTree.getEntitiesAround(entity);
+	}
+
     public boolean containsEntity(Entity entity) {
-    	return quadTree.contains(entity); 
+        return quadTree.contains(entity);
     }
-    
+
     public boolean containsPlayer(Player player) {
-    	return absorptions.containsKey(player); 
+        return absorptions.containsKey(player);
     }
 
 }

@@ -52,19 +52,7 @@ public class  QuadTree {
 
         return false;
     }
-    
-    /**
-     * removes the entity from world
-     * @param entity
-     * @return
-     */
-    public boolean removeEntity(Entity entity) {
-    	return entities.remove(entity); 
-    }
-    
-    public boolean contains(Entity entity) {
-    	return entities.contains(entity); 
-    }
+
 
     // Retourne la liste des entités dans une zone donnée
     public List<Entity> query(Boundary range) {
@@ -103,6 +91,82 @@ public class  QuadTree {
         northeast = new QuadTree(new Boundary(w / 2.0 + x , y, w / 2.0, h / 2.0),depth+1);
         southeast = new QuadTree(new Boundary(w / 2.0 + x , h / 2 + y, w / 2.0, h / 2.0),depth+1);
         southwest = new QuadTree(new Boundary(x , h / 2 + y, w / 2.0, h / 2.0),depth+1);
+    }
+
+    /**
+     * returns a list of entities that are visible by the entity passsed by the parameter
+     * @param entity
+     * @return
+     */
+    public List<Entity> getEntitiesAround(Entity entity){
+
+        if (depth >= Config.DEPTH_MAX_QT_TREE) {
+            if (!boundary.contains(entity)) {
+                return null;
+            }
+
+            return entities;
+        }
+
+        if (northwest == null){
+            return null;
+        }
+
+        List<Entity> rep;
+        if ( (rep = northwest.getEntitiesAround(entity)) != null ) return rep;
+        if ( (rep = northeast.getEntitiesAround(entity)) != null) return rep;
+        if ( (rep = southwest.getEntitiesAround(entity)) != null ) return rep;
+        if ((rep = southeast.getEntitiesAround(entity)) != null ) return rep;
+
+        return null;
+    }
+
+    /**
+     * removes the entity from world
+     * @param entity
+     * @return
+     */
+    public boolean removeEntity(Entity entity) {
+
+        if (depth >= Config.DEPTH_MAX_QT_TREE) {
+            if (!boundary.contains(entity)) {
+                return false;
+            }
+
+            return entities.remove(entity);
+        }
+
+        if (northwest == null){
+            return false;
+        }
+
+        if (northwest.removeEntity(entity)) return true;
+        if (northeast.removeEntity(entity)) return true;
+        if (southwest.removeEntity(entity)) return true;
+        if (southeast.removeEntity(entity)) return true;
+
+        return false;
+    }
+
+    public boolean contains(Entity entity){
+        if (depth >= Config.DEPTH_MAX_QT_TREE) {
+            if (!boundary.contains(entity)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        if (northwest == null){
+            return false;
+        }
+
+        if (northwest.contains(entity)) return true;
+        if (northeast.contains(entity)) return true;
+        if (southwest.contains(entity)) return true;
+        if (southeast.contains(entity)) return true;
+
+        return false;
     }
 
 //    public static void main(String[] args) {

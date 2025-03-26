@@ -1,28 +1,25 @@
 package fr.unicaen.iutcaen.viewTest;
 
+
+import fr.unicaen.iutcaen.ai.RandomMovementAI;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
-import fr.unicaen.iutcaen.model.entities.Cell;
-import fr.unicaen.iutcaen.model.entities.CellPack;
+import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.model.entities.Pellet;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HelloApplication extends Application {
     public static final int HORIZONTAL = 320;
@@ -36,8 +33,8 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(main, 1500, 900);
         stage.setTitle("Hello!");
         stage.setScene(scene);
+
         stage.show();
-        main.requestFocus();
     }
 
     private double mX;
@@ -50,29 +47,18 @@ public class HelloApplication extends Application {
         });
 
         Player p = new Player(new Point(200.0,200.0), 100, Color.RED);
-        PlayerView pv = new PlayerView(p, root);
-        for (Cell allCell : p.getCells().getAllCells()) {
-            System.out.println(allCell.getPosition());
-        }
-        root.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.SPACE){
-                System.out.println("space");
-                p.split();
-            }
-        });
-
+        WorldView worldv = new WorldView(p,root);
+        //test louison ia
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(33), event -> {
                     p.movePlayer(new Point(mX, mY));
                 })
         );
+
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        for (Cell allCell : p.getCells().getAllCells()) {
-            System.out.println(allCell.getPosition());
-        }
-    }
 
+    }
 
     public static void main(String[] args) {
         launch();
