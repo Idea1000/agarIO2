@@ -2,10 +2,10 @@ package fr.unicaen.iutcaen.model;
 
 import javafx.geometry.Point2D;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
+
+import static fr.unicaen.iutcaen.Config.BASESPEED;
+import static fr.unicaen.iutcaen.Config.QT_NODE_CAPACITY;
 
 public class World {
     private List<Player> players;
@@ -17,34 +17,49 @@ public class World {
 
         players = new ArrayList<Player>();
         pellets = new ArrayList<Pellet>();
-        quadTree = new QuadTree(new Boundary(1, 1, 1, 1), 1);
+        quadTree = new QuadTree(new Boundary(1, 1, 1, 1), QT_NODE_CAPACITY);
     }
 
     // Met à jour l'état global du monde (mouvements, collisions, etc.)
     public void update() {
         // Mise à jour du QuadTree et vérification des interactions
+        HashMap<Player, List<Entity>> up;
+
     }
 
     // Retourne un mapping des joueurs avec les entités qu'ils ont absorbées
     public Map<Player, List<Entity>> getAbsorptions() {
-        return new HashMap<>();
+        HashMap res = new HashMap<>();
+        for (Player player: players) {
+            res.put(player, null);
+        }
+        return res;
     }
 
     // Méthodes pour ajouter un joueur ou une pastille
     public void addPlayer(Player player) {
         // Ajoute le joueur à la liste et au QuadTree
+        Random xpos = new Random();
+        Random ypos = new Random();
+
         player.setMass(1);
-        Point2D pos = new Point2D(1, 1);
+        player.setSpeed(BASESPEED);
+
+        Point2D pos = new Point2D(xpos.nextDouble(0, 6), ypos.nextDouble(0, 6));
         player.setPosition(pos);
 
         players.add(player);
         quadTree.insert(player);
     }
 
-    public void addPastille(Pellet pellet) {
+    public void addPellet(Pellet pellet) {
         // Ajoute la pastille à la liste et au QuadTree
         pellet.setMass(1);
-        Point2D pos = new Point2D(2, 1);
+
+        Random xpos = new Random();
+        Random ypos = new Random();
+
+        Point2D pos = new Point2D(xpos.nextDouble(0, 6), ypos.nextDouble(0, 6));
         pellet.setPosition(pos);
 
         quadTree.insert(pellet);
