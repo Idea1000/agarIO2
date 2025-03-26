@@ -1,9 +1,7 @@
-
 package fr.unicaen.iutcaen.view;
 
-
-import fr.unicaen.iutcaen.model.World;
 import javafx.scene.layout.Pane;
+import fr.unicaen.iutcaen.model.World;
 
 public class MiniMap extends Pane {
     private World world;

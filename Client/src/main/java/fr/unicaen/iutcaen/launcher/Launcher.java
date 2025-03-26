@@ -1,7 +1,8 @@
 package fr.unicaen.iutcaen.launcher;
 
-import fr.unicaen.iutcaen.view.HelloApplication;
+import fr.unicaen.iutcaen.view.*;
 
+import fr.unicaen.iutcaen.viewTest.HelloApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

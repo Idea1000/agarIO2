@@ -13,8 +13,8 @@ public class Config {
     public final static double MAP_WIDTH = 4000;
     public final static int PELLETS_NUM = 1000;
     public final static int UPDATE = 33;
-    public static final int WORLD_WIDTH = 10000;
-    public static final int WORLD_HEIGHT = 10000;
+    public static final int WORLD_WIDTH = 1000;
+    public static final int WORLD_HEIGHT = 1000;
     public static final int SCREEN_WIDTH = 1500;
     public static final int SCREEN_HEIGHT = 900;
 
