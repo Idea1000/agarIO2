@@ -42,6 +42,7 @@ public class HelloApplication extends Application {
 
     private double mX;
     private double mY;
+    private boolean space = false;
 
     private void test(Pane root){
         root.setOnMouseMoved(mouseEvent -> {
@@ -56,8 +57,16 @@ public class HelloApplication extends Application {
         }
         root.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.SPACE){
-                System.out.println("space");
-                p.split();
+                if (!space){
+                    System.out.println("space");
+                    p.split();
+                    space = true;
+                }
+            }
+        });
+        root.setOnKeyReleased(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE){
+                space = false;
             }
         });
 

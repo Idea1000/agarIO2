@@ -1,5 +1,6 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.CellPack;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
@@ -30,7 +31,7 @@ public class Player {
 
     // Division cellulaire du joueur
     public void split() {
-        cells.split();
+        cells.splitCells();
     }
 
     public CellPack getCells() {
