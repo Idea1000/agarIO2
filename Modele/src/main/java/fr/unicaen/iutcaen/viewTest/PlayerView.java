@@ -16,6 +16,7 @@ public class PlayerView {
 
         ObservableList<Cell> cells = this.player.getCells().getAllCells();
 
+
         cells.addListener((ListChangeListener<Cell>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
