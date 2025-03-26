@@ -19,6 +19,11 @@ public class Server {
     private final List<ClientHandler> clientHandlers;
     private final WorldHandler worldHandler;
 
+    /**
+     * Gets the instance of the server
+     * @return the instance of the server
+     * @throws IOException
+     */
     public static Server getInstance() throws IOException {
         if (instance == null) {
             instance = new Server(PORT);
@@ -26,12 +31,20 @@ public class Server {
         return instance;
     }
 
+    /**
+     * Creates a Server object
+     * @param port
+     * @throws IOException
+     */
     private Server(int port) throws IOException {
         serverSocket = new ServerSocket(port);
         clientHandlers = new CopyOnWriteArrayList<>();
         worldHandler = new WorldHandler(clientHandlers);
     }
 
+    /**
+     * Starts the server and can handle a client
+     */
     public void start() {
         worldHandler.start();
 

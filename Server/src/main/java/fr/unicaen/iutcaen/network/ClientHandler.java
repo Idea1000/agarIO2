@@ -19,6 +19,13 @@ public class ClientHandler extends Thread {
 
     private volatile boolean ready = false;
 
+	/**
+	 * Creates a ClientHandler object
+	 * @param socket
+	 * @param clientHandlers
+	 * @param worldHandler
+	 * @throws IOException
+	 */
     public ClientHandler(Socket socket, List<ClientHandler> clientHandlers, WorldHandler worldHandler) throws IOException {
         this.socket = socket;
         this.clientHandlers = clientHandlers;
@@ -30,7 +37,7 @@ public class ClientHandler extends Thread {
     }
     
     /**
-     * waits for new messages from the client.
+     * Waits for new messages from the client.
      *  When a new message arrives, it is processed by processReceivedMessage function
      */
     @Override
@@ -77,16 +84,19 @@ public class ClientHandler extends Thread {
     }
     
     /**
-     * checks weather the client is ready to play or not. 
+     * Checks weather the client is ready to play or not.
      * @return
      */
     public synchronized boolean isReady() {
-        return ready;
+		return ready;
     }
-    
-    
-    public synchronized void setReady(boolean value) {
-        this.ready = value;
+
+	/**
+	 * Sets the client in the Ready state
+	 * @param value
+	 */
+	public synchronized void setReady(boolean value) {
+		this.ready = value;
     }
     
     
