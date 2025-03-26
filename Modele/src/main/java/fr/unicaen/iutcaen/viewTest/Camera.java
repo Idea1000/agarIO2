@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.view;
+package fr.unicaen.iutcaen.viewTest;
 
 import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Player;

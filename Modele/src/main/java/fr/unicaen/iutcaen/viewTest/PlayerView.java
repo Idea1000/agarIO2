@@ -1,12 +1,10 @@
-package fr.unicaen.iutcaen.view;
+package fr.unicaen.iutcaen.viewTest;
 
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.entities.Cell;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-
-import java.util.ArrayList;
 
 public class PlayerView {
 
