@@ -1,6 +1,4 @@
-
-package fr.unicaen.iutcaen.view;
-
+package fr.unicaen.iutcaen.viewTest;
 
 import javafx.scene.layout.Pane;
 import fr.unicaen.iutcaen.model.World;

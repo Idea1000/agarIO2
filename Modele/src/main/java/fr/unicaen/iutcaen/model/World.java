@@ -1,11 +1,18 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 import javafx.geometry.Point2D;
 
 import java.util.*;
 
 import static fr.unicaen.iutcaen.Config.BASESPEED;
 import static fr.unicaen.iutcaen.Config.QT_NODE_CAPACITY;
+
+/*import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.quadtree.QuadTree;*/
 
 public class World {
     private List<Player> players;
@@ -39,17 +46,8 @@ public class World {
     // Méthodes pour ajouter un joueur ou une pastille
     public void addPlayer(Player player) {
         // Ajoute le joueur à la liste et au QuadTree
-        Random xpos = new Random();
-        Random ypos = new Random();
-
-        player.setMass(1);
-        player.setSpeed(BASESPEED);
-
-        Point2D pos = new Point2D(xpos.nextDouble(0, 6), ypos.nextDouble(0, 6));
-        player.setPosition(pos);
 
         players.add(player);
-        quadTree.insert(player);
     }
 
     public void addPellet(Pellet pellet) {
@@ -59,7 +57,7 @@ public class World {
         Random xpos = new Random();
         Random ypos = new Random();
 
-        Point2D pos = new Point2D(xpos.nextDouble(0, 6), ypos.nextDouble(0, 6));
+        Point pos = new Point(xpos.nextDouble(0, 6), ypos.nextDouble(0, 6));
         pellet.setPosition(pos);
 
         quadTree.insert(pellet);

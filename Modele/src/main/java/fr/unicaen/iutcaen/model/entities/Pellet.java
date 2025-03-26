@@ -1,14 +1,14 @@
-package fr.unicaen.iutcaen.model;
+package fr.unicaen.iutcaen.model.entities;
 
+import fr.unicaen.iutcaen.model.Player;
+import fr.unicaen.iutcaen.model.Point;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public class Pellet extends Entity {
-    public enum Type { STANDARD, SPECIAL }
-    private Type type;
 
-    public Pellet(String id, Point2D position, double mass, Type type) {
-        super(id, position, mass);
-        this.type = type;
+    public Pellet(int id, Point position, double mass, Color color) {
+        super(id, position, mass, color);
     }
 
     // Appliquer l'effet de la pastille sur un joueur
@@ -21,6 +21,4 @@ public class Pellet extends Entity {
         // Mise à jour éventuelle (souvent vide pour une pastille statique)
     }
 
-    // Getter pour le type
-    public Type getType() { return type; }
 }

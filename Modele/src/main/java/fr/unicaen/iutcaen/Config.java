@@ -8,4 +8,5 @@ public class Config {
     public final static int QT_NODE_CAPACITY = 4;
     public final static int DEPTH_MAX_QT_TREE = 6;
     public final static int UPDATE = 33;
+
 }
