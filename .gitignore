@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 
 !**/src/main/**/out/
+Modele/out
 
 ### IntelliJ IDEA ###
 */.idea/modules.xml
