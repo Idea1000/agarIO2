@@ -2,6 +2,13 @@ package fr.unicaen.iutcaen.network;
 
 import java.net.Socket;
 import java.util.List;
+
+import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.model.factories.IdDistributor;
+import fr.unicaen.iutcaen.networkProtocol.Message;
+import fr.unicaen.iutcaen.networkProtocol.TextData;
+import fr.unicaen.iutcaen.networkProtocol.WorldData;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,17 +43,53 @@ public class ClientHandler extends Thread {
     @Override
     public void run() {
         try {
-            while (!socket.isClosed()) {
-                Object obj = in.readObject();
-                if (obj instanceof Message message) {
-                    processReceivedMessage(message);
-                }
-            }
+        	
+        	TextData textData = new TextData("client_id", Integer.toString(IdDistributor.getInstance().getNextId())); 
+        	out.writeObject(textData);
+        	out.flush();
+        	
+        	boolean result = getResult(); 
+        	
+        	if(result) {
+        		System.out.println("Client "+socket.getRemoteSocketAddress() +" : ID envoyé avec succès"); 
+        		
+            	WorldData worldData = new WorldData(World.getInstence());
+            	out.writeObject(worldData);
+            	out.flush();
+            	
+            	result = getResult(); 
+            	
+            	if(result) {
+            		System.out.println("Client "+socket.getRemoteSocketAddress() +" : Monde envoyé avec succès"); 
+                    while (!socket.isClosed()) {
+                        Object obj = in.readObject();
+                        if (obj instanceof Message message) {
+                            processReceivedMessage(message);
+                        }
+                    }
+            	}
+        	}
+        	
         } catch (Exception e) {
             System.err.println("Client déconnecté : " + socket.getRemoteSocketAddress());
         } finally {
             cleanup();
         }
+    }
+    
+    public boolean getResult() {
+    	try {
+			Object object = in.readObject();
+			if(object instanceof TextData) {
+				TextData data = (TextData)object; 
+				if(data.getType().equalsIgnoreCase("result")) {
+					if(data.getContent().equalsIgnoreCase("ok")) return true; 
+				}
+			}
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		} 
+    	return false; 
     }
     
     

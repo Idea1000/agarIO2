@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.io.Serializable;
 import java.util.*;
 
 
 
-public class World {
+public class World implements Serializable {
 	
 	private static World instance;
 	

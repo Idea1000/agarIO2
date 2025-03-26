@@ -4,24 +4,26 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class Client {
+import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.networkProtocol.TextData;
+import fr.unicaen.iutcaen.networkProtocol.WorldData;
+
+public class Client extends Thread{
 
     public static String SERVERIP = "10.42.17.154";
     public static int PORT = 8000;
     private Socket socket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
+    
+    private World world; 
+    private String id; 
 
 
-    public Client(String serverIp, int port) throws IOException {
-        // Initialisation de la connexion au serveur
-
+    public Client() throws IOException {
         try {
-            // Create socket connection to the server
             socket = new Socket(SERVERIP, PORT);
-            //socket.connect(socket.getRemoteSocketAddress());
-
-            // Initialize input and output streams
+            
             out = new ObjectOutputStream(socket.getOutputStream());
             out.flush();
             in = new ObjectInputStream(socket.getInputStream());
@@ -32,40 +34,64 @@ public class Client {
         }
 
     }
+    
+    
+    public boolean receiveID()  {
+    	try {
+			Object object = in.readObject();
+			if(object instanceof TextData) {
+				TextData textData = (TextData)object; 
+				if(textData.getType().equalsIgnoreCase("client_id")) {
+					id = textData.getContent(); 
+					return true; 
+				}
+			}
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return false; 
+    }
+    
+    public boolean receiveWorld()  {
+    	try {
+			Object object = in.readObject();
+			if(object instanceof WorldData) {
+				WorldData worldData = (WorldData)object; 
+				this.world = worldData.getWorld(); 
+				return true; 
+			}
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return false; 
+    }
 
-
-    // Envoi d'un message au serveur avec un objet Message
-    public void sendMessage(String type, Object data) {
+    
+    public void sendResult(boolean ok) {
         try {
-            Message message = new Message(type, data);  // Create message with type and data
-            out.writeObject(message);  // Serialize and send the message object
+        	
+        	String content; 
+        	if(ok)
+        		content = "ok"; 
+        	else
+        		content = "fail"; 
+        	
+            TextData data = new TextData("result", content);  
+            out.writeObject(data);  
             out.flush();
-
-            System.out.println("Message sent: " + type +message.getData());
+     
         } catch (IOException e) {
             System.err.println("Error sending message: " + e.getMessage());
         }
 
     }
 
-    // Thread qui reçoit les mises à jour envoyées par le serveur
+    
     public void receiveUpdates() {
-
-        new Thread(() -> {
-            try {
-                while (true) {
-                    Message message = (Message) in.readObject();  // Deserialize the received message
-                    System.out.println("Update received: Type - " + message.getType() + ", Data - " + message.getData());
-                    // Process the message and update the view or game state accordingly
-                    // gameView.updateWorldState(message.getData()); // Example usage
-                }
-            } catch (IOException | ClassNotFoundException e) {
-                System.err.println("Error receiving updates: " + e.getMessage());
-            }
-        }).start();
+    	
     }
 
-    // Fermer la connexion
+    
     public void close() {
         try {
             if (socket != null) {
@@ -76,18 +102,29 @@ public class Client {
             System.err.println("Error closing connection: " + e.getMessage());
         }
     }
+    
 
-    // Point d'entrée de l'application
+    
     public static void main(String[] args) {
         try {
-            Client client = new Client("10.42.17.154", 8000);
-            // Example of sending a move message
-            Scanner sc = new Scanner(System.in);
-            while(true){
-                String input = sc.nextLine();
-                client.sendMessage("String", input);
-            }
-             // Sending movement coordinates (example)
+            Client client = new Client();
+            
+            boolean received = client.receiveID();
+            if(received)
+            	System.out.println("ID received : "+client.getId()); 
+            else
+            	System.out.println("erreur ID"); 
+            
+            client.sendResult(received); 
+            
+            received = client.receiveWorld(); 
+            
+            if(received)
+            	System.out.println("world received"+client.world);
+            else
+            	System.out.println("erreur world");
+            client.sendResult(received); 
+            
         } catch (IOException e) {
             System.err.println("Error initializing client: " + e.getMessage());
         }
