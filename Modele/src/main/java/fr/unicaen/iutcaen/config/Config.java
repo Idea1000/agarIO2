@@ -12,4 +12,6 @@ public class Config {
     public final static int PELLETS_NUM = 1000;
     public final static int UPDATE = 33;
 
+    public final static int MAX_LOCAL_AI_NUMBER = 30;
+
 }

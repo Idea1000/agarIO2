@@ -8,15 +8,15 @@ public interface AIBehavior {
 
     /**
      * Move the AI
-     * @param ia
+     * @param AI
      */
-    void move(IA ia);
+    void move(AI AI);
 
     /**
      * Update the AI target
-     * @param ia
+     * @param AI
      */
-    void update(IA ia);
+    void update(AI AI);
 
 }
 

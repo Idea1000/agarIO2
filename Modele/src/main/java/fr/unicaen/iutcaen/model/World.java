@@ -1,8 +1,10 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.ai.AI;
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.factories.FactoryAI;
 import fr.unicaen.iutcaen.model.factories.FactoryPellet;
 import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 import javafx.geometry.Point2D;
@@ -19,16 +21,26 @@ import java.util.*;
 
 public class World {
 	
-	private static World instence; 
+	private static World localInstence;
+    private static World onlineInstence;
 	
     private QuadTree quadTree;
-    private Map<Player, List<Entity>> absorptions; 
+    private Map<Player, List<Entity>> absorptions;
+
+    protected List<AI> AIList;
     
-    public static World getInstence() {
-    	if(instence == null) {
-    		instence = new World(); 
+    public static World getLocalInstence() {
+    	if(localInstence == null) {
+            localInstence = new World(true);
     	}
-    	return instence; 
+    	return localInstence;
+    }
+
+    public static World getOnlineInstence() {
+        if(onlineInstence == null) {
+            onlineInstence = new World(false);
+        }
+        return onlineInstence;
     }
     
     /**
@@ -36,7 +48,7 @@ public class World {
      * The world is composed of a quadTree that has a main boundary. 
      * The main boundary's size values are created using the config file values for map's length and width values.
      */
-    private World() {
+    private World(boolean local) {
     	quadTree = new QuadTree(new Boundary(0, 0, Config.MAP_WIDTH, Config.MAP_HEIGHT), 0);
     	absorptions = new HashMap<Player, List<Entity>>(); 
     	
@@ -45,6 +57,14 @@ public class World {
             Pellet pellet = factory.randomPellet();
     		this.addEntity(pellet);
     	}
+
+        if(local == true){
+            AIList = new ArrayList<AI>();
+            FactoryAI AIfactory = new FactoryAI();
+            for(int i = 0 ; Config.MAX_LOCAL_AI_NUMBER > i ; i++){
+                AIList.add(AIfactory.fabriqueAI());
+            }
+        }
 
     }
 

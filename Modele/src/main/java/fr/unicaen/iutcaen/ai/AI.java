@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Define an AI logic
  * @author courtoi223, Idea1000
  */
-public class IA {
+public class AI {
 
     /**
      * Actual behavior of the AI
@@ -34,7 +34,7 @@ public class IA {
      */
     private Entity target = null;
 
-    public IA(Point position, double mass, Color color) {
+    public AI(Point position, double mass, Color color) {
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
     }
 

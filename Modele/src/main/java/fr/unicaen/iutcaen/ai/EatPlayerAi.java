@@ -20,21 +20,21 @@ public class EatPlayerAi implements AIBehavior {
 
     /**
      * Move the IA to the desired target
-     * @param ia
+     * @param AI
      */
     @Override
-    public void move(IA ia) {
+    public void move(AI AI) {
         Point direction = new Point(targetX, targetY);
-        ia.getCells().move(direction);
+        AI.getCells().move(direction);
     }
 
     /**
      * Update the IA target
-     * @param ia
+     * @param AI
      */
     @Override
-    public void update(IA ia) {
-        Point pos = ia.getTarget().getPosition();
+    public void update(AI AI) {
+        Point pos = AI.getTarget().getPosition();
         targetX = pos.getX();
         targetY = pos.getY();
     }

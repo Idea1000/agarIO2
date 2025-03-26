@@ -30,25 +30,25 @@ public class RandomMovementAI implements AIBehavior {
 
     /**
      * Move the IA to the desired target
-     * @param ia
+     * @param AI
      */
     @Override
-    public void move(IA ia) {
+    public void move(AI AI) {
         Point direction = new Point(targetX, targetY);
-        ia.getCells().move(direction);
+        AI.getCells().move(direction);
     }
 
     /**
      * Update the IA target
-     * @param ia
+     * @param AI
      */
     @Override
-    public void update(IA ia) {
+    public void update(AI AI) {
         if (targetX == 0) {
-            targetX = ia.getCells().getPosition().getX();
+            targetX = AI.getCells().getPosition().getX();
         }
         if (targetY == 0) {
-            targetY = ia.getCells().getPosition().getY();
+            targetY = AI.getCells().getPosition().getY();
         }
 
         if (actualDirection == null) {

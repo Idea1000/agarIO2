@@ -34,6 +34,6 @@ public class FactoryPellet extends FactoryEntity {
     	
     	Color color = Color.color(r.nextDouble(), r.nextDouble(), r.nextDouble());
     	
-    	return new Pellet(IdDistributor.getInstance().getNextId(), p, randomMass, Color.BLUE);
+    	return new Pellet(IdDistributor.getInstance().getNextId(), p, randomMass, color);
     }
 }
