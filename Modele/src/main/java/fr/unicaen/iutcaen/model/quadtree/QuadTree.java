@@ -52,6 +52,15 @@ public class  QuadTree {
 
         return false;
     }
+    
+    /**
+     * removes the entity from world
+     * @param entity
+     * @return
+     */
+    public boolean removeEntity(Entity entity) {
+    	return entities.remove(entity); 
+    }
 
     // Retourne la liste des entités dans une zone donnée
     public List<Entity> query(Boundary range) {

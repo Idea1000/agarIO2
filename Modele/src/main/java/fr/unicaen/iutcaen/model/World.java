@@ -8,6 +8,7 @@ import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class World {
@@ -17,7 +18,7 @@ public class World {
     private QuadTree quadTree;
     private Map<Player, List<Entity>> absorptions; 
     
-    public World getInstence() {
+    public static World getInstence() {
     	if(instence == null) {
     		instence = new World(); 
     	}
@@ -53,7 +54,7 @@ public class World {
      * adds a player to the world by adding it to the quadTree
      * @param player
      */
-    public void addEntity(Entity entity) {
+    public boolean addEntity(Entity entity) {
     	double x = entity.getPosition().getX();  
     	double y = entity.getPosition().getY();
     	
@@ -65,7 +66,34 @@ public class World {
     		entity.getPosition().setY(y%Config.MAP_LENGTH);
     	}
     	
-        quadTree.insert(entity); 
+        return quadTree.insert(entity);
+    }
+    
+    public boolean removeEntity(Entity entity) {
+    	return quadTree.removeEntity(entity); 
+    }
+    
+    /**
+     * adds a player to this world
+     * @param player
+     * @return true if the adding is done successfully or not 
+     */
+    public boolean addPlayer(Player player) {
+    	boolean cellInserted = addEntity(player.getCells()); 
+    	if(cellInserted) {
+    		absorptions.put(player, new ArrayList<Entity>()); 
+    	}
+    	return cellInserted; 
+    }
+    
+    /**
+     * adds an absorption associated to the player. 
+     * @param player
+     * @param entity
+     * @return true if the adding is done successfully
+     */
+    public boolean addAbsorption(Player player, Entity entity) {
+    	return absorptions.get(player).add(entity); 
     }
 
 }
