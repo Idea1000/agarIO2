@@ -1,4 +1,4 @@
-/*package fr.unicaen.iutcaen.view;
+package fr.unicaen.iutcaen.viewTest;
 
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
@@ -68,4 +68,4 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-}*/
+}
