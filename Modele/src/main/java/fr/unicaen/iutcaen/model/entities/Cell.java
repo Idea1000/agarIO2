@@ -7,7 +7,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -54,7 +53,7 @@ public class Cell extends Entity{
     }
 
     public double getSpeed(){
-        return Config.MINSPEED + (Config.BASESPEED / Math.sqrt(this.getMass()));
+        return Config.MIN_SPEED + (Config.BASE_SPEED / Math.sqrt(this.getMass()));
     }
     public boolean canEat(Cell cell){
         return this.getMass() >= (cell.getMass() * 1.33);
@@ -88,7 +87,7 @@ public class Cell extends Entity{
     }
 
     private void movePosition(Point vecteurD) {
-        Point newPos = position.add(vecteurD.multiply(getSpeed() / Config.SPEEDCOEF));
+        Point newPos = position.add(vecteurD.multiply(getSpeed() / Config.SPEED_COEF));
 
         position.setX(newPos.getX());
         position.setY(newPos.getY());
@@ -188,6 +187,11 @@ public class Cell extends Entity{
 
     public String toString() {
         return String.format("ID : %d, unsplit : %b", id, unSplit);
+    }
+
+    @Override
+    public double getSize(){
+        return Config.SIZE_RATIO_CELL *Math.sqrt(this.getMass());
     }
 
 }

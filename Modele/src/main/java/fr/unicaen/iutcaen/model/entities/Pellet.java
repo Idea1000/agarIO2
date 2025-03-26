@@ -1,8 +1,7 @@
 package fr.unicaen.iutcaen.model.entities;
 
-import fr.unicaen.iutcaen.model.Player;
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Point;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class Pellet extends Entity {
@@ -13,7 +12,7 @@ public class Pellet extends Entity {
 
     /**
      * Applies the effect of this Pellet on the player
-     * @param player
+     * @param cell
      * @return true if the effect is added successfully
      */
     public void applyEffect(Cell cell) {
@@ -24,5 +23,8 @@ public class Pellet extends Entity {
     public void update() {
         
     }
-
+    @Override
+    public double getSize(){
+        return Config.SIZE_RATIO_PELLET *Math.sqrt(this.getMass());
+    }
 }

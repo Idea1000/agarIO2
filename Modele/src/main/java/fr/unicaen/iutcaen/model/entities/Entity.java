@@ -2,9 +2,7 @@ package fr.unicaen.iutcaen.model.entities;
 
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Point;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 // Classe abstraite de base pour toutes les entités (joueur, pastille, etc.)
@@ -44,6 +42,6 @@ public abstract class Entity {
     }
 
     public double getSize(){
-        return Config.SIZERATIO*Math.sqrt(this.getMass());
+        return Config.SIZE_RATIO *Math.sqrt(this.getMass());
     }
 }
