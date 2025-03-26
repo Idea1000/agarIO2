@@ -10,10 +10,6 @@ import java.util.*;
 import static fr.unicaen.iutcaen.Config.BASESPEED;
 import static fr.unicaen.iutcaen.Config.QT_NODE_CAPACITY;
 
-/*import fr.unicaen.iutcaen.model.entities.Entity;
-import fr.unicaen.iutcaen.model.entities.Pellet;
-import fr.unicaen.iutcaen.model.quadtree.QuadTree;*/
-
 public class World {
     private List<Player> players;
     private List<Pellet> pellets;
@@ -48,6 +44,7 @@ public class World {
         // Ajoute le joueur à la liste et au QuadTree
 
         players.add(player);
+        quadTree.insert(player.getCells());
     }
 
     public void addPellet(Pellet pellet) {
