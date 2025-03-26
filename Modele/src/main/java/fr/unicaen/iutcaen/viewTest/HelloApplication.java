@@ -28,6 +28,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -72,14 +73,30 @@ public class HelloApplication extends Application {
         stage.setTitle("Agar.io Clone");
         stage.setScene(scene);
         stage.show();
+        worldPane.requestFocus();
     }
 
-
+    private boolean space = false;
     private void setupGame(Pane worldPane) {
         worldPane.setOnMouseMoved(mouseEvent -> {
             mX = mouseEvent.getX();
             mY = mouseEvent.getY();
             vector = new Point(mX - p.getCenter().getX(), mY - p.getCenter().getY());
+        });
+
+        worldPane.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE){
+                if (!space){
+                    System.out.println("space");
+                    p.split();
+                    space = true;
+                }
+            }
+        });
+        worldPane.setOnKeyReleased(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE){
+                space = false;
+            }
         });
 
 

@@ -95,7 +95,6 @@ public class Cell extends Entity{
 
     private void handleCollisionsWithNeighbors() {
         for (int i = 0; i < neighbor.size(); i++) {
-            System.out.printf("%s : %s%n", this.toString(), neighbor);
             Cell cell = neighbor.get(i);
             if (cell.unSplit && cell != this) {
                 if (this.isInside(cell)){
@@ -176,6 +175,7 @@ public class Cell extends Entity{
     }
 
     public Cell split(){
+        System.out.println("here");
         if (this.getMass() > 50){
             this.setMass(this.getMass()/2);
             Cell newCell = new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX(), position.getY()), this.getMass(), this.getColor());

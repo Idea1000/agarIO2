@@ -58,19 +58,14 @@ public class CellPack extends Cell{
     }
 
     public void splitCells(){
-        System.out.println("size:"+allCells.size());
-        System.out.println("aa");
         int t = allCells.size();
-        System.out.println(t);
         for (int i = 0; i < t; i++) {
-                System.out.println("aah");
                 Cell splittedCell = allCells.get(i).split();
                 if (splittedCell != null){
                     allCells.add(splittedCell);
                 }
                 setNeighbor();
         }
-        System.out.println("end");
     }
 
     private void setNeighbor(){

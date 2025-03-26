@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2eed7740-7b11-4430-9779-f8314ca93e48" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../agario2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+    <list default="true" id="2eed7740-7b11-4430-9779-f8314ca93e48" name="Changes" comment="cleaning code &amp; changing const names">
       <change beforePath="$PROJECT_DIR$/../agarIO2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../agarIO2.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +57,13 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.unicaen.iutcaen.viewTest.HelloApplication" />
+      <module name="Modele" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Modele" />
       <method v="2">
@@ -94,5 +99,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="cleaning code &amp; changing const names" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaning code &amp; changing const names" />
   </component>
 </project>
