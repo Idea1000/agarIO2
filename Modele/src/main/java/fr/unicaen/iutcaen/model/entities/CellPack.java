@@ -55,6 +55,74 @@ public class CellPack extends Cell{
             cell.setNeighbor(getAllCells());
         }
     }
+    
+    /**
+     * returns the cell (and not the cell pack) that has this entity inside of it, null if none of the cells has it.  
+     * @param entity
+     * @return the cell needed or null
+     */
+    public Cell getCellWhoHasInside(Entity entity) {
+    	
+    	for(Cell cell : cells) {
+    		
+    		if(cell.isInside(entity)) {
+    			
+    			if(cell instanceof CellPack)
+    				return ((CellPack) cell).getCellWhoHasInside(entity); 
+    			else
+    				return cell; 	
+    		}	
+    	}
+    	return null; 
+    }
+    
+    /**
+     * returns the cell (and not the cell pack) that colides with this entity, null if none of the cells colides with it.  
+     * @param entity
+     * @return
+     */
+    public Cell getCellWhoColides(Entity entity) {
+    	
+    	for(Cell cell : cells) {
+    		
+    		if(cell.colide(entity)) {
+    			
+    			if(cell instanceof CellPack)
+    				return ((CellPack) cell).getCellWhoColides(entity); 
+    			else
+    				return cell; 
+    		}	
+    	}
+    	return null; 
+    }
+    
+    @Override
+    public boolean colide(Entity e){
+        for(Cell cell : cells) {
+        	if(cell.colide(e)) return true; 
+        }
+        return false; 
+    }
+    
+    @Override
+    public boolean isInside(Entity e){
+        for(Cell cell : cells) {
+        	if(cell.isInside(e)) return true; 
+        }
+        return false; 
+    }
+    
+    @Override
+    public Boolean absorbEntity(Entity entity) {
+    	for(Cell cell : cells) {
+    		if(cell.absorbEntity(entity)) return true;  
+    	}
+    	return false; 
+    }
+    
+    public boolean isEmpty() {
+    	return cells.size() == 0; 
+    }
 
 
 }

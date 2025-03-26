@@ -95,5 +95,14 @@ public class World {
     public boolean addAbsorption(Player player, Entity entity) {
     	return absorptions.get(player).add(entity); 
     }
+    
+ 
+    public boolean containsEntity(Entity entity) {
+    	return quadTree.contains(entity); 
+    }
+    
+    public boolean containsPlayer(Player player) {
+    	return absorptions.containsKey(player); 
+    }
 
 }

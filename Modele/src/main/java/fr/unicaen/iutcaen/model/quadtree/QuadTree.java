@@ -61,6 +61,10 @@ public class  QuadTree {
     public boolean removeEntity(Entity entity) {
     	return entities.remove(entity); 
     }
+    
+    public boolean contains(Entity entity) {
+    	return entities.contains(entity); 
+    }
 
     // Retourne la liste des entités dans une zone donnée
     public List<Entity> query(Boundary range) {

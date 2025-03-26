@@ -32,14 +32,15 @@ public class Player {
      */
     public void absorb(Entity entity) {
     	
-        if(entity instanceof Pellet) {
-        	Pellet pellet = (Pellet) entity; 
-        	pellet.applyEffect(this);
-        }
-        
-        else if (entity instanceof Cell) {
-
-        }
+    	World world = World.getInstence(); 
+    	
+    	if(world.containsEntity(entity) && world.containsPlayer(this)) {
+    		boolean absorbed = cells.absorbEntity(entity); 
+    		if(absorbed) {
+    			world.removeEntity(entity); 
+    		}
+    	}
+    	
     }
 
     // Division cellulaire du joueur
@@ -53,6 +54,10 @@ public class Player {
 
     public Point getPosition(){
         return cells.getPosition();
+    }
+    
+    public boolean isDead() {
+    	return cells.isEmpty(); 
     }
 
     // Getters et setters supplémentaires

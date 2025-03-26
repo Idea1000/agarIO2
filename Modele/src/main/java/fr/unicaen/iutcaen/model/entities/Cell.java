@@ -89,4 +89,27 @@ public class Cell extends Entity{
     public void setNeighbor(ArrayList<Cell> neighbor){
         this.neighbor = neighbor;
     }
+    
+    public Boolean absorbEntity(Entity entity) {
+    	Boolean absorbed = false; 
+    	
+    	if(this.isInside(entity)) {
+    		
+	       if(entity instanceof Pellet) {
+	    	   Pellet pellet = (Pellet) entity; 
+	    	   pellet.applyEffect(this);
+	    	   absorbed = true; 
+	       }
+	       
+	    	else if (entity instanceof Cell) {
+	    		Cell cell = (Cell) entity; 
+	    		if(this.canEat(cell)) {
+	    			this.mass += cell.mass;  
+	    			absorbed = true; 
+	    		}
+	    	}
+    	}
+    	
+    	return absorbed; 
+    }
 }

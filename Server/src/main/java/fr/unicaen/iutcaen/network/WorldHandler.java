@@ -11,7 +11,7 @@ public class WorldHandler extends Thread{
 	private List<ClientHandler> clientHandlers; 
 	
 	public WorldHandler(List<ClientHandler> clientHandlers) {
-		this.world = new World(); 
+		this.world = World.getInstence(); 
 		this.clientHandlers = clientHandlers; 
 	}
 	

@@ -11,9 +11,13 @@ public class Pellet extends Entity {
         super(id, position, mass, color);
     }
 
-    // Appliquer l'effet de la pastille sur un joueur
-    public void applyEffect(Player player) {
-        player.absorb(this);
+    /**
+     * Applies the effect of this Pellet on the player
+     * @param player
+     * @return true if the effect is added successfully
+     */
+    public void applyEffect(Cell cell) {
+    	cell.mass += mass; 
     }
 
     @Override
