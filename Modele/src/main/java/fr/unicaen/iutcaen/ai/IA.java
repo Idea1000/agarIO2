@@ -9,53 +9,57 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ * Define an AI logic
+ *
+ * @author courtoi223 & Idea1000
+ */
 public class IA {
 
-    private AIBehavior behavior; // Stratégie actuelle
+    /**
+     * Actual behavior of the AI
+     */
+    private AIBehavior behavior;
+
+    /**
+     * Cells of the AI
+     */
     private CellPack cells;
+
+    /**
+     * List of entities in range
+     */
     protected ArrayList<Entity> entitiesInRange;
 
+    /**
+     * The current target
+     */
     private Entity target;
 
     public IA(Point position, double mass, Color color) {
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
     }
 
-    public void setBehavior(AIBehavior behavior) {
-        this.behavior = behavior;
-    }
-
-    // Déplacement de l'IA
+    /**
+     * Move the AI according to it's behavior
+     */
     public void move() {
         behavior.move(this);
     }
 
-    public Entity getTarget() {
-        return target;
-    }
-
-    public void setTarget(Entity target) {
-        this.target = target;
-    }
-
-
-    public void setEntitiesInRange(ArrayList<Entity> entities) {
-        entitiesInRange = entities;
-    }
-
-    private double euclidean(Point target) {
-        Point pos = cells.getPosition();
-        double dx = Math.abs(target.getX() - pos.getX());
-        double dy = Math.abs(target.getY() - pos.getY());
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
+    /**
+     * Update the AI behavior and target
+     */
     public void update() {
-        setBehavior(manageState());
+        setBehavior(manageState()); // Update the behavior depending on what is currently near the AI
         behavior.update(this);
-
     }
-    public AIBehavior manageState() {
+
+    /**
+     * Update the AI behavior
+     * @return the new AI behavior
+     */
+    private AIBehavior manageState() {
         if (behavior == null) {
             return new RandomMovementAI();
         }
@@ -68,6 +72,7 @@ public class IA {
                     target = e;
                     return new EatPlayerAi();
                 } else{
+                    // Find the closest pellet
                     double euclide = euclidean(e.getPosition());
                     if (euclide < distance) {
                         tempTarget = e;
@@ -75,7 +80,7 @@ public class IA {
                     }
                 }
             }
-            target = tempTarget;
+            setTarget(tempTarget);
             return new EatPelletAi();
         }
         if (target == null) {
@@ -84,13 +89,55 @@ public class IA {
         return null;
     }
 
-    // Getter et setters
+    /**
+     * Get what is the current target of the AI
+     * @return the target
+     */
+    public Entity getTarget() {
+        return target;
+    }
+
+    /**
+     * Get the cells of the AI
+     * @return the cells
+     */
     public CellPack getCells() {
         return cells;
     }
 
-    public Pellet findClosestPellet() {
-        //logiqueeeeeeee
-        return null;
+    /**
+     * Set what is the current target of the AI
+     * @param target
+     */
+    private void setTarget(Entity target) {
+        this.target = target;
+    }
+
+    /**
+     * Set what are the new entities in range
+     * @param entities
+     */
+    public void setEntitiesInRange(ArrayList<Entity> entities) {
+        entitiesInRange = entities;
+    }
+
+    /**
+     * Set the behavior of the AI
+     * @param behavior
+     */
+    public void setBehavior(AIBehavior behavior) {
+        this.behavior = behavior;
+    }
+
+    /**
+     * Compute the euclidean distance between the AI and the target
+     * @param target the target position
+     * @return the euclidean distance
+     */
+    private double euclidean(Point target) {
+        Point pos = cells.getPosition();
+        double dx = Math.abs(target.getX() - pos.getX());
+        double dy = Math.abs(target.getY() - pos.getY());
+        return Math.sqrt(dx * dx + dy * dy);
     }
 }
