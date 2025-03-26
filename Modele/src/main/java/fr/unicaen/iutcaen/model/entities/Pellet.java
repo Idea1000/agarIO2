@@ -13,12 +13,12 @@ public class Pellet extends Entity {
 
     // Appliquer l'effet de la pastille sur un joueur
     public void applyEffect(Player player) {
-        // Logique pour modifier l'état du joueur (bonus, malus, division, etc.)
+        player.absorb(this);
     }
 
     @Override
     public void update() {
-        // Mise à jour éventuelle (souvent vide pour une pastille statique)
+        
     }
 
 }
