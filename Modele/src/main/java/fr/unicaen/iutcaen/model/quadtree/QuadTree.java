@@ -1,4 +1,4 @@
-/*package fr.unicaen.iutcaen.model.quadtree;
+package fr.unicaen.iutcaen.model.quadtree;
 
 import fr.unicaen.iutcaen.Config;
 import fr.unicaen.iutcaen.model.Boundary;
@@ -108,4 +108,4 @@ public class  QuadTree {
 //        System.out.println(q.entities.size());
 //    }
 }
-*/
+

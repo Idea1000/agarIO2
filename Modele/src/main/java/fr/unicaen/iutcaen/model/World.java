@@ -2,6 +2,7 @@ package fr.unicaen.iutcaen.model;
 
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 //import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 public class World {
     private List<Player> players;
     private List<Pellet> pellets;
-    //private QuadTree quadTree;
+    private QuadTree quadTree;
 
     public World() {
         // Initialisation des listes et du QuadTree selon la taille de la carte
