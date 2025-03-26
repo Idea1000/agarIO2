@@ -2,6 +2,7 @@ package fr.unicaen.iutcaen.model;
 
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 
 import java.util.List;
 import java.util.Map;

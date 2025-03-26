@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.view;
+package fr.unicaen.iutcaen.viewTest;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

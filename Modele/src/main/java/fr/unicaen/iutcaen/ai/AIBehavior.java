@@ -7,5 +7,6 @@ import javafx.geometry.Point2D;
 
 public interface AIBehavior {
     void move(IA ia, Point direction);
+
 }
 

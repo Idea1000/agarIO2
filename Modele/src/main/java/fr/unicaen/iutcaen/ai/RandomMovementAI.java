@@ -6,11 +6,15 @@ import fr.unicaen.iutcaen.model.World;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.Config;
+
 
 import java.util.Random;
 
 public class RandomMovementAI implements AIBehavior {
     private Random random = new Random();
+
 
 
 
@@ -26,8 +30,9 @@ public class RandomMovementAI implements AIBehavior {
 
     @Override
     public void move(IA ia, Point direction) {
-        direction = update(ia.);
+        direction = update(ia.getCells().getPosition());
         ia.getCells().move(direction);
+
     }
 }
 

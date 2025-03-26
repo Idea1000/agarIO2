@@ -1,4 +1,4 @@
-module fr.unicaen.iutcaen.client {
+module agarIO2Client {
     requires javafx.controls;
     requires javafx.fxml;
     requires agarIO2Modele;  // Ensure this matches the module name in agarIO2Modele's module-info

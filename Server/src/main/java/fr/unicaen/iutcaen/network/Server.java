@@ -4,53 +4,51 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import fr.unicaen.iutcaen.model.World;
+
 import java.util.ArrayList;
 
 public class Server {
-	
-	private static Server instance; 
-	public static int PORT = 8000; 
-	
-    private ServerSocket serverSocket;
-    private List<ClientHandler> clientHandlers;
-    
+
+    private static Server instance;
+    public static int PORT = 8000;
+
+    private final ServerSocket serverSocket;
+    private final List<ClientHandler> clientHandlers;
+    private final WorldHandler worldHandler;
+
     public static Server getInstance() throws IOException {
-    	if(instance == null) {
-    		instance = new Server(PORT); 
-    	}
-    	return instance; 
+        if (instance == null) {
+            instance = new Server(PORT);
+        }
+        return instance;
     }
-    
 
     private Server(int port) throws IOException {
-        serverSocket = new ServerSocket(port); 
-        clientHandlers = new ArrayList<ClientHandler>(); 
+        serverSocket = new ServerSocket(port);
+        clientHandlers = new CopyOnWriteArrayList<>();
+        worldHandler = new WorldHandler(clientHandlers);
     }
 
-    /**
-     * Starts the server and listens for new connections
-     * @throws IOException 
-     */
-    public void start()  {
-    	Socket socket; 
-    	ClientHandler client; 
-        while(true) {
-        	
-        	try {
-        		System.out.println("Le serveur écoute"); 
-        		socket = serverSocket.accept(); 
-        		System.out.println("Demande reçu"); 
-        		client = new ClientHandler(socket); 
-        		System.out.println("Thread pour le client crée"); 
-        		client.start();
-        		clientHandlers.add(client); 
-        		System.out.println("CLient ajouté par le serveur"); 
-        	}
-        	catch(IOException e) {
-        		e.printStackTrace();
-        	}
-        	
+    public void start() {
+        worldHandler.start();
+
+        while (true) {
+            try {
+                System.out.println("En attente de connexions...");
+                Socket socket = serverSocket.accept();
+                System.out.println("Connexion de : " + socket.getRemoteSocketAddress());
+
+                ClientHandler client = new ClientHandler(socket, clientHandlers, worldHandler);
+                clientHandlers.add(client);
+                client.start();
+
+                System.out.println("Client ajouté : " + socket.getRemoteSocketAddress());
+            } catch (IOException e) {
+                System.err.println("Erreur de connexion : " + e.getMessage());
+            }
         }
     }
-    
 }

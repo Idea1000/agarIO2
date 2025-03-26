@@ -1,4 +1,4 @@
-package fr.unicaen.iutcaen.view;
+package fr.unicaen.iutcaen.viewTest;
 
 import fr.unicaen.iutcaen.ai.IA;
 import fr.unicaen.iutcaen.ai.RandomMovementAI;

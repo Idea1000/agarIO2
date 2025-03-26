@@ -5,4 +5,6 @@ public class Config {
     public final static double MINSPEED = 1;
     public final static int SIZERATIO = 10;
     public final static double SPEEDCOEF = 100;
+    public final static int QT_NODE_CAPACITY = 4;
+    public final static int DEPTH_MAX_QT_TREE = 6;
 }
