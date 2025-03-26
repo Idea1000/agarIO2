@@ -21,26 +21,18 @@ import java.util.*;
 
 public class World {
 	
-	private static World localInstence;
-    private static World onlineInstence;
+	private static World instance;
 	
     private QuadTree quadTree;
     private Map<Player, List<Entity>> absorptions;
 
     protected List<AI> AIList;
     
-    public static World getLocalInstence() {
-    	if(localInstence == null) {
-            localInstence = new World(true);
+    public static World getInstence() {
+    	if(instance == null) {
+            instance = new World();
     	}
-    	return localInstence;
-    }
-
-    public static World getOnlineInstence() {
-        if(onlineInstence == null) {
-            onlineInstence = new World(false);
-        }
-        return onlineInstence;
+    	return instance;
     }
     
     /**
@@ -48,7 +40,7 @@ public class World {
      * The world is composed of a quadTree that has a main boundary. 
      * The main boundary's size values are created using the config file values for map's length and width values.
      */
-    private World(boolean local) {
+    private World() {
     	quadTree = new QuadTree(new Boundary(0, 0, Config.MAP_WIDTH, Config.MAP_HEIGHT), 0);
     	absorptions = new HashMap<Player, List<Entity>>(); 
     	
@@ -57,15 +49,6 @@ public class World {
             Pellet pellet = factory.randomPellet();
     		this.addEntity(pellet);
     	}
-
-        if(local == true){
-            AIList = new ArrayList<AI>();
-            FactoryAI AIfactory = new FactoryAI();
-            for(int i = 0 ; Config.MAX_LOCAL_AI_NUMBER > i ; i++){
-                AIList.add(AIfactory.fabriqueAI());
-            }
-        }
-
     }
 
     // Met à jour l'état global du monde (mouvements, collisions, etc.)

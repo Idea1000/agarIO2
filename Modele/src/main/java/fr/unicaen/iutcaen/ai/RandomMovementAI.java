@@ -1,7 +1,7 @@
 package fr.unicaen.iutcaen.ai;
 
 import fr.unicaen.iutcaen.model.Point;
-import fr.unicaen.iutcaen.Config;
+import fr.unicaen.iutcaen.config.Config;
 
 
 import java.util.Random;
