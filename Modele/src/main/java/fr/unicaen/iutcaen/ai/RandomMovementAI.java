@@ -60,7 +60,7 @@ public class RandomMovementAI implements AIBehavior {
             timeBeforeNewDirection = 5;
         }
 
-        double speed = Config.BASESPEED * 10;
+        double speed = Config.BASE_SPEED * 10;
 
         double xMath = speed * Math.cos(Math.toRadians(45));
         double yMath = speed * Math.sin(Math.toRadians(45));
