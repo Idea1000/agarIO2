@@ -40,7 +40,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+<<<<<<< HEAD
     "last_opened_file_path": "Z:/Bureau/c/SAE_Agar/agarIO2/Modele"
+=======
+    "last_opened_file_path": "Z:/S4/SAE/agar2/Modele",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+>>>>>>> archi
   }
 }]]></component>
   <component name="RecentsManager">
@@ -73,5 +80,16 @@
       <updated>1742906627117</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
