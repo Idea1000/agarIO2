@@ -3,6 +3,7 @@ package fr.unicaen.iutcaen.viewTest;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.entities.Cell;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 

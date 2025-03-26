@@ -60,5 +60,7 @@ public class Player {
     	return cells.isEmpty(); 
     }
 
+    public Point getCenter(){return cells.getCenter(); }
+
     // Getters et setters supplémentaires
 }

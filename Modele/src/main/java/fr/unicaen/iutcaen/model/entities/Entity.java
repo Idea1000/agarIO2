@@ -1,6 +1,6 @@
 package fr.unicaen.iutcaen.model.entities;
 
-import fr.unicaen.iutcaen.Config;
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Point;
 import javafx.beans.property.Property;
 import javafx.geometry.Point2D;

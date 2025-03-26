@@ -1,6 +1,6 @@
 package fr.unicaen.iutcaen.model.quadtree;
 
-import fr.unicaen.iutcaen.Config;
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.entities.Entity;

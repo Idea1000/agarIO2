@@ -1,6 +1,6 @@
 package fr.unicaen.iutcaen.model.entities;
 
-import fr.unicaen.iutcaen.Config;
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Point;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -49,6 +49,7 @@ public class Cell extends Entity{
             vecteurD.setX(vecteurD.getX() / ratio);
             vecteurD.setY(vecteurD.getY() / ratio);
         }
+
         Point newPos = position.add(vecteurD.multiply(getSpeed()/Config.SPEEDCOEF));
         position.setX(newPos.getX());
         position.setY(newPos.getY());

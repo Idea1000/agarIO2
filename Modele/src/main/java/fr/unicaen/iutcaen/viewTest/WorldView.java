@@ -1,6 +1,6 @@
 package fr.unicaen.iutcaen.viewTest;
 
-import fr.unicaen.iutcaen.Config;
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;

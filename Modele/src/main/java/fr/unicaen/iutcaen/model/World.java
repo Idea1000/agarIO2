@@ -1,15 +1,21 @@
 package fr.unicaen.iutcaen.model;
 
-import fr.unicaen.iutcaen.Config;
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.factories.FactoryPellet;
 import fr.unicaen.iutcaen.model.quadtree.QuadTree;
+import javafx.geometry.Point2D;
+
 
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import java.util.*;
+
+
 
 public class World {
 	
@@ -39,16 +45,19 @@ public class World {
             Pellet pellet = factory.randomPellet();
     		this.addEntity(pellet);
     	}
+
     }
 
     // Met à jour l'état global du monde (mouvements, collisions, etc.)
     public void update() {
         // Mise à jour du QuadTree et vérification des interactions
+        HashMap<Player, List<Entity>> up;
+
     }
     
     
     public Map<Player, List<Entity>> getAbsorptions() {
-        return absorptions; 
+        return absorptions;
     }
 
     /**
@@ -71,6 +80,20 @@ public class World {
 
     public boolean removeEntity(Entity entity) {
     	return quadTree.removeEntity(entity);
+    }
+
+
+    public void addPellet(Pellet pellet) {
+        // Ajoute la pastille à la liste et au QuadTree
+        pellet.setMass(1);
+
+        Random xpos = new Random();
+        Random ypos = new Random();
+
+        Point pos = new Point(xpos.nextDouble(0, 6), ypos.nextDouble(0, 6));
+        pellet.setPosition(pos);
+
+        quadTree.insert(pellet);
     }
 
     /**
