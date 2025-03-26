@@ -16,24 +16,29 @@ public class Cell extends Entity{
 
     public Cell(int id, Point position, double mass, Color color) {
         super(id, position, mass, color);
-        unSplitTimer.setCycleCount((int) this.getMass()*5);
+        unSplitTimer.setCycleCount((int) Math.sqrt(this.getMass())*20);
         unSplitTimer.setOnFinished(actionEvent -> {
             this.unSplit = true;
-            System.out.println("ended");
         });
 
     }
 
+    private int timeAlive = 0;
     public void setUnsplit(boolean a){
         unSplit = a;
     }
 
+    private double burstSpeed = 1;
 
+    public void setBurstSpeed(double speedFactor) {
+        this.burstSpeed = speedFactor;
+    }
 
     private boolean unSplit = false;
 
     private ObservableList<Cell> neighbor = FXCollections.observableArrayList();
     private Timeline unSplitTimer = new Timeline(new KeyFrame(Duration.millis(33), actionEvent -> {
+        timeAlive++;
     }));
 
     public void setUnSplit(boolean unSplit){
@@ -87,24 +92,33 @@ public class Cell extends Entity{
     }
 
     private void movePosition(Point vecteurD) {
-        Point newPos = position.add(vecteurD.multiply(getSpeed() / Config.SPEED_COEF));
+        Point newPos = position.add(vecteurD.multiply((getSpeed()  * burstSpeed)/ Config.SPEED_COEF));
+        burstSpeed *= 0.92;
+        if (burstSpeed < 1.01){
+            burstSpeed = 1;
+        }
 
         position.setX(newPos.getX());
         position.setY(newPos.getY());
     }
 
     private void handleCollisionsWithNeighbors() {
-        for (int i = 0; i < neighbor.size(); i++) {
-            Cell cell = neighbor.get(i);
-            if (cell.unSplit && cell != this) {
-                if (this.isInside(cell)){
-                    reCompose(cell);
-                }
-            }else {
-                if (cell != this && colide(cell)) {
-                    resolveCollision(cell);
+        if (timeAlive > getSize() * 2 / (Config.BURST_SPEED) + 5){
+
+            for (int i = 0; i < neighbor.size(); i++) {
+                Cell cell = neighbor.get(i);
+                if (cell.unSplit && cell != this) {
+                    if (this.isInside(cell)){
+                        reCompose(cell);
+                    }
+                }else {
+                    if (cell != this && colide(cell)) {
+                        resolveCollision(cell);
+                    }
                 }
             }
+        }else{
+            System.out.println("");
         }
     }
 
@@ -175,11 +189,17 @@ public class Cell extends Entity{
     }
 
     public Cell split(){
+        if (neighbor.size() <= 1){
+            timeAlive = 0;
+            this.unSplit = false;
+            this.unSplit();
+        }
         System.out.println("here");
         if (this.getMass() > 50){
             this.setMass(this.getMass()/2);
             Cell newCell = new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX(), position.getY()), this.getMass(), this.getColor());
             newCell.unSplit();
+            newCell.setBurstSpeed(Config.BURST_SPEED);
             return newCell;
         }
         return null;
