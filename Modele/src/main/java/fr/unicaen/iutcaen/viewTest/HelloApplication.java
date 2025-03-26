@@ -3,6 +3,7 @@ package fr.unicaen.iutcaen.viewTest;
 
 
 import fr.unicaen.iutcaen.ai.RandomMovementAI;
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.entities.Entity;
@@ -27,6 +28,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -35,6 +37,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 
 import java.io.IOException;
@@ -46,10 +49,7 @@ import java.util.List;
 
 
 public class HelloApplication extends Application {
-    public static final int WORLD_WIDTH = 10000;
-    public static final int WORLD_HEIGHT = 10000;
-    public static final int SCREEN_WIDTH = 1500;
-    public static final int SCREEN_HEIGHT = 900;
+
 
     private double mX, mY;
     private List<Entity> entities;
@@ -63,19 +63,20 @@ public class HelloApplication extends Application {
         gameRoot = new Group();
 
         Pane worldPane = new Pane();
-        worldPane.setMinSize(WORLD_WIDTH, WORLD_HEIGHT);
+        worldPane.setMinSize(Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
         gameRoot.getChildren().add(worldPane);
 
-        Scene scene = new Scene(gameRoot, SCREEN_WIDTH, SCREEN_HEIGHT);
+        Scene scene = new Scene(gameRoot, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
         setupGame(worldPane);
 
         stage.setTitle("Agar.io Clone");
         stage.setScene(scene);
         stage.show();
+        worldPane.requestFocus();
     }
 
-
+    private boolean space = false;
     private void setupGame(Pane worldPane) {
         worldPane.setOnMouseMoved(mouseEvent -> {
             mX = mouseEvent.getX();
@@ -83,31 +84,46 @@ public class HelloApplication extends Application {
             vector = new Point(mX - p.getCenter().getX(), mY - p.getCenter().getY());
         });
 
+        worldPane.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE){
+                if (!space){
+                    System.out.println("space");
+                    p.split();
+                    space = true;
+                }
+            }
+        });
+        worldPane.setOnKeyReleased(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.SPACE){
+                space = false;
+            }
+        });
 
-        QuadTree quadTree = new QuadTree(new Boundary(0, 0, WORLD_WIDTH, WORLD_HEIGHT), 0);
+
+        QuadTree quadTree = new QuadTree(new Boundary(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT), 0);
         FactoryPellet factoryPellet = new FactoryPellet();
-        quadTree.insert(factoryPellet.fabrique(new Point(WORLD_WIDTH / 2.0, WORLD_HEIGHT / 2.0), 2, Color.BLACK));
+        quadTree.insert(factoryPellet.fabrique(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 2, Color.BLACK));
 
-        p = new Player(new Point(WORLD_WIDTH / 2.0, WORLD_HEIGHT / 2.0), 100, Color.RED);
+        p = new Player(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 100, Color.RED);
         PlayerView pv = new PlayerView(p, worldPane);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
-            entities = quadTree.query(new Boundary(p.getPosition().getX() - SCREEN_WIDTH / 2.0, p.getPosition().getY() - SCREEN_HEIGHT / 2.0, SCREEN_WIDTH, SCREEN_HEIGHT));
+            entities = quadTree.query(new Boundary(p.getPosition().getX() - Config.SCREEN_WIDTH / 2.0, p.getPosition().getY() - Config.SCREEN_HEIGHT / 2.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
 
             for (Entity entity : entities) {
                 if (entity instanceof Pellet) new PelletView((Pellet) entity, worldPane);
             }
 
             if (vector != null)
-                moveWithvector(p,vector);
+                p.moveWithvector(vector);
 
             Point newPos = p.getPosition();
 
             worldPane.setBackground(new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));
 
             // Move the entire game world (simulating a camera)
-            gameRoot.setTranslateX(SCREEN_WIDTH / 2.0 - newPos.getX());
-            gameRoot.setTranslateY(SCREEN_HEIGHT / 2.0 - newPos.getY());
+            gameRoot.setTranslateX(Config.SCREEN_WIDTH / 2.0 - newPos.getX());
+            gameRoot.setTranslateY(Config.SCREEN_HEIGHT / 2.0 - newPos.getY());
         }));
 
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -118,7 +134,5 @@ public class HelloApplication extends Application {
         launch();
     }
 
-    public static void moveWithvector(Player p, Point vector){
-        p.movePlayer(new Point(p.getCenter().getX() + vector.getX(), p.getCenter().getY() + vector.getY()));
-    }
+
 }

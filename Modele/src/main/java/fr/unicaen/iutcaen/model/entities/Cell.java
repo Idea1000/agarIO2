@@ -7,7 +7,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -54,7 +53,7 @@ public class Cell extends Entity{
     }
 
     public double getSpeed(){
-        return Config.MINSPEED + (Config.BASESPEED / Math.sqrt(this.getMass()));
+        return Config.MIN_SPEED + (Config.BASE_SPEED / Math.sqrt(this.getMass()));
     }
     public boolean canEat(Cell cell){
         return this.getMass() >= (cell.getMass() * 1.33);
@@ -88,7 +87,7 @@ public class Cell extends Entity{
     }
 
     private void movePosition(Point vecteurD) {
-        Point newPos = position.add(vecteurD.multiply(getSpeed() / Config.SPEEDCOEF));
+        Point newPos = position.add(vecteurD.multiply(getSpeed() / Config.SPEED_COEF));
 
         position.setX(newPos.getX());
         position.setY(newPos.getY());
@@ -96,7 +95,6 @@ public class Cell extends Entity{
 
     private void handleCollisionsWithNeighbors() {
         for (int i = 0; i < neighbor.size(); i++) {
-            System.out.printf("%s : %s%n", this.toString(), neighbor);
             Cell cell = neighbor.get(i);
             if (cell.unSplit && cell != this) {
                 if (this.isInside(cell)){
@@ -177,6 +175,7 @@ public class Cell extends Entity{
     }
 
     public Cell split(){
+        System.out.println("here");
         if (this.getMass() > 50){
             this.setMass(this.getMass()/2);
             Cell newCell = new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX(), position.getY()), this.getMass(), this.getColor());
@@ -188,6 +187,11 @@ public class Cell extends Entity{
 
     public String toString() {
         return String.format("ID : %d, unsplit : %b", id, unSplit);
+    }
+
+    @Override
+    public double getSize(){
+        return Config.SIZE_RATIO_CELL *Math.sqrt(this.getMass());
     }
 
 }

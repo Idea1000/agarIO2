@@ -62,5 +62,9 @@ public class Player {
 
     public Point getCenter(){return cells.getCenter(); }
 
+    public void moveWithvector(Point vector){
+        this.movePlayer(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
+    }
+
     // Getters et setters supplémentaires
 }
