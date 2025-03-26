@@ -46,4 +46,8 @@ public class Point {
     public Point multiply(Double d){
         return new Point(this.getX()*d, this.getY()*d);
     }
+
+    public double length() {
+        return Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2));
+    }
 }

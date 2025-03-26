@@ -38,7 +38,7 @@ public abstract class Entity {
         this.color = color;
     }
 
-    public int getSize(){
-        return (int)(Config.SIZERATIO*Math.sqrt(mass));
+    public double getSize(){
+        return Config.SIZERATIO*Math.sqrt(this.getMass());
     }
 }
