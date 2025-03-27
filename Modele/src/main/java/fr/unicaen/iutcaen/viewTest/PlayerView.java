@@ -88,6 +88,6 @@ public class PlayerView extends AbstractView{
 
     @Override
     public void delete(Pane root) {
-
+        root.getChildren().remove(this);
     }
 }

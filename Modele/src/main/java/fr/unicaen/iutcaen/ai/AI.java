@@ -1,12 +1,16 @@
 package fr.unicaen.iutcaen.ai;
 
 import fr.unicaen.iutcaen.model.Point;
+import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.CellPack;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Define an AI logic
@@ -27,7 +31,7 @@ public class AI {
     /**
      * List of entities in range
      */
-    protected ArrayList<Entity> entitiesInRange;
+    protected List<Entity> entitiesInRange;
 
     /**
      * The current target
@@ -35,6 +39,7 @@ public class AI {
     private Entity target = null;
 
     public AI(Point position, double mass, Color color) {
+
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
     }
 
@@ -103,6 +108,30 @@ public class AI {
         return null;
     }
 
+    //ajout de l'absorption
+    public boolean absorb(Entity entity) {
+        World world = World.getInstence();
+
+            boolean absorbed = cells.absorbEntity(entity);
+            if(absorbed) {
+                world.removeEntity(entity);
+                return true;
+            }
+        return false;
+    }
+
+
+    public boolean absorbPlayer(Entity entity) {
+        if (entity instanceof Cell) {
+            Cell cell = (Cell) entity;
+            for (Cell mycell : cells.getAllCells()) {
+                if (mycell.absorbEntity(cell)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     /**
      * Get what is the current target of the AI
      * @return the target
@@ -131,7 +160,7 @@ public class AI {
      * Set what are the new entities in range
      * @param entities
      */
-    public void setEntitiesInRange(ArrayList<Entity> entities) {
+    public void setEntitiesInRange(List<Entity> entities) {
         entitiesInRange = entities;
     }
 
@@ -153,5 +182,11 @@ public class AI {
         double dx = Math.abs(target.getX() - pos.getX());
         double dy = Math.abs(target.getY() - pos.getY());
         return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public void eraseCell(){
+        cells.getAllCells().removeAll();
+        cells.deleteAllCells();
+
     }
 }

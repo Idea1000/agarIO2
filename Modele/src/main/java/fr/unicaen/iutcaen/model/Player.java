@@ -44,6 +44,19 @@ public class Player {
         return false;
     }
 
+    public void eraseCell(){
+        cells.getAllCells().removeAll();
+        cells.deleteAllCells();
+
+    }
+
+    public boolean isDead(){
+        if (getCells().getAllCells().isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
     // Division cellulaire du joueur
     public void split() {
         cells.splitCells();
@@ -57,9 +70,7 @@ public class Player {
         return cells.getPosition();
     }
     
-    public boolean isDead() {
-    	return cells.isEmpty(); 
-    }
+
 
     public Point getCenter(){return cells.getCenter(); }
 
