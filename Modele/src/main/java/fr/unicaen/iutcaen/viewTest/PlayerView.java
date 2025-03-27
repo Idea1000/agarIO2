@@ -54,12 +54,11 @@ public class PlayerView extends AbstractView{
         c.setStrokeType(StrokeType.INSIDE);
         c.setStroke(cell.getColor().darker());
 
-        c.setStrokeWidth(cell.getSize() / 10);
+        c.setStrokeWidth(3);
 
         cell.getMassProperty().addListener((observableValue, number, t1) -> {
             cell.setMass(t1.doubleValue());
             c.setRadius(cell.getSize());
-            c.setStrokeWidth(cell.getSize() / 10);
 
         });
 

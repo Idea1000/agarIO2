@@ -61,23 +61,24 @@ public class HelloApplication extends Application {
 
     public void start(Stage stage) {
         gameRoot = new Group();
-
+        Pane mapPane = new Pane();
         Pane worldPane = new Pane();
         worldPane.setMinSize(Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
         gameRoot.getChildren().add(worldPane);
+        mapPane.getChildren().add(gameRoot);
+        Scene scene = new Scene(mapPane, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
-        Scene scene = new Scene(gameRoot, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-
-        setupGame(worldPane);
+        setupGame(worldPane, mapPane, stage);
 
         stage.setTitle("Agar.io Clone");
         stage.setScene(scene);
         stage.show();
+        System.out.println(stage.getWidth());
         worldPane.requestFocus();
     }
 
     private boolean space = false;
-    private void setupGame(Pane worldPane) {
+    private void setupGame(Pane worldPane, Pane miniMapPane, Stage stage) {
         worldPane.setOnMouseMoved(mouseEvent -> {
             mX = mouseEvent.getX();
             mY = mouseEvent.getY();
@@ -134,6 +135,7 @@ public class HelloApplication extends Application {
                 }
             }
 
+
             if (vector != null)
                 p.moveWithvector(vector);
 
@@ -155,6 +157,7 @@ public class HelloApplication extends Application {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+        MiniMap map = new MiniMap(world, miniMapPane, gameRoot, p, stage);
     }
 
     public static void main(String[] args) {

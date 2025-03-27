@@ -24,6 +24,8 @@ public class World {
 	private static World instance;
 	
     private QuadTree quadTree;
+
+
     private Map<Player, List<Entity>> absorptions;
 
     protected List<AI> AIList;
@@ -134,5 +136,6 @@ public class World {
     public boolean containsPlayer(Player player) {
         return absorptions.containsKey(player);
     }
+
 
 }

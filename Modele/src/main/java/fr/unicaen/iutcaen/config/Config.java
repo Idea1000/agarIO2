@@ -25,4 +25,6 @@ public class Config {
 
     public final static int MAX_LOCAL_AI_NUMBER = 30;
 
+    public final static double MAP_SIZE = 200;
+
 }
