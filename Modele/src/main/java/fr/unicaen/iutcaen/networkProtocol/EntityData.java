@@ -33,7 +33,8 @@ public class EntityData extends ProtocolData{
     	colorR = entity.getColor().getRed(); 
     	colorB = entity.getColor().getBlue();
     	colorG = entity.getColor().getGreen(); 
-    	type = entity.getClass().getName();
+    	
+    	type = entity.getClass().getSimpleName();  
     	
     	if(entity instanceof CellPack) {
     		cellsData = new ArrayList<EntityData>(); 

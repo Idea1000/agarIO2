@@ -127,6 +127,10 @@ public class World {
 	public List<Entity> getEntitiesAround(Boundary boundary){
 		return quadTree.query(boundary);
 	}
+	
+	public void updateEntitesAround(Boundary boundary, List<Entity> entities) {
+		quadTree.updateEntitiesAround(boundary, entities);
+	}
 
     public boolean containsEntity(Entity entity) {
         return quadTree.contains(entity);
@@ -145,6 +149,14 @@ public class World {
     			return false; 
     	}
     	return true; 
+    }
+    
+    public Player getPlayer(int playerID) {
+    	for(Player player : absorptions.keySet()) {
+    		if(player.getId() == playerID)
+    			return player; 
+    	}
+    	return null;
     }
 
 }

@@ -48,4 +48,17 @@ public abstract class Entity {
     public void setId(int id) {
     	this.id = id; 
     }
+    
+    @Override
+    public boolean equals(Object object) {
+    	if(this == object)
+    		return true; 
+    	
+    	if(object instanceof Entity) {
+    		Entity entity = (Entity) object; 
+    		return this.id == entity.id; 
+    	}
+    	
+    	return false; 
+    }
 }
