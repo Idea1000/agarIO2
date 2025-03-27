@@ -27,6 +27,8 @@ public class World {
 	private static World instance;
 	
     private QuadTree quadTree;
+
+
     private Map<Player, List<Entity>> absorptions;
 
     protected List<AI> AIList;
@@ -168,5 +170,6 @@ public class World {
     	}
     	return null;
     }
+
 
 }
