@@ -17,8 +17,7 @@ public class Config {
     public static final int WORLD_HEIGHT = 10000;
     public static final int SCREEN_WIDTH = 1500;
     public static final int SCREEN_HEIGHT = 900;
-
-
+    public static final double PLAYER_INITIAL_SIZE = 100;  
     public final static int MAX_LOCAL_AI_NUMBER = 30;
 
 }

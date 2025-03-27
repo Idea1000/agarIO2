@@ -2,6 +2,7 @@ package fr.unicaen.iutcaen.model;
 
 import fr.unicaen.iutcaen.ai.AI;
 import fr.unicaen.iutcaen.config.Config;
+import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.factories.FactoryAI;
@@ -19,7 +20,7 @@ import java.util.*;
 
 
 
-public class World implements Serializable {
+public class World {
 	
 	private static World instance;
 	
@@ -40,7 +41,7 @@ public class World implements Serializable {
      * The world is composed of a quadTree that has a main boundary. 
      * The main boundary's size values are created using the config file values for map's length and width values.
      */
-    private World() {
+    public World() {
     	quadTree = new QuadTree(new Boundary(0, 0, Config.MAP_WIDTH, Config.MAP_HEIGHT), 0);
     	absorptions = new HashMap<Player, List<Entity>>(); 
     	
@@ -133,6 +134,17 @@ public class World implements Serializable {
 
     public boolean containsPlayer(Player player) {
         return absorptions.containsKey(player);
+    }
+    
+    public boolean removePlayer(Player player) {
+    	boolean result = true; 
+    	absorptions.remove(player); 
+    	for(Cell cell : player.getCells().getAllCells()) {
+    		result = quadTree.removeEntity(cell);
+    		if(result == false)
+    			return false; 
+    	}
+    	return true; 
     }
 
 }

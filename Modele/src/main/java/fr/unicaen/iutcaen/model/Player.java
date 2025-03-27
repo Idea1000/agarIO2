@@ -5,6 +5,7 @@ import fr.unicaen.iutcaen.model.entities.CellPack;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
+import fr.unicaen.iutcaen.model.factories.IdDistributor;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -13,9 +14,11 @@ import javafx.scene.paint.Color;
 public class Player {
 
     private CellPack cells;
+    private int id; 
 
     public Player(Point position, double mass, Color color) {
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
+        id = IdDistributor.getInstance().getNextId(); 
     }
 
     /**
@@ -67,4 +70,24 @@ public class Player {
     }
 
     // Getters et setters supplémentaires
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public int getId() {
+    	return id; 
+    }
+    
+    public void setId(int id) {
+    	this.id = id; 
+    }
+    
+    public void setCellPack(CellPack cellPack) {
+    	this.cells = cellPack; 
+    }
 }

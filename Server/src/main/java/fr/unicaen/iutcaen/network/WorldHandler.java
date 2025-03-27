@@ -2,13 +2,14 @@ package fr.unicaen.iutcaen.network;
 
 import java.util.List;
 
+import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.World;
 import fr.unicaen.iutcaen.networkProtocol.Message;
 
 public class WorldHandler extends Thread{
 	
 	
-	private World world; 
+	private volatile World world; 
 	private List<ClientHandler> clientHandlers; 
 	
 	public WorldHandler(List<ClientHandler> clientHandlers) {
@@ -28,6 +29,20 @@ public class WorldHandler extends Thread{
 			
 		}
 	}
+	
+	
+	public synchronized boolean addPlayer(Player player) {
+		return this.world.addPlayer(player); 
+	}
+	
+	public synchronized boolean removePlayer(Player player) {
+		return this.world.removePlayer(player); 
+	}
+	
+	public World getWorld() {
+		return world; 
+	}
+	
 	
 	
 	

@@ -3,7 +3,9 @@ package fr.unicaen.iutcaen.network;
 import java.net.Socket;
 import java.util.List;
 
+import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.model.factories.FactoryPlayer;
 import fr.unicaen.iutcaen.model.factories.IdDistributor;
 import fr.unicaen.iutcaen.networkProtocol.Message;
 import fr.unicaen.iutcaen.networkProtocol.TextData;
@@ -25,6 +27,7 @@ public class ClientHandler extends Thread {
     private final WorldHandler worldHandler;
 
     private volatile boolean ready = false;
+    private Player player; 
 
     public ClientHandler(Socket socket, List<ClientHandler> clientHandlers, WorldHandler worldHandler) throws IOException {
         this.socket = socket;
@@ -44,30 +47,54 @@ public class ClientHandler extends Thread {
     public void run() {
         try {
         	
-        	TextData textData = new TextData("client_id", Integer.toString(IdDistributor.getInstance().getNextId())); 
+        	//Creating an instance for the player 
+        	player = FactoryPlayer.fabriquePlayer(); 
+        	
+        	//Sending the id ID to the client 
+        	TextData textData = new TextData("client_id", Integer.toString(player.getId())); 
         	out.writeObject(textData);
         	out.flush();
         	
         	boolean result = getResult(); 
+        	//Sending the id ID to the client
         	
+        	//If the ID was sent successfully
         	if(result) {
+        		
         		System.out.println("Client "+socket.getRemoteSocketAddress() +" : ID envoyé avec succès"); 
         		
-            	WorldData worldData = new WorldData(World.getInstence());
+        		//Sending the world information
+            	WorldData worldData = new WorldData(worldHandler.getWorld());
             	out.writeObject(worldData);
             	out.flush();
+            	//Sending the world information
             	
-            	result = getResult(); 
+            	result = getResult();
             	
+            	//If the world was sent successfully
             	if(result) {
+            		
             		System.out.println("Client "+socket.getRemoteSocketAddress() +" : Monde envoyé avec succès"); 
+            		worldHandler.addPlayer(player); //Adding the player instance to the world
+            		ready = true; 
+            		
                     while (!socket.isClosed()) {
                         Object obj = in.readObject();
                         if (obj instanceof Message message) {
                             processReceivedMessage(message);
                         }
                     }
+                    
+            	}//If the world was sent successfully
+            	
+            	else {
+            		System.err.println("impossible d'envoyer les informations de la partie au client : " + socket.getRemoteSocketAddress());
             	}
+            	
+        	}//If the ID was sent successfully
+        	
+        	else {
+        		System.err.println("impossible d'envoyer l'ID au client : " + socket.getRemoteSocketAddress());
         	}
         	
         } catch (Exception e) {

@@ -57,7 +57,7 @@ public class Client extends Thread{
 			Object object = in.readObject();
 			if(object instanceof WorldData) {
 				WorldData worldData = (WorldData)object; 
-				this.world = worldData.getWorld(); 
+				this.world = worldData.convertIntoWorld(); 
 				return true; 
 			}
 		} catch (ClassNotFoundException | IOException e) {

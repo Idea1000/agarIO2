@@ -44,4 +44,8 @@ public abstract class Entity {
     public double getSize(){
         return Config.SIZE_RATIO *Math.sqrt(this.getMass());
     }
+    
+    public void setId(int id) {
+    	this.id = id; 
+    }
 }
