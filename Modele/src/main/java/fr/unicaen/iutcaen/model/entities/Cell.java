@@ -194,7 +194,6 @@ public class Cell extends Entity{
             this.unSplit = false;
             this.unSplit();
         }
-        System.out.println("here");
         if (this.getMass() > 50){
             this.setMass(this.getMass()/2);
             Cell newCell = new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX(), position.getY()), this.getMass(), this.getColor());

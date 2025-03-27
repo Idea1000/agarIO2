@@ -13,7 +13,7 @@ import java.util.List;
 
 public class  QuadTree {
     private Boundary boundary;
-    private List<Entity> entities;
+    private  List<Entity> entities;
 
     private int depth;
 
@@ -184,11 +184,12 @@ public class  QuadTree {
     		for(Entity updatedEntity : updatedList) {
     			
     			if(boundary.contains(updatedEntity)) {
-    			
-        			for(Entity entity : entities) {
-        				
+    			    int size = entities.size();
+        			for(int i = 0 ; size > i ; i++) {
+                        Entity entity = entities.get(i);
         				if(entity.equals(updatedEntity)) {
-        					entities.remove(entity); 
+        					entities.remove(entity);
+                            size--;
         				}
         				
         			}

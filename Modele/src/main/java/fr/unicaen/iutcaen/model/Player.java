@@ -84,7 +84,6 @@ public class Player {
         for (Cell cell : cells.getAllCells()) {
 
             if (cell.getSize() > virus.getSize()) {
-                System.out.println(cell.getSize() + "   " + virus.getSize());
                 double distance = Math.sqrt(Math.pow(cell.getPosition().getX() - virus.getPosition().getX(), 2) + Math.pow(cell.getPosition().getY() - virus.getPosition().getY(), 2));
                 return distance < (cell.getSize() + virus.getSize());
             }

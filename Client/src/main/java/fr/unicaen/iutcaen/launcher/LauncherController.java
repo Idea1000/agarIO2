@@ -27,11 +27,12 @@ public class LauncherController {
     private void onLocal(ActionEvent event) {
         Player p = new Player(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 100, Color.RED);
         World world = World.getInstence(); 
-    	Game.startGame(world, p, true);
+    	Game.startGame(null, world, p, true);
     }
 
     @FXML
     private void onOnLine(ActionEvent event) {
-    	Client client = new Client(); 
+    	Client client = new Client();
+        client.launche();
     }
 }

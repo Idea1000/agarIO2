@@ -8,6 +8,7 @@ import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.*;
 import fr.unicaen.iutcaen.model.entities.*;
 import fr.unicaen.iutcaen.model.factories.FactoryAI;
+import fr.unicaen.iutcaen.network.Client;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -66,15 +67,18 @@ public class Game extends Application {
     private World world; 
     
     private static Stage currentStage;
+
+    private static Client client;
     
-    public Game(World world, Player player, boolean local) {
+    public Game(Client client, World world, Player player, boolean local) {
     	this.local = local; 
     	this.world = world; 
-    	p = player; 
+    	p = player;
+        this.client = client;
 	}
     
-    public static void startGame(World world, Player player, boolean local) {
-        Game game = new Game(world, player, local);
+    public static void startGame(Client client, World world, Player player, boolean local) {
+        Game game = new Game(client, world, player, local);
         Stage stage = new Stage();
         try {
             game.start(stage);
@@ -101,6 +105,11 @@ public class Game extends Application {
         Scene scene = new Scene(mapPane, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
         currentStage = stage;
         setupGame(worldPane, mapPane, stage);
+
+        stage.onCloseRequestProperty().addListener(evt -> {
+                client.cleanup();
+                System.exit(0);
+        });
 
         stage.setTitle("Agar.io Clone");
         stage.setScene(scene);
@@ -135,7 +144,17 @@ public class Game extends Application {
         FactoryPellet factoryPellet = new FactoryPellet();
         quadTree.insert(factoryPellet.fabrique(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 2, Color.BLACK));*/
 
+        if(local == false){
+            worldPane.widthProperty().addListener((obs, _old, _new)->{
+                double height = worldPane.heightProperty().getValue();
+                client.sendWindowSize((double) _new, height);
+            });
 
+            worldPane.heightProperty().addListener((obs, _old, _new)->{
+                double width = worldPane.widthProperty().getValue();
+                client.sendWindowSize(width, (double) _new);
+            });
+        }
 
 
         //creation joueur
@@ -222,7 +241,9 @@ public class Game extends Application {
             //player absorb entities
             for (Entity entity : entities) {
                 if (p.absorb(entity)) {
-
+                    if(local == false){
+                        client.sendAbsorbedEntityUpdate(entity);
+                    }
                     worldPane.getChildren().remove(entity);
                     if (linkModelView.get(entity) != null)
                         linkModelView.get(entity).delete(worldPane);
