@@ -1,11 +1,22 @@
 package fr.unicaen.iutcaen.ai;
 
-import fr.unicaen.iutcaen.model.Player;
-import fr.unicaen.iutcaen.model.World;
-import javafx.geometry.Point2D;
-
+/**
+ * Define an AI behavior
+ * @author courtoi223, Idea1000
+ */
 public interface AIBehavior {
-    // Calcule la direction ou le mouvement à adopter par l'IA pour un joueur donné dans le monde
-    Point2D computeDirection(Player player, World world);
+
+    /**
+     * Move the AI
+     * @param AI
+     */
+    void move(AI AI);
+
+    /**
+     * Update the AI target
+     * @param AI
+     */
+    void update(AI AI);
+
 }
 

@@ -1,8 +1,10 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.ai.AI;
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.factories.FactoryAI;
 import fr.unicaen.iutcaen.model.factories.FactoryPellet;
 import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 import javafx.geometry.Point2D;
@@ -19,16 +21,18 @@ import java.util.*;
 
 public class World {
 	
-	private static World instence; 
+	private static World instance;
 	
     private QuadTree quadTree;
-    private Map<Player, List<Entity>> absorptions; 
+    private Map<Player, List<Entity>> absorptions;
+
+    protected List<AI> AIList;
     
     public static World getInstence() {
-    	if(instence == null) {
-    		instence = new World(); 
+    	if(instance == null) {
+            instance = new World();
     	}
-    	return instence; 
+    	return instance;
     }
     
     /**
@@ -45,7 +49,6 @@ public class World {
             Pellet pellet = factory.randomPellet();
     		this.addEntity(pellet);
     	}
-
     }
 
     // Met à jour l'état global du monde (mouvements, collisions, etc.)

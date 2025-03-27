@@ -21,4 +21,6 @@ public class Config {
     public static final int SCREEN_HEIGHT = 900;
 
 
+    public final static int MAX_LOCAL_AI_NUMBER = 30;
+
 }
