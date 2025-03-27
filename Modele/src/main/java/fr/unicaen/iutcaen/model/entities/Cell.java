@@ -17,7 +17,7 @@ public class Cell extends Entity{
 
     public Cell(int id, Point position, double mass, Color color) {
         super(id, position, mass, color);
-        unSplitTimer.setCycleCount((int) mass*5);
+        unSplitTimer.setCycleCount((int) mass/3 + 150);
         unSplitTimer.setOnFinished(actionEvent -> {
             this.unSplit = true;
         });
