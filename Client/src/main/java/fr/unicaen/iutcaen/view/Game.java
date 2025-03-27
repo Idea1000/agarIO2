@@ -7,6 +7,7 @@ import fr.unicaen.iutcaen.ai.RandomMovementAI;
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.*;
 import fr.unicaen.iutcaen.model.entities.*;
+import fr.unicaen.iutcaen.model.factories.FactoryAI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -47,6 +48,8 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import java.util.List;
+
+
 
 
 public class Game extends Application {
@@ -145,11 +148,9 @@ public class Game extends Application {
         HashMap<AI, AbstractView> linkModelViewAI = new HashMap<>();
         List<AI> listOfAI = new ArrayList<>();
         if (local) {
-
-            //creation des IA
-            for (int i = 0; i < 2; i++) {
-                AI ai = new AI(new Point(Config.WORLD_WIDTH / 2.0 + i * 5, Config.WORLD_HEIGHT / 2.0 + i * 5), 95, Color.BLUE);
-                //ai.setEntitiesInRange();
+            FactoryAI factory = new FactoryAI();
+            for (int i = 0; i < Config.AI_NUM; i++) {
+                AI ai = factory.fabriqueAI();
                 ai.setBehavior(new RandomMovementAI());
                 IaView iv = new IaView(ai, worldPane);
                 linkModelViewAI.put(ai, iv);

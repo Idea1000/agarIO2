@@ -6,7 +6,6 @@ import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class FactoryPellet extends FactoryEntity {
