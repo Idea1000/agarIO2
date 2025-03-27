@@ -124,8 +124,6 @@ public class HelloApplication extends Application {
 
             HashMap<Cell, List<Entity>> eatings = new HashMap<>();
             entities = world.getEntitiesAround(new Boundary(worldPane.getLayoutX(), worldPane.getLayoutY(), worldPane.getWidth(), worldPane.getHeight()));
-//            System.out.println(entities.size());
-//            System.out.println(p.getCells().getMass());
             for (Entity entity : entities) {
                 if (!linkModelView.containsKey(entity)) {
                     if (entity instanceof Pellet) {

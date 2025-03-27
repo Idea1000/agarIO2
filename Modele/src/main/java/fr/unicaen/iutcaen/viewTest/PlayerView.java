@@ -12,6 +12,8 @@ import javafx.scene.Node;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.StrokeType;
+
 public class PlayerView extends AbstractView{
     private Player player;
 
@@ -39,7 +41,6 @@ public class PlayerView extends AbstractView{
             }
         });
 
-        // Apply the logic to all existing cells
         for (Cell cell : cells) {
             addCellLogic(cell, root);
         }
@@ -47,14 +48,18 @@ public class PlayerView extends AbstractView{
 
     private void addCellLogic(Cell cell, Pane root) {
         Circle c = new Circle();
-        SimpleDoubleProperty p = new SimpleDoubleProperty(cell.getPosition().getX());
 
         c.centerXProperty().bind(cell.getPosition().xProperty());
         c.centerYProperty().bind(cell.getPosition().yProperty());
+        c.setStrokeType(StrokeType.INSIDE);
+        c.setStroke(cell.getColor().darker());
+
+        c.setStrokeWidth(cell.getSize() / 10);
 
         cell.getMassProperty().addListener((observableValue, number, t1) -> {
             cell.setMass(t1.doubleValue());
             c.setRadius(cell.getSize());
+            c.setStrokeWidth(cell.getSize() / 10);
 
         });
 
@@ -65,8 +70,7 @@ public class PlayerView extends AbstractView{
     }
 
     private void removeCellLogic(Cell cell, Pane root) {
-        // Assuming there is a method to find the Circle corresponding to a Cell
-        // This is just a basic assumption and may need adjustments based on your actual logic
+
         Circle circleToRemove = findCircleForCell(cell, root);
         if (circleToRemove != null) {
             root.getChildren().remove(circleToRemove);

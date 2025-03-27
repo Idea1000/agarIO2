@@ -16,7 +16,7 @@ public class CellPack extends Cell{
     public CellPack(int id, Point position, double mass, Color color) {
         super(id, position, mass, color);
         cells = new ArrayList<>();
-        Cell cell = new Cell(IdDistributor.getInstance().getNextId(), position, mass+400, Color.RED);
+        Cell cell = new Cell(IdDistributor.getInstance().getNextId(), position, mass+400, Color.color(Math.random(), Math.random(), Math.random()));
         cell.setUnsplit(true);
         allCells.add(cell);
 //        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), position, mass, Color.ALICEBLUE));
