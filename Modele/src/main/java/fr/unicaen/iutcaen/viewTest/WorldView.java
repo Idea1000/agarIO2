@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class WorldView {
+public class WorldView extends AbstractView{
 
 
 
@@ -35,4 +35,8 @@ public class WorldView {
         new PlayerView(player, root);
     }
 
+    @Override
+    public void delete(Pane root) {
+
+    }
 }

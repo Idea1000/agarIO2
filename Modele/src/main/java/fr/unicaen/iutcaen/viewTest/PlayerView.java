@@ -12,8 +12,11 @@ import javafx.scene.Node;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-public class PlayerView {
+public class PlayerView extends AbstractView{
     private Player player;
+
+
+
 
     public PlayerView(Player player, Pane root) {
         this.player = player;
@@ -50,11 +53,12 @@ public class PlayerView {
         c.centerYProperty().bind(cell.getPosition().yProperty());
 
         cell.getMassProperty().addListener((observableValue, number, t1) -> {
+            cell.setMass(t1.doubleValue());
             c.setRadius(cell.getSize());
-            System.out.println(t1);
+
         });
 
-        c.radiusProperty().bindBidirectional(new SimpleDoubleProperty(cell.getSize()));
+        c.setRadius(cell.getSize());
         c.setFill(cell.getColor());
 
         root.getChildren().add(c);
@@ -80,5 +84,10 @@ public class PlayerView {
             }
         }
         return null;
+    }
+
+    @Override
+    public void delete(Pane root) {
+
     }
 }

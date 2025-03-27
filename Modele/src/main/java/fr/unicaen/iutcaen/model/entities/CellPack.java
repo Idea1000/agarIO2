@@ -81,7 +81,7 @@ public class CellPack extends Cell{
      */
     public Cell getCellWhoHasInside(Entity entity) {
     	
-    	for(Cell cell : cells) {
+    	for(Cell cell : allCells) {
     		
     		if(cell.isInside(entity)) {
     			
@@ -101,7 +101,7 @@ public class CellPack extends Cell{
      */
     public Cell getCellWhoColides(Entity entity) {
     	
-    	for(Cell cell : cells) {
+    	for(Cell cell : allCells) {
     		
     		if(cell.colide(entity)) {
     			
@@ -124,7 +124,7 @@ public class CellPack extends Cell{
     
     @Override
     public boolean isInside(Entity e){
-        for(Cell cell : cells) {
+        for(Cell cell : allCells) {
         	if(cell.isInside(e)) return true; 
         }
         return false; 
@@ -132,7 +132,9 @@ public class CellPack extends Cell{
     
     @Override
     public Boolean absorbEntity(Entity entity) {
-    	for(Cell cell : cells) {
+
+    	for(Cell cell : allCells) {
+
     		if(cell.absorbEntity(entity)) return true;  
     	}
     	return false; 
@@ -182,5 +184,21 @@ public class CellPack extends Cell{
     }
 
 
+    @Override
+    public double getMass() {
+        double sum = 0;
+        for (Cell cell : allCells) {
+            sum += cell.getMass();
+        }
+        return sum;
+    }
 
+    @Override
+    public double getDiameter(){
+        double sum = 0;
+        for (Cell cell : cells) {
+            sum += cell.getDiameter();
+        }
+        return sum;
+    }
 }

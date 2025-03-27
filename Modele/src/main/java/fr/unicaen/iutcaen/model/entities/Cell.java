@@ -5,6 +5,7 @@ import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.factories.IdDistributor;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
@@ -16,10 +17,9 @@ public class Cell extends Entity{
 
     public Cell(int id, Point position, double mass, Color color) {
         super(id, position, mass, color);
-        unSplitTimer.setCycleCount((int) this.getMass()*5);
+        unSplitTimer.setCycleCount((int) mass*5);
         unSplitTimer.setOnFinished(actionEvent -> {
             this.unSplit = true;
-            System.out.println("ended");
         });
 
     }
@@ -142,20 +142,21 @@ public class Cell extends Entity{
 
     
     public Boolean absorbEntity(Entity entity) {
-    	Boolean absorbed = false; 
-    	
+    	Boolean absorbed = false;
+
     	if(this.isInside(entity)) {
-    		
+
 	       if(entity instanceof Pellet) {
-	    	   Pellet pellet = (Pellet) entity; 
+	    	   Pellet pellet = (Pellet) entity;
 	    	   pellet.applyEffect(this);
+
 	    	   absorbed = true; 
 	       }
-	       
+
 	    	else if (entity instanceof Cell) {
-	    		Cell cell = (Cell) entity; 
+                   Cell cell = (Cell) entity;
 	    		if(this.canEat(cell)) {
-	    			this.mass.add(cell.mass);
+	    			this.mass.set(cell.mass.getValue()+mass.getValue());
 	    			absorbed = true; 
 	    		}
 	    	}
@@ -175,7 +176,6 @@ public class Cell extends Entity{
     }
 
     public Cell split(){
-        System.out.println("here");
         if (this.getMass() > 50){
             this.setMass(this.getMass()/2);
             Cell newCell = new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX(), position.getY()), this.getMass(), this.getColor());
@@ -189,9 +189,18 @@ public class Cell extends Entity{
         return String.format("ID : %d, unsplit : %b", id, unSplit);
     }
 
-    @Override
+    public SimpleDoubleProperty getSizeProperty(){
+        return new SimpleDoubleProperty(Config.SIZE_RATIO_CELL *Math.sqrt(this.getMass()));
+    }
+
+
     public double getSize(){
         return Config.SIZE_RATIO_CELL *Math.sqrt(this.getMass());
     }
+
+    public double getDiameter(){
+        return getSize()*2;
+    }
+
 
 }

@@ -4,8 +4,7 @@ package fr.unicaen.iutcaen.viewTest;
 
 import fr.unicaen.iutcaen.ai.RandomMovementAI;
 import fr.unicaen.iutcaen.config.Config;
-import fr.unicaen.iutcaen.model.Player;
-import fr.unicaen.iutcaen.model.Point;
+import fr.unicaen.iutcaen.model.*;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import javafx.animation.KeyFrame;
@@ -14,7 +13,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
-import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.entities.Cell;
@@ -36,12 +34,14 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -106,20 +106,49 @@ public class HelloApplication extends Application {
 
         p = new Player(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 100, Color.RED);
         PlayerView pv = new PlayerView(p, worldPane);
+        World world = World.getInstence();
+        world.addPlayer(p);
 
+
+        WorldView worldView = new WorldView(p, worldPane);
+        p.getCells().getMassProperty().addListener((observableValue, number, t1) -> {
+            System.out.println("c le listener");
+                worldPane.setScaleX(100 * Math.sqrt(p.getCells().getDiameter()));
+                worldPane.setScaleY(100 * Math.sqrt(p.getCells().getDiameter()));
+            }
+        );
+
+
+        HashMap<Entity, AbstractView> linkModelView = new HashMap<>();
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
-            entities = quadTree.query(new Boundary(p.getPosition().getX() - Config.SCREEN_WIDTH / 2.0, p.getPosition().getY() - Config.SCREEN_HEIGHT / 2.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT));
 
+            HashMap<Cell, List<Entity>> eatings = new HashMap<>();
+            entities = world.getEntitiesAround(new Boundary(worldPane.getLayoutX(), worldPane.getLayoutY(), worldPane.getWidth(), worldPane.getHeight()));
+//            System.out.println(entities.size());
+//            System.out.println(p.getCells().getMass());
             for (Entity entity : entities) {
-                if (entity instanceof Pellet) new PelletView((Pellet) entity, worldPane);
+                if (!linkModelView.containsKey(entity)) {
+                    if (entity instanceof Pellet) {
+
+                        PelletView pelletView = new PelletView((Pellet) entity, worldPane);
+                        linkModelView.put(entity, pelletView);
+                    }
+                }
             }
 
             if (vector != null)
                 p.moveWithvector(vector);
 
             Point newPos = p.getPosition();
+            for (Entity entity : entities) {
+                if (p.absorb(entity)) {
 
-            worldPane.setBackground(new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));
+                    worldPane.getChildren().remove(entity);
+                    if (linkModelView.get(entity) != null)
+                        linkModelView.get(entity).delete(worldPane);
+                }
+            }
+
 
             // Move the entire game world (simulating a camera)
             gameRoot.setTranslateX(Config.SCREEN_WIDTH / 2.0 - newPos.getX());
@@ -133,6 +162,4 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-
-
 }

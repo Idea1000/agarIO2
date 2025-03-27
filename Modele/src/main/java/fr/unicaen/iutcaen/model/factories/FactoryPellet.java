@@ -30,7 +30,7 @@ public class FactoryPellet extends FactoryEntity {
     	
     	Point p = new Point(randomX, randomY); 
     	
-    	double randomMass = r.nextDouble(1);
+    	double randomMass = r.nextDouble(Config.MIN_MASS_PELLET,Config.BOUND_MASS_PELLET);
     	
     	Color color = Color.color(r.nextDouble(), r.nextDouble(), r.nextDouble());
     	

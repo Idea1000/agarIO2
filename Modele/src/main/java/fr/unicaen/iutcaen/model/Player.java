@@ -30,17 +30,18 @@ public class Player {
      * tries to absorb the entity by removing it from the world and adding it's size to the current cell size
      * @param entity
      */
-    public void absorb(Entity entity) {
-    	
-    	World world = World.getInstence(); 
+    public boolean absorb(Entity entity) {
+    	World world = World.getInstence();
     	
     	if(world.containsEntity(entity) && world.containsPlayer(this)) {
+
     		boolean absorbed = cells.absorbEntity(entity); 
     		if(absorbed) {
-    			world.removeEntity(entity); 
+    			world.removeEntity(entity);
+                return true;
     		}
     	}
-    	
+        return false;
     }
 
     // Division cellulaire du joueur

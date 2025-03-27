@@ -16,7 +16,9 @@ public class Pellet extends Entity {
      * @return true if the effect is added successfully
      */
     public void applyEffect(Cell cell) {
-    	cell.mass.add(mass);
+
+    	cell.mass.set(cell.mass.doubleValue() + mass.doubleValue());
+
     }
 
     @Override
