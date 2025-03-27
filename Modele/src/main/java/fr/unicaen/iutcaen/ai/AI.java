@@ -55,10 +55,13 @@ public class AI {
      */
     public void update() {
         AIBehavior newBehavior = manageState(); // Update the behavior depending on what is currently near the AI
-        if (newBehavior.getClass() != behavior.getClass()) {
-            setBehavior(newBehavior);
+        if (newBehavior != null) {
+            if (newBehavior.getClass() != behavior.getClass()) {
+                setBehavior(newBehavior);
+            }
+
+            behavior.update(this);
         }
-        behavior.update(this);
     }
 
     /**

@@ -187,7 +187,6 @@ public class HelloApplication extends Application {
 
             }
 
-
             if (vector != null)
                 p.moveWithvector(vector);
 

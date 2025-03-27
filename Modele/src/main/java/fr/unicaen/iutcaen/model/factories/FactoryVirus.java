@@ -1,8 +1,8 @@
 package fr.unicaen.iutcaen.model.factories;
 
+import fr.unicaen.iutcaen.ai.AI;
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Point;
-import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.entities.Virus;
 import javafx.scene.paint.Color;
@@ -13,8 +13,8 @@ public class FactoryVirus extends FactoryEntity {
 
 
     @Override
-    public Entity fabrique(Point position, double mass, Color color) {
-        return new Pellet(IdDistributor.getInstance().getNextId(), position, mass, color);
+    public Virus fabrique(Point position, double mass, Color color) {
+        return new Virus(IdDistributor.getInstance().getNextId(), position, mass, color);
     }
 
     public Virus randomVirus() {

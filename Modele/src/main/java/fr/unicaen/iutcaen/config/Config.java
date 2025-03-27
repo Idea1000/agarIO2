@@ -20,7 +20,7 @@ public class Config {
     public static final int SCREEN_WIDTH = 1500;
     public static final int SCREEN_HEIGHT = 900;
 
-
+    public static final int AI_NUM = 15;
 
     public static final double BURST_SPEED = 10;
 
