@@ -12,4 +12,5 @@ module agarIO2Modele {
     exports fr.unicaen.iutcaen.viewTest;
     exports fr.unicaen.iutcaen.model.quadtree;
     exports fr.unicaen.iutcaen.networkProtocol;
+    exports fr.unicaen.iutcaen.config;
 }

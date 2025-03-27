@@ -1,6 +1,6 @@
 package fr.unicaen.iutcaen.launcher;
 
-import fr.unicaen.iutcaen.view.HelloApplication;
+import fr.unicaen.iutcaen.view.Game;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class Launcher extends Application {
         // Affichage du menu de sélection (local ou en ligne)
         // Création d'une instance World et GameView puis démarrage du jeu
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fr/unicaen/iutcaen/launcher.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Game.class.getResource("/fr/unicaen/iutcaen/launcher.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HORIZONTAL, VERTICAL);
         primaryStage.setTitle("AgarIO 2");
         primaryStage.setScene(scene);
