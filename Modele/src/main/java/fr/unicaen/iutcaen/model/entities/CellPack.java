@@ -139,6 +139,13 @@ public class CellPack extends Cell{
     
     @Override
     public Boolean absorbEntity(Entity entity) {
+    	
+
+    	 if (entity instanceof Virus) {
+            Virus virus = (Virus) entity;
+            virus.applyEffect(this);
+            return true; 
+    	}
 
     	for(Cell cell : allCells) {
 

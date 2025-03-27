@@ -11,8 +11,8 @@ public class Virus extends Entity{
         super(id, position, Config.VIRUS_MASS, color);
     }
 
-    public void applyEffect(Player player) {
-        player.split();
+    public void applyEffect(CellPack cell) {
+        cell.splitCells();
     }
 
     @Override

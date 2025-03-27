@@ -173,6 +173,7 @@ public class Cell extends Entity{
 	    			absorbed = true; 
 	    		}
 	    	}
+	       
     	}
     	
     	return absorbed; 

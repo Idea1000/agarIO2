@@ -20,7 +20,7 @@ import javafx.application.Platform;
 
 public class Client extends Thread{
 
-    public static String SERVERIP = "10.42.17.154";
+    public static String SERVERIP = "localhost";
     public static int PORT = 8000;
     private Socket socket;
     private ObjectInputStream in;
@@ -302,7 +302,7 @@ public class Client extends Thread{
                 		System.out.println("Confirmation reçue du serveur. Début de la partie.");
                 		
                 		start(); //Starting the client thread that receive updates from the server
-                		worldHandler.start(); //Starting the thread that sends an update to the server every 33 millisecondes
+                		//worldHandler.start(); //Starting the thread that sends an update to the server every 33 millisecondes
                 		
                 	}//If we have the server confirmation
                 	

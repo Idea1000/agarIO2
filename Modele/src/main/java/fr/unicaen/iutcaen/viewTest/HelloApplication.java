@@ -208,7 +208,7 @@ public class HelloApplication extends Application {
                 if(entity instanceof Virus) {
                     Virus virus = (Virus) entity;
                     if (p.encounterVirus(virus)) {
-                        virus.applyEffect(p);
+                        virus.applyEffect(p.getCells());
                     }
                 }
             }

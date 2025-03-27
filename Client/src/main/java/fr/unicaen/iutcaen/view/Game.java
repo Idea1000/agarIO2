@@ -119,6 +119,7 @@ public class Game extends Application {
 
     private boolean space = false;
     private void setupGame(Pane worldPane, Pane miniMapPane, Stage stage) {
+    	
         worldPane.setOnMouseMoved(mouseEvent -> {
             mX = mouseEvent.getX();
             mY = mouseEvent.getY();
@@ -256,7 +257,7 @@ public class Game extends Application {
                 if(entity instanceof Virus) {
                     Virus virus = (Virus) entity;
                     if (p.encounterVirus(virus)) {
-                        virus.applyEffect(p);
+                        virus.applyEffect(p.getCells());
                     }
                 }
             }

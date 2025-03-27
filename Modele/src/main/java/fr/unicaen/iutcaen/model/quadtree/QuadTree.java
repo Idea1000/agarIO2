@@ -194,7 +194,7 @@ public class  QuadTree {
         				
         			}
         			
-  					entities.add(updatedEntity); 
+  					//entities.add(updatedEntity); 
     			}
 
     		}
