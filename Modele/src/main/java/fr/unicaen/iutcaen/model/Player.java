@@ -76,8 +76,7 @@ public class Player {
     }
 
     public boolean encounterVirus(Virus virus) {
-        System.out.println(cells.getAllCells() + "   " + virus.getSize());
-        System.out.println(cells.getCells().size());
+
         for (Cell cell : cells.getAllCells()) {
 
             if (cell.getSize() > virus.getSize()) {
@@ -90,5 +89,5 @@ public class Player {
     }
 
 
-    
+
 }
