@@ -47,7 +47,6 @@ public class PlayerView extends AbstractView{
 
     private void addCellLogic(Cell cell, Pane root) {
         Circle c = new Circle();
-        SimpleDoubleProperty p = new SimpleDoubleProperty(cell.getPosition().getX());
 
         c.centerXProperty().bind(cell.getPosition().xProperty());
         c.centerYProperty().bind(cell.getPosition().yProperty());

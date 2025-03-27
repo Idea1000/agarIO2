@@ -7,7 +7,6 @@ public class Config {
     public final static double SIZE_RATIO_PELLET = 2;
     public final static double SIZE_RATIO_CELL = 2.5;
     public final static double SPEED_COEF = 100;
-    public final static int QT_NODE_CAPACITY = 4;
     public final static int DEPTH_MAX_QT_TREE = 6;
     public final static double MAP_HEIGHT = 4000;
     public final static double MAP_WIDTH = 4000;
@@ -15,8 +14,6 @@ public class Config {
     public final static double BOUND_MASS_PELLET = 50;
     public final static double MIN_MASS_PELLET = 10;
     public final static int UPDATE = 33;
-    public static final int WORLD_WIDTH = 1000;
-    public static final int WORLD_HEIGHT = 1000;
     public static final int SCREEN_WIDTH = 1500;
     public static final int SCREEN_HEIGHT = 900;
 
