@@ -4,8 +4,10 @@ import fr.unicaen.iutcaen.ai.AI;
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.entities.Virus;
 import fr.unicaen.iutcaen.model.factories.FactoryAI;
 import fr.unicaen.iutcaen.model.factories.FactoryPellet;
+import fr.unicaen.iutcaen.model.factories.FactoryVirus;
 import fr.unicaen.iutcaen.model.quadtree.QuadTree;
 import javafx.geometry.Point2D;
 
@@ -49,6 +51,14 @@ public class World {
             Pellet pellet = factory.randomPellet();
     		this.addEntity(pellet);
     	}
+
+        //ajout des virus louison
+        FactoryVirus factoryv = new FactoryVirus();
+        for (int j = 0; Config.VIRUS_NUM > j ; j++  ){
+            Virus virus = factoryv.randomVirus();
+            this.addEntity(virus);
+        }
+
     }
 
     // Met à jour l'état global du monde (mouvements, collisions, etc.)

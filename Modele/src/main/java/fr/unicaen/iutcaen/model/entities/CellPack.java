@@ -30,14 +30,17 @@ public class CellPack extends Cell{
     }
 
     public void removeCell(Cell cell){
-        this.cells.remove(cell);
+        this.allCells.remove(cell);
     }
 
-    protected void getCells(ArrayList<Cell> cells){
-        for (Cell cell : this.cells) {
-            cell.getCell(cells);
-        }
+    public ArrayList<Cell> getCells(){
+        return cells;
     }
+
+    public void deleteAllCells(){
+        cells = null;
+    }
+
 
     /**
      *

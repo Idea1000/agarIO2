@@ -20,8 +20,13 @@ public class Config {
     public static final int SCREEN_WIDTH = 1500;
     public static final int SCREEN_HEIGHT = 900;
 
+
     public static final double BURST_SPEED = 10;
 
+
+
+    public final static int VIRUS_NUM = 70;
+    public static final int VIRUS_MASS = 400;
 
     public final static int MAX_LOCAL_AI_NUMBER = 30;
 
