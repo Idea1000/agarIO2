@@ -55,22 +55,35 @@ public class Game extends Application {
     private double mX, mY;
     private List<Entity> entities;
     private Group gameRoot;
-    private Player p;
+    private Player p; 
     private Point vector;
     
     private boolean local; 
     
-    public Game(boolean local) {
+    private World world; 
+    
+    private static Stage currentStage;
+    
+    public Game(World world, Player player, boolean local) {
     	this.local = local; 
+    	this.world = world; 
+    	p = player; 
 	}
     
-    public static void startGame(boolean local) {
-        Game game = new Game(local);
+    public static void startGame(World world, Player player, boolean local) {
+        Game game = new Game(world, player, local);
         Stage stage = new Stage();
         try {
             game.start(stage);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    public static void stopCurrentGame() {
+        if (currentStage != null) {
+            currentStage.close();
+            currentStage = null;
         }
     }
 
@@ -83,7 +96,7 @@ public class Game extends Application {
         gameRoot.getChildren().add(worldPane);
         mapPane.getChildren().add(gameRoot);
         Scene scene = new Scene(mapPane, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-
+        currentStage = stage;
         setupGame(worldPane, mapPane, stage);
 
         stage.setTitle("Agar.io Clone");
@@ -123,10 +136,8 @@ public class Game extends Application {
 
 
         //creation joueur
-
-        p = new Player(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 100, Color.RED);
         PlayerView pv = new PlayerView(p, worldPane);
-        World world = World.getInstence();
+        //World world = World.getInstence();
         world.addPlayer(p);
 
 

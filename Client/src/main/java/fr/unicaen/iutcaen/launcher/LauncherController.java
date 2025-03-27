@@ -3,6 +3,12 @@ package fr.unicaen.iutcaen.launcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import fr.unicaen.iutcaen.config.Config;
+import fr.unicaen.iutcaen.model.Player;
+import fr.unicaen.iutcaen.model.Point;
+import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.network.Client;
 import fr.unicaen.iutcaen.view.Game;
 import javafx.event.ActionEvent;
 
@@ -19,11 +25,13 @@ public class LauncherController {
 
     @FXML
     private void onLocal(ActionEvent event) {
-    	Game.startGame(true);
+        Player p = new Player(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 100, Color.RED);
+        World world = World.getInstence(); 
+    	Game.startGame(world, p, true);
     }
 
     @FXML
     private void onOnLine(ActionEvent event) {
-    	Game.startGame(false);
+    	Client client = new Client(); 
     }
 }

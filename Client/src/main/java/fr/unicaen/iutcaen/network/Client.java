@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.World;
@@ -14,6 +15,7 @@ import fr.unicaen.iutcaen.networkProtocol.PlayerData;
 import fr.unicaen.iutcaen.networkProtocol.TextData;
 import fr.unicaen.iutcaen.networkProtocol.UpdateClientData;
 import fr.unicaen.iutcaen.networkProtocol.WorldData;
+import fr.unicaen.iutcaen.view.Game;
 
 public class Client extends Thread{
 
@@ -90,7 +92,7 @@ public class Client extends Thread{
         try {
             socket.close();
             worldHandler.interrupt();
-            //TODO closing the fxml view if opened
+        	Game.stopCurrentGame();
         } catch (IOException ignored) {}
         System.out.println("Déconnexion du serveur.");
     }
@@ -281,10 +283,13 @@ public class Client extends Thread{
                 	//adding the player to the world 
                 	world.addPlayer(player);
                 	
-                	//TODO showing the fxml view + sending the window size + setting the window size in the world handler
+                	//showing the fxml view + sending the window size + setting the window size in the world handler
+                	Game.startGame(world, player, false);
+                	this.sendWindowSize(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+                	worldHandler.setWidth(Config.SCREEN_WIDTH);
+                	worldHandler.setHight(Config.SCREEN_HEIGHT);
                 	
                 	received = getResult(); 
-                	
                 	//If we have the server confirmation
                 	if(received) {
                 		System.out.println("Confirmation reçue du serveur. Début de la partie.");
@@ -296,6 +301,7 @@ public class Client extends Thread{
                 	
                 	else {
                 		System.err.println("refus du serveur. Annulation de la partie.");
+                		cleanup(); 
                 	}
                 	
                 }//If the world was received successfully
