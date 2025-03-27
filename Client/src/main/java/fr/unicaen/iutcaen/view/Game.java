@@ -163,9 +163,6 @@ public class Game extends Application {
         world.addPlayer(p);
 
 
-
-
-
         WorldView worldView = new WorldView(p, worldPane);
         p.getCells().getMassProperty().addListener((observableValue, number, t1) -> {
                 worldPane.setScaleX(100 * Math.sqrt(p.getCells().getDiameter()));
@@ -189,6 +186,7 @@ public class Game extends Application {
         }
         AtomicInteger count = new AtomicInteger();
 
+        // Game loop
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
             if (p.isDead()) {
                 worldView.delete(worldPane);
@@ -217,28 +215,12 @@ public class Game extends Application {
                 }
             }
 
-
-            if(local) {
-                //AI mouvement
-                for (AI ai : listOfAI) {
-                    ai.setEntitiesInRange(entities);
-                    ai.move();
-                    if (count.get() > 5) {
-                        ai.update();
-                        count.set(0);
-                    } else {
-                        count.set(count.addAndGet(1));
-                    }
-
-                }
-            }
-
             if (vector != null)
                 p.moveWithvector(vector);
 
             Point newPos = p.getPosition();
 
-            //player absorb entities
+            // Player absorb entities
             for (Entity entity : entities) {
                 if (p.absorb(entity)) {
                     if(local == false){
@@ -251,7 +233,7 @@ public class Game extends Application {
             }
 
 
-            //player encounter virus
+            // Player encounter virus
             for(Entity entity : entities){
                 if(entity instanceof Virus) {
                     Virus virus = (Virus) entity;
@@ -260,8 +242,11 @@ public class Game extends Application {
                     }
                 }
             }
+
+            // Local mode Only
             if (local) {
                 for (AI ai : listOfAI) {
+                    // Player eat AI
                     if (p.absorb(ai.getCells())) {
                         for (Cell cell : ai.getCells().getAllCells()) {
                             ai.eraseCell();
@@ -272,34 +257,58 @@ public class Game extends Application {
                         }
                         linkModelViewAI.get(ai).delete(worldPane);
                     }
-                }
 
-
-
-
-            for (AI ai : listOfAI) {
-                for (Cell cell : p.getCells().getAllCells()) {
-                    if (ai.absorbPlayer(cell)){
-
-                        p.eraseCell();
-                        pv.delete(worldPane);
-                        world.removeEntity(cell);
-                        p.getCells().removeCell(cell);
-                        break;
+                    for (AI targetAI : listOfAI) {
+                        if (ai.absorb(targetAI.getCells())) {
+                            System.out.println("AI eat");
+                            for (Cell cell : targetAI.getCells().getAllCells()) {
+                                targetAI.eraseCell();
+                                world.removeEntity(cell);
+                                targetAI.getCells().removeCell(cell);
+                                break;
+                            }
+                            linkModelViewAI.get(targetAI).delete(worldPane);
+                        }
                     }
                 }
 
-                for (Entity entity : entities) {
-                    if (ai.absorb(entity)) {
+                //AI mouvement
+                for (AI ai : listOfAI) {
+                    ai.setEntitiesInRange(entities);
+                    ai.move();
+                    if (count.get() > 5) {
+                        ai.update();
+                        count.set(0);
+                    } else {
+                        count.set(count.addAndGet(1));
+                    }
 
-                        worldPane.getChildren().remove(entity);
-                        if (linkModelView.get(entity) != null)
-                            linkModelView.get(entity).delete(worldPane);
+                }
+
+                for (AI ai : listOfAI) {
+                    // AI eat player
+                    for (Cell cell : p.getCells().getAllCells()) {
+                        if (ai.absorbPlayer(cell)){
+
+                            p.eraseCell();
+                            pv.delete(worldPane);
+                            world.removeEntity(cell);
+                            p.getCells().removeCell(cell);
+                            break;
+                        }
+                    }
+
+                    // AI eat Pellet
+                    for (Entity entity : entities) {
+                        if (ai.absorb(entity)) {
+
+                            worldPane.getChildren().remove(entity);
+                            if (linkModelView.get(entity) != null)
+                                linkModelView.get(entity).delete(worldPane);
+                        }
                     }
                 }
             }
-
-        }
 
             // Move the entire game world (simulating a camera)
             gameRoot.setTranslateX(Config.SCREEN_WIDTH / 2.0 - newPos.getX());
