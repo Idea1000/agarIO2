@@ -6,8 +6,7 @@ import fr.unicaen.iutcaen.ai.AI;
 import fr.unicaen.iutcaen.ai.RandomMovementAI;
 import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.*;
-import fr.unicaen.iutcaen.model.entities.Entity;
-import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.entities.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -16,7 +15,6 @@ import javafx.scene.Scene;
 
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
-import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.factories.FactoryPellet;
@@ -103,9 +101,9 @@ public class HelloApplication extends Application {
         });
 
 
-        QuadTree quadTree = new QuadTree(new Boundary(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT), 0);
+        /*QuadTree quadTree = new QuadTree(new Boundary(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT), 0);
         FactoryPellet factoryPellet = new FactoryPellet();
-        quadTree.insert(factoryPellet.fabrique(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 2, Color.BLACK));
+        quadTree.insert(factoryPellet.fabrique(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 2, Color.BLACK));*/
 
 
 
@@ -161,6 +159,12 @@ public class HelloApplication extends Application {
 //            System.out.println(p.getCells().getMass());
             for (Entity entity : entities) {
                 if (!linkModelView.containsKey(entity)) {
+
+                    if(entity instanceof Virus){
+                        VirusView virusView = new VirusView((Virus) entity,worldPane);
+                        linkModelView.put(entity,virusView);
+                    }
+
                     if (entity instanceof Pellet) {
 
                         PelletView pelletView = new PelletView((Pellet) entity, worldPane);
@@ -180,6 +184,7 @@ public class HelloApplication extends Application {
                 }else{
                     count.set(count.addAndGet(1));
                 }
+
             }
 
             if (vector != null)
@@ -194,6 +199,17 @@ public class HelloApplication extends Application {
                     worldPane.getChildren().remove(entity);
                     if (linkModelView.get(entity) != null)
                         linkModelView.get(entity).delete(worldPane);
+                }
+            }
+
+
+            //player encounter virus
+            for(Entity entity : entities){
+                if(entity instanceof Virus) {
+                    Virus virus = (Virus) entity;
+                    if (p.encounterVirus(virus)) {
+                        virus.applyEffect(p);
+                    }
                 }
             }
 

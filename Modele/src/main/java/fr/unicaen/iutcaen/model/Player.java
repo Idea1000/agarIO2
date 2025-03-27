@@ -1,9 +1,6 @@
 package fr.unicaen.iutcaen.model;
 
-import fr.unicaen.iutcaen.model.entities.Cell;
-import fr.unicaen.iutcaen.model.entities.CellPack;
-import fr.unicaen.iutcaen.model.entities.Entity;
-import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.entities.*;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
@@ -78,5 +75,20 @@ public class Player {
         this.movePlayer(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
     }
 
-    // Getters et setters supplémentaires
+    public boolean encounterVirus(Virus virus) {
+        System.out.println(cells.getAllCells() + "   " + virus.getSize());
+        System.out.println(cells.getCells().size());
+        for (Cell cell : cells.getAllCells()) {
+
+            if (cell.getSize() > virus.getSize()) {
+                System.out.println(cell.getSize() + "   " + virus.getSize());
+                double distance = Math.sqrt(Math.pow(cell.getPosition().getX() - virus.getPosition().getX(), 2) + Math.pow(cell.getPosition().getY() - virus.getPosition().getY(), 2));
+                return distance < (cell.getSize() + virus.getSize());
+            }
+        }
+        return false;
+    }
+
+
+    
 }

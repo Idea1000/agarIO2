@@ -48,6 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "last_opened_file_path": "Z:/Bureau/c/SAE_Agar/agarIO2/Server",
@@ -95,5 +96,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="cleaning code &amp; changing const names" />
     <option name="LAST_COMMIT_MESSAGE" value="cleaning code &amp; changing const names" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Modele$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1743082281918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
