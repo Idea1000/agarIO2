@@ -2,6 +2,7 @@ package fr.unicaen.iutcaen.model;
 
 import fr.unicaen.iutcaen.model.entities.*;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
+import fr.unicaen.iutcaen.model.factories.IdDistributor;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -10,9 +11,11 @@ import javafx.scene.paint.Color;
 public class Player {
 
     private CellPack cells;
+    private int id; 
 
     public Player(Point position, double mass, Color color) {
         cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
+        id = IdDistributor.getInstance().getNextId(); 
     }
 
     /**
@@ -75,6 +78,7 @@ public class Player {
         this.movePlayer(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
     }
 
+
     public boolean encounterVirus(Virus virus) {
 
         for (Cell cell : cells.getAllCells()) {
@@ -88,6 +92,18 @@ public class Player {
         return false;
     }
 
-
+    // Getters et setters supplémentaires
+    
+    public int getId() {
+    	return id; 
+    }
+    
+    public void setId(int id) {
+    	this.id = id; 
+    }
+    
+    public void setCellPack(CellPack cellPack) {
+    	this.cells = cellPack; 
+    }
 
 }

@@ -79,6 +79,7 @@ public class  QuadTree {
 
         return entitiesInRange;
     }
+    
 
     // Divise la zone en quatre sous-zones
     public void subdivide() {
@@ -167,6 +168,46 @@ public class  QuadTree {
         if (southeast.contains(entity)) return true;
 
         return false;
+    }
+    
+      
+
+    public void updateEntitiesAround(Boundary query, List<Entity> updatedList) {
+        
+    	if(depth >= Config.DEPTH_MAX_QT_TREE) {
+    		
+    		if(!boundary.intersects(query)) {
+    			return ; 
+    		}
+    		
+    		
+    		for(Entity updatedEntity : updatedList) {
+    			
+    			if(boundary.contains(updatedEntity)) {
+    			
+        			for(Entity entity : entities) {
+        				
+        				if(entity.equals(updatedEntity)) {
+        					entities.remove(entity); 
+        				}
+        				
+        			}
+        			
+  					entities.add(updatedEntity); 
+    			}
+
+    		}
+    		return ; 
+    	}
+    	
+        if (northwest == null){
+            subdivide(); 
+        }
+        
+        northwest.updateEntitiesAround(query, updatedList); 
+        southwest.updateEntitiesAround(query, updatedList); 
+        northeast.updateEntitiesAround(query, updatedList); 
+        southwest.updateEntitiesAround(query, updatedList);   
     }
 
 //    public static void main(String[] args) {

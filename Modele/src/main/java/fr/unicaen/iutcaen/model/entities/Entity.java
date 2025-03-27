@@ -44,4 +44,21 @@ public abstract class Entity {
     public double getSize(){
         return Config.SIZE_RATIO *Math.sqrt(this.getMass());
     }
+    
+    public void setId(int id) {
+    	this.id = id; 
+    }
+    
+    @Override
+    public boolean equals(Object object) {
+    	if(this == object)
+    		return true; 
+    	
+    	if(object instanceof Entity) {
+    		Entity entity = (Entity) object; 
+    		return this.id == entity.id; 
+    	}
+    	
+    	return false; 
+    }
 }

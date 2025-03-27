@@ -2,6 +2,7 @@ package fr.unicaen.iutcaen.model;
 
 import fr.unicaen.iutcaen.ai.AI;
 import fr.unicaen.iutcaen.config.Config;
+import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.entities.Virus;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -42,7 +43,7 @@ public class World {
      * The world is composed of a quadTree that has a main boundary. 
      * The main boundary's size values are created using the config file values for map's length and width values.
      */
-    private World() {
+    public World() {
     	quadTree = new QuadTree(new Boundary(0, 0, Config.MAP_WIDTH, Config.MAP_HEIGHT), 0);
     	absorptions = new HashMap<Player, List<Entity>>(); 
     	
@@ -136,6 +137,10 @@ public class World {
 	public List<Entity> getEntitiesAround(Boundary boundary){
 		return quadTree.query(boundary);
 	}
+	
+	public void updateEntitesAround(Boundary boundary, List<Entity> entities) {
+		quadTree.updateEntitiesAround(boundary, entities);
+	}
 
     public boolean containsEntity(Entity entity) {
         return quadTree.contains(entity);
@@ -143,6 +148,25 @@ public class World {
 
     public boolean containsPlayer(Player player) {
         return absorptions.containsKey(player);
+    }
+    
+    public boolean removePlayer(Player player) {
+    	boolean result = true; 
+    	absorptions.remove(player); 
+    	for(Cell cell : player.getCells().getAllCells()) {
+    		result = quadTree.removeEntity(cell);
+    		if(result == false)
+    			return false; 
+    	}
+    	return true; 
+    }
+    
+    public Player getPlayer(int playerID) {
+    	for(Player player : absorptions.keySet()) {
+    		if(player.getId() == playerID)
+    			return player; 
+    	}
+    	return null;
     }
 
 }

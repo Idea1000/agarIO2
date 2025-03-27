@@ -8,6 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CellPack extends Cell{
 
@@ -19,6 +20,7 @@ public class CellPack extends Cell{
         Cell cell = new Cell(IdDistributor.getInstance().getNextId(), position, mass+400, Color.color(Math.random(), Math.random(), Math.random()));
         cell.setUnsplit(true);
         allCells.add(cell);
+        cells.add(cell); 
 //        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), position, mass, Color.ALICEBLUE));
 //        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass - 70, Color.BLACK));
 
@@ -33,9 +35,7 @@ public class CellPack extends Cell{
         this.allCells.remove(cell);
     }
 
-    public ArrayList<Cell> getCells(){
-        return cells;
-    }
+
 
     public void deleteAllCells(){
         cells = null;
@@ -49,6 +49,10 @@ public class CellPack extends Cell{
      */
     public ObservableList<Cell> getAllCells(){
         return allCells;
+    }
+    
+    public List<Cell> getCells(){
+    	return cells; 
     }
 
 
