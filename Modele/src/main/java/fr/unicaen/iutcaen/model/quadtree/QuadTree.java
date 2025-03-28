@@ -172,43 +172,35 @@ public class  QuadTree {
     
       
 
-    public void updateEntitiesAround(Boundary query, List<Entity> updatedList) {
-        
-    	if(depth >= Config.DEPTH_MAX_QT_TREE) {
-    		
-    		if(!boundary.intersects(query)) {
-    			return ; 
-    		}
-    		
-    		
-    		for(Entity updatedEntity : updatedList) {
-    			
-    			if(boundary.contains(updatedEntity)) {
-    			    int size = entities.size();
-        			for(int i = 0 ; size > i ; i++) {
-                        Entity entity = entities.get(i);
-        				if(entity.equals(updatedEntity)) {
-        					entities.remove(entity);
-                            size--;
-        				}
-        				
-        			}
-        			
-  					//entities.add(updatedEntity); 
-    			}
+    public void updateEntitiesAround(Boundary range, List<Entity> updatedList) {
 
-    		}
-    		return ; 
-    	}
-    	
-        if (northwest == null){
-            subdivide(); 
+        if (!boundary.intersects(range)){
+            return ;
         }
-        
-        northwest.updateEntitiesAround(query, updatedList); 
-        southwest.updateEntitiesAround(query, updatedList); 
-        northeast.updateEntitiesAround(query, updatedList); 
-        southwest.updateEntitiesAround(query, updatedList);   
+
+        for (int i = 0; i < entities.size(); i++) {
+            if (range.contains(entities.get(i))){
+                entities.remove(i);
+            }
+        }
+
+        for (int i = 0; i < updatedList.size(); i++) {
+            if (boundary.contains(updatedList.get(i))){
+                entities.add(updatedList.get(i));
+            }
+        }
+
+        if (depth < Config.DEPTH_MAX_QT_TREE) {
+            if (northwest == null){
+                subdivide() ;
+            }
+
+            northwest.updateEntitiesAround(range, updatedList);
+            northeast.updateEntitiesAround(range, updatedList);
+            southwest.updateEntitiesAround(range, updatedList);
+            southeast.updateEntitiesAround(range, updatedList);
+        }
+
     }
 
 //    public static void main(String[] args) {
