@@ -296,12 +296,13 @@ public class Client extends Thread{
                 	worldHandler.setWidth(Config.SCREEN_WIDTH);
                 	worldHandler.setHight(Config.SCREEN_HEIGHT);
                 	
+                	
                 	received = getResult(); 
                 	//If we have the server confirmation
                 	if(received) {
                 		System.out.println("Confirmation reçue du serveur. Début de la partie.");
                 		
-                		start(); //Starting the client thread that receive updates from the server
+                		//start(); //Starting the client thread that receive updates from the server
                 		//worldHandler.start(); //Starting the thread that sends an update to the server every 33 millisecondes
                 		
                 	}//If we have the server confirmation

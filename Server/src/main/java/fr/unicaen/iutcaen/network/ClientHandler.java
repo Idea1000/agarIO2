@@ -85,10 +85,12 @@ public class ClientHandler extends Thread {
             		
             		System.out.println("Client "+socket.getRemoteSocketAddress() +" : Monde envoyé avec succès");
             		
+            		System.out.println("Couleur joueur : "+player.getCells().getColor()); 
             		//Getting the windowSize
             		result  = receiveWindowSize(); 
             		sendResult(result); 
             		
+            		/*
             		if(result) {
             			System.out.println("Client "+socket.getRemoteSocketAddress() +" : taille fenêtre reçu avec succès");
                 		worldHandler.addPlayer(player); //Adding the player instance to the world
@@ -106,7 +108,7 @@ public class ClientHandler extends Thread {
             		
             		else {
             			System.err.println("impossible de recevoir la taille de la fenêtre du client : " + socket.getRemoteSocketAddress()); 
-            		}
+            		}*/
                     
             	}//If the world was sent successfully
             	
