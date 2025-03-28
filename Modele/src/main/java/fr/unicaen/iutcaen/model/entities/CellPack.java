@@ -10,9 +10,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 /**
- * A cell Pack respect the composite patron
  * a cell pack is a cell that contains cells
- * those contained cells may be cellPacks
  */
 public class CellPack extends Cell{
     private ObservableList<Cell> allCells = FXCollections.observableArrayList();
@@ -68,46 +66,6 @@ public class CellPack extends Cell{
             cell.setNeighbor(allCells);
         }
     }
-    
-    /**
-     * returns the cell (and not the cell pack) that has this entity inside of it, null if none of the cells has it.  
-     * @param entity
-     * @return the cell needed or null
-     */
-    public Cell getCellWhoHasInside(Entity entity) {
-    	
-    	for(Cell cell : allCells) {
-    		
-    		if(cell.isInside(entity)) {
-    			
-    			if(cell instanceof CellPack)
-    				return ((CellPack) cell).getCellWhoHasInside(entity); 
-    			else
-    				return cell; 	
-    		}	
-    	}
-    	return null; 
-    }
-    
-    /**
-     * returns the cell (and not the cell pack) that collides with this entity, null if none of the cells colides with it.
-     * @param entity
-     * @return
-     */
-    public Cell getCellWhoCollides(Entity entity) {
-    	
-    	for(Cell cell : allCells) {
-    		
-    		if(cell.colide(entity)) {
-    			
-    			if(cell instanceof CellPack)
-    				return ((CellPack) cell).getCellWhoCollides(entity);
-    			else
-    				return cell; 
-    		}	
-    	}
-    	return null; 
-    }
 
     /**
      * checks if one cell collides with the entity
@@ -116,7 +74,7 @@ public class CellPack extends Cell{
      */
     @Override
     public boolean colide(Entity e){
-        for(Cell cell : cells) {
+        for(Cell cell : allCells) {
         	if(cell.colide(e)) return true; 
         }
         return false; 
