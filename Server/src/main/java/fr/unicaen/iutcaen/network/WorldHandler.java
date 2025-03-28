@@ -65,6 +65,7 @@ public class WorldHandler extends Thread{
 	
     public void updatePlayer(PlayerData playerData) {
 		Player player = playerData.convertToPlayer(); 
+		System.out.println("player "+player.getId()+" position : "+player.getPosition().getX() + " : "+player.getPosition().getY()); 
 		getWorld().getPlayer(player.getId()).setCellPack(player.getCells());
 	}
 

@@ -120,11 +120,15 @@ public class Game2 extends Application{
         });
         
         worldPane.widthProperty().addListener((obs, _old, _new)->{
-        	client.sendWindowSize((double)_new, (double) worldPane.getHeight()); 
+        	if(local == false) {
+            	client.sendWindowSize((double)_new, (double) worldPane.getHeight()); 
+        	}
         });
         
         worldPane.heightProperty().addListener((obs, _old, _new)->{
-        	client.sendWindowSize((double) worldPane.getWidth(), (double)_new); 
+        	if(local == false) {
+            	client.sendWindowSize((double) worldPane.getWidth(), (double)_new); 
+        	}
         });
         
         
