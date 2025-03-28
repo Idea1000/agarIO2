@@ -40,7 +40,7 @@ public class EntityData extends ProtocolData{
     		cellsData = new ArrayList<EntityData>(); 
     		
     		CellPack cellpack = (CellPack) entity; 
-    		List<Cell> cells =  cellpack.getCells(); 
+    		List<Cell> cells =  cellpack.getAllCells(); 
     		for(Cell cell : cells) {
     			cellsData.add(new EntityData(cell)); 
     		}
