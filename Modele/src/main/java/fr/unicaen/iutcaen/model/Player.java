@@ -37,7 +37,7 @@ public class Player {
 
     		boolean absorbed = cells.absorbEntity(entity); 
     		if(absorbed) {
-    			world.removeEntity(entity);
+                world.removeEntity(entity);
                 return true;
     		}
     	}

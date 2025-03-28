@@ -9,46 +9,33 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ * A cell Pack respect the composite patron
+ * a cell pack is a cell that contains cells
+ * those contained cells may be cellPacks
+ */
 public class CellPack extends Cell{
-
-    private ArrayList<Cell> cells;
     private ObservableList<Cell> allCells = FXCollections.observableArrayList();
     public CellPack(int id, Point position, double mass, Color color) {
         super(id, position, mass, color);
-        cells = new ArrayList<>();
-        Cell cell = new Cell(IdDistributor.getInstance().getNextId(), position, mass+400, Color.color(Math.random(), Math.random(), Math.random()));
+        Cell cell = new Cell(IdDistributor.getInstance().getNextId(), position, mass, Color.color(Math.random(), Math.random(), Math.random()));
         cell.setUnsplit(true);
         allCells.add(cell);
-//        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), position, mass, Color.ALICEBLUE));
-//        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass - 70, Color.BLACK));
-
-//        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass +50, Color.RED));
     }
 
-    public void addCell(Cell cell){
-        this.cells.add(cell);
-    }
 
-    public void removeCell(Cell cell){
-        this.cells.remove(cell);
-    }
-
-    protected void getCells(ArrayList<Cell> cells){
-        for (Cell cell : this.cells) {
-            cell.getCell(cells);
-        }
-    }
 
     /**
-     *
-     *
      * @return the list of all the cells without any cellpack
      */
     public ObservableList<Cell> getAllCells(){
         return allCells;
     }
 
-
+    /**
+     * moves all the cells towards the designated Point
+     * @param direction A point that defines the position desired
+     */
     public void move(Point direction){
         for (int i = 0; i < allCells.size(); i++) {
             allCells.get(i).move(direction);
@@ -57,6 +44,10 @@ public class CellPack extends Cell{
         position = getCenter();
     }
 
+    /**
+     * Splits all the cells
+     * if a cell can't be split it won't be
+     */
     public void splitCells(){
         int t = allCells.size();
         for (int i = 0; i < t; i++) {
@@ -68,6 +59,10 @@ public class CellPack extends Cell{
         }
     }
 
+    /**
+     * sets the neighbors of all the contains cells
+     * this way the cells contain a copy of the array of the cellPack
+     */
     private void setNeighbor(){
         for (Cell cell : allCells) {
             cell.setNeighbor(allCells);
@@ -95,25 +90,30 @@ public class CellPack extends Cell{
     }
     
     /**
-     * returns the cell (and not the cell pack) that colides with this entity, null if none of the cells colides with it.  
+     * returns the cell (and not the cell pack) that collides with this entity, null if none of the cells colides with it.
      * @param entity
      * @return
      */
-    public Cell getCellWhoColides(Entity entity) {
+    public Cell getCellWhoCollides(Entity entity) {
     	
     	for(Cell cell : allCells) {
     		
     		if(cell.colide(entity)) {
     			
     			if(cell instanceof CellPack)
-    				return ((CellPack) cell).getCellWhoColides(entity); 
+    				return ((CellPack) cell).getCellWhoCollides(entity);
     			else
     				return cell; 
     		}	
     	}
     	return null; 
     }
-    
+
+    /**
+     * checks if one cell collides with the entity
+     * @param e The entity that may touch the cell
+     * @return true if one cell touches the cell false otherwise
+     */
     @Override
     public boolean colide(Entity e){
         for(Cell cell : cells) {
@@ -121,7 +121,12 @@ public class CellPack extends Cell{
         }
         return false; 
     }
-    
+
+    /**
+     * checks if the entity is inside one of the cells
+     * @param e the entity we check if it's inside the cell
+     * @return true if the entity is inside false otherwise
+     */
     @Override
     public boolean isInside(Entity e){
         for(Cell cell : allCells) {
@@ -129,46 +134,36 @@ public class CellPack extends Cell{
         }
         return false; 
     }
-    
+
+    /**
+     * tries to eat an entity
+     * sends the order to every contained cell
+     * and stops when one of them succeeds
+     * @param entity the entity eaten
+     * @return true if the entity is eaten false otherwise
+     */
     @Override
     public Boolean absorbEntity(Entity entity) {
 
     	for(Cell cell : allCells) {
-
     		if(cell.absorbEntity(entity)) return true;  
     	}
     	return false; 
     }
-    
+
+    /**
+     * Checks if the cellPack is empty
+     * @return true if there is no cells in the array
+     */
     public boolean isEmpty() {
-    	return cells.size() == 0; 
+    	return allCells.isEmpty();
     }
 
-    public Cell getBiggestCell(){
-        double max = 0;
-        Cell biggest = null;
-        double size;
-        for(Cell cell : cells){
-            if(cell instanceof CellPack){
-                Cell cell2 = ((CellPack) cell).getBiggestCell();
-                size = cell2.getSize();
-                if(size > max){
-                    max = size;
-                    biggest = cell2;
-                }
-            }
-            else {
-                size = cell.getSize();
-                if(size > max){
-                    max = size;
-                    biggest = cell;
-                }
-            }
-        }
-        return biggest;
-    }
-
-
+    /**
+     * Gets a average of the center of the different cells
+     * Is mainly use to know where to put the center of the camera
+     * @return A Point that represents the center of the cellPack
+     */
     public Point getCenter(){
         ObservableList<Cell> cells = getAllCells();
         double avgX = 0;
@@ -183,21 +178,15 @@ public class CellPack extends Cell{
         return new Point(avgX, avgY);
     }
 
-
+    /**
+     * Adds up the mass of all the contained cells and returns it
+     * @return the sum of the mass of each cell
+     */
     @Override
     public double getMass() {
         double sum = 0;
         for (Cell cell : allCells) {
             sum += cell.getMass();
-        }
-        return sum;
-    }
-
-    @Override
-    public double getDiameter(){
-        double sum = 0;
-        for (Cell cell : cells) {
-            sum += cell.getDiameter();
         }
         return sum;
     }

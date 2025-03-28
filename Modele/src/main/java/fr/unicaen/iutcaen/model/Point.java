@@ -50,4 +50,8 @@ public class Point {
     public double length() {
         return Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2));
     }
+
+    public String toString(){
+        return "Position : [ X : " + getX() + " | Y : " + getY() + " ]";
+    }
 }

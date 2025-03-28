@@ -36,10 +36,9 @@ public class  QuadTree {
                 return false;
             }
 
-            if (entities.size() < Config.QT_NODE_CAPACITY) {
-                entities.add(entity);
-                return true;
-            }
+            entities.add(entity);
+            return true;
+
         }
         if (northwest == null){
             subdivide();

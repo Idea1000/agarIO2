@@ -23,13 +23,12 @@ public class PelletView extends AbstractView{
     public PelletView(Pellet pellet, Pane root) {
         this.pellet = pellet;
 
-        Circle c = new Circle();
+        c = new Circle();
         c.centerXProperty().bind(pellet.getPosition().xProperty());
         c.centerYProperty().bind(pellet.getPosition().yProperty());
         c.radiusProperty().bindBidirectional(new SimpleDoubleProperty(Config.SIZE_RATIO_PELLET *Math.sqrt(pellet.getMassProperty().getValue())));
         c.setFill(pellet.getColor());
         root.getChildren().add(c);
-        this.c = c;
 
     }
 
