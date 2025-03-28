@@ -100,7 +100,7 @@ public class HelloApplication extends Application {
         WorldView worldView = new WorldView(p, worldPane);
 
         HashMap<Entity, AbstractView> linkModelView = new HashMap<>();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(Config.UPDATE), event -> {
             double scale = 5 / Math.sqrt(p.getCells().getSize());
             worldPane.setScaleX(scale);
             worldPane.setScaleY(scale);

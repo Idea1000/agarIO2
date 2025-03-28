@@ -20,25 +20,9 @@ public class CellPack extends Cell{
         cell.setUnsplit(true);
         cells.add(cell);
         allCells.add(cell);
-//        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), position, mass, Color.ALICEBLUE));
-//        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass - 70, Color.BLACK));
-
-//        allCells.add(new Cell(IdDistributor.getInstance().getNextId(), new Point(position.getX() + 100, position.getY() + 100), mass +50, Color.RED));
     }
 
-    public void addCell(Cell cell){
-        this.cells.add(cell);
-    }
 
-    public void removeCell(Cell cell){
-        this.cells.remove(cell);
-    }
-
-    protected void getCells(ArrayList<Cell> cells){
-        for (Cell cell : this.cells) {
-            cell.getCell(cells);
-        }
-    }
 
     /**
      *
@@ -190,15 +174,6 @@ public class CellPack extends Cell{
         double sum = 0;
         for (Cell cell : allCells) {
             sum += cell.getMass();
-        }
-        return sum;
-    }
-
-    @Override
-    public double getDiameter(){
-        double sum = 0;
-        for (Cell cell : cells) {
-            sum += cell.getDiameter();
         }
         return sum;
     }
