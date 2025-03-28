@@ -1,5 +1,6 @@
 package fr.unicaen.iutcaen.model;
 
+import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.entities.*;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
 import fr.unicaen.iutcaen.model.factories.IdDistributor;
@@ -75,7 +76,20 @@ public class Player {
     public Point getCenter(){return cells.getCenter(); }
 
     public void moveWithvector(Point vector){
-        this.movePlayer(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
+        double x = this.getCenter().getX() + vector.getX();
+        double y = this.getCenter().getY() + vector.getY();
+        if (x < 0) {
+            x = 0;
+        } else if (x > Config.MAP_WIDTH) {
+            x = Config.MAP_WIDTH;
+        }
+
+        if (y < 0) {
+            y = 0;
+        } else if (y > Config.MAP_HEIGHT) {
+            y = Config.MAP_HEIGHT;
+        }
+        this.movePlayer(new Point(x, y));
     }
 
 
@@ -84,7 +98,6 @@ public class Player {
         for (Cell cell : cells.getAllCells()) {
 
             if (cell.getSize() > virus.getSize()) {
-                System.out.println(cell.getSize() + "   " + virus.getSize());
                 double distance = Math.sqrt(Math.pow(cell.getPosition().getX() - virus.getPosition().getX(), 2) + Math.pow(cell.getPosition().getY() - virus.getPosition().getY(), 2));
                 return distance < (cell.getSize() + virus.getSize());
             }

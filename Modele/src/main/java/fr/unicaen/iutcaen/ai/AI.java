@@ -5,6 +5,7 @@ import fr.unicaen.iutcaen.model.World;
 import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.CellPack;
 import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.model.entities.Virus;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
 import javafx.scene.paint.Color;
 
@@ -81,18 +82,25 @@ public class AI {
         }
         double distance = Double.POSITIVE_INFINITY;
         Entity tempTarget = null;
-        if (entitiesInRange != null && entitiesInRange.size() > 0) {
+        if (entitiesInRange != null && !entitiesInRange.isEmpty()) {
             for (Entity e : entitiesInRange) {
                 if (e instanceof CellPack && e != cells) {
                     // If target detected go chase him
-                    target = e;
-                    return new EatPlayerAi();
+                    if (cells.getMass() > e.getMass() * 1.33) {
+                        System.out.println("hunt mode");
+                        target = e;
+                        return new EatPlayerAi();
+                    }
+
+
                 } else{
                     // Find the closest pellet
-                    double euclide = euclidean(e.getPosition());
-                    if (euclide < distance) {
-                        tempTarget = e;
-                        distance = euclide;
+                    if (!(e instanceof Virus)) {
+                        double euclide = euclidean(e.getPosition())/ e.getSize();
+                        if (euclide < distance) {
+                            tempTarget = e;
+                            distance = euclide;
+                        }
                     }
                 }
             }
@@ -190,6 +198,9 @@ public class AI {
     public void eraseCell(){
         cells.getAllCells().removeAll();
         cells.deleteAllCells();
+    }
 
+    public List<Entity> getEntitiesInRange() {
+        return entitiesInRange;
     }
 }

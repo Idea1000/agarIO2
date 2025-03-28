@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.unicaen.iutcaen.model.Point;
-import fr.unicaen.iutcaen.model.entities.Cell;
-import fr.unicaen.iutcaen.model.entities.CellPack;
-import fr.unicaen.iutcaen.model.entities.Entity;
-import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.entities.*;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 
@@ -67,9 +64,12 @@ public class EntityData extends ProtocolData{
     		}
     	
     	}
-    		 
+
+		else if (type.equalsIgnoreCase("Virus")){
+			entity = new Virus(id, point, mass, color);
+		}
     	
-    	if(type.equalsIgnoreCase("Pellet"))
+    	else if(type.equalsIgnoreCase("Pellet"))
     		entity = new Pellet(id, point, mass, color); 
     	
     	return entity; 

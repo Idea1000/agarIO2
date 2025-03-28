@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eed7740-7b11-4430-9779-f8314ca93e48" name="Changes" comment="cleaning code &amp; changing const names">
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/launcher/LauncherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/launcher/LauncherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/network/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/network/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/main/java/fr/unicaen/iutcaen/view/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../agarIO2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../agarIO2.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

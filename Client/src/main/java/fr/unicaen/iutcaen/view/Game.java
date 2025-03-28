@@ -8,6 +8,7 @@ import fr.unicaen.iutcaen.config.Config;
 import fr.unicaen.iutcaen.model.*;
 import fr.unicaen.iutcaen.model.entities.*;
 import fr.unicaen.iutcaen.model.factories.FactoryAI;
+import fr.unicaen.iutcaen.network.Client;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -58,22 +59,38 @@ public class Game extends Application {
     private double mX, mY;
     private List<Entity> entities;
     private Group gameRoot;
-    private Player p;
+    private Player p; 
     private Point vector;
     
     private boolean local; 
     
-    public Game(boolean local) {
+    private World world; 
+    
+    private static Stage currentStage;
+
+    private static Client client;
+    
+    public Game(Client client, World world, Player player, boolean local) {
     	this.local = local; 
+    	this.world = world; 
+    	p = player;
+        this.client = client;
 	}
     
-    public static void startGame(boolean local) {
-        Game game = new Game(local);
+    public static void startGame(Client client, World world, Player player, boolean local) {
+        Game game = new Game(client, world, player, local);
         Stage stage = new Stage();
         try {
             game.start(stage);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    public static void stopCurrentGame() {
+        if (currentStage != null) {
+            currentStage.close();
+            currentStage = null;
         }
     }
 
@@ -86,8 +103,13 @@ public class Game extends Application {
         gameRoot.getChildren().add(worldPane);
         mapPane.getChildren().add(gameRoot);
         Scene scene = new Scene(mapPane, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-
+        currentStage = stage;
         setupGame(worldPane, mapPane, stage);
+
+        stage.onCloseRequestProperty().addListener(evt -> {
+                client.cleanup();
+                System.exit(0);
+        });
 
         stage.setTitle("Agar.io Clone");
         stage.setScene(scene);
@@ -122,18 +144,23 @@ public class Game extends Application {
         FactoryPellet factoryPellet = new FactoryPellet();
         quadTree.insert(factoryPellet.fabrique(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 2, Color.BLACK));*/
 
+        if(local == false){
+            worldPane.widthProperty().addListener((obs, _old, _new)->{
+                double height = worldPane.heightProperty().getValue();
+                client.sendWindowSize((double) _new, height);
+            });
 
+            worldPane.heightProperty().addListener((obs, _old, _new)->{
+                double width = worldPane.widthProperty().getValue();
+                client.sendWindowSize(width, (double) _new);
+            });
+        }
 
 
         //creation joueur
-
-        p = new Player(new Point(Config.WORLD_WIDTH / 2.0, Config.WORLD_HEIGHT / 2.0), 100, Color.RED);
         PlayerView pv = new PlayerView(p, worldPane);
-        World world = World.getInstence();
+        //World world = World.getInstence();
         world.addPlayer(p);
-
-
-
 
 
         WorldView worldView = new WorldView(p, worldPane);
@@ -159,6 +186,7 @@ public class Game extends Application {
         }
         AtomicInteger count = new AtomicInteger();
 
+        // Game loop
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
             if (p.isDead()) {
                 worldView.delete(worldPane);
@@ -187,8 +215,63 @@ public class Game extends Application {
                 }
             }
 
+            if (vector != null)
+                p.moveWithvector(vector);
 
-            if(local) {
+            Point newPos = p.getPosition();
+
+            // Player absorb entities
+            for (Entity entity : entities) {
+                if (p.absorb(entity)) {
+                    if(local == false){
+                        client.sendAbsorbedEntityUpdate(entity);
+                    }
+                    worldPane.getChildren().remove(entity);
+                    if (linkModelView.get(entity) != null)
+                        linkModelView.get(entity).delete(worldPane);
+                }
+            }
+
+
+            // Player encounter virus
+            for(Entity entity : entities){
+                if(entity instanceof Virus) {
+                    Virus virus = (Virus) entity;
+                    if (p.encounterVirus(virus)) {
+                        virus.applyEffect(p);
+                    }
+                }
+            }
+
+            // Local mode Only
+            if (local) {
+                for (AI ai : listOfAI) {
+                    // Player eat AI
+                    if (p.absorb(ai.getCells())) {
+                        for (Cell cell : ai.getCells().getAllCells()) {
+                            ai.eraseCell();
+                            world.removeEntity(cell);
+                            ai.getCells().removeCell(cell);
+
+                            break;
+                        }
+                        linkModelViewAI.get(ai).delete(worldPane);
+                    }
+
+                    for (AI targetAI : listOfAI) {
+                        if (ai.absorb(targetAI.getCells())) {
+                            System.out.println("AI eat");
+                            for (Cell cell : targetAI.getCells().getAllCells()) {
+                                targetAI.eraseCell();
+                                world.removeEntity(cell);
+                                targetAI.getCells().removeCell(cell);
+                                break;
+                            }
+                            linkModelViewAI.get(targetAI).delete(worldPane);
+                        }
+                    }
+                }
+
                 //AI mouvement
                 for (AI ai : listOfAI) {
                     ai.setEntitiesInRange(entities);
@@ -201,73 +284,31 @@ public class Game extends Application {
                     }
 
                 }
-            }
 
-            if (vector != null)
-                p.moveWithvector(vector);
-
-            Point newPos = p.getPosition();
-
-            //player absorb entities
-            for (Entity entity : entities) {
-                if (p.absorb(entity)) {
-
-                    worldPane.getChildren().remove(entity);
-                    if (linkModelView.get(entity) != null)
-                        linkModelView.get(entity).delete(worldPane);
-                }
-            }
-
-
-            //player encounter virus
-            for(Entity entity : entities){
-                if(entity instanceof Virus) {
-                    Virus virus = (Virus) entity;
-                    if (p.encounterVirus(virus)) {
-                        virus.applyEffect(p);
-                    }
-                }
-            }
-            if (local) {
                 for (AI ai : listOfAI) {
-                    if (p.absorb(ai.getCells())) {
-                        for (Cell cell : ai.getCells().getAllCells()) {
-                            ai.eraseCell();
-                            world.removeEntity(cell);
-                            ai.getCells().removeCell(cell);
+                    // AI eat player
+                    for (Cell cell : p.getCells().getAllCells()) {
+                        if (ai.absorbPlayer(cell)){
 
+                            p.eraseCell();
+                            pv.delete(worldPane);
+                            world.removeEntity(cell);
+                            p.getCells().removeCell(cell);
                             break;
                         }
-                        linkModelViewAI.get(ai).delete(worldPane);
                     }
-                }
 
+                    // AI eat Pellet
+                    for (Entity entity : entities) {
+                        if (ai.absorb(entity)) {
 
-
-
-            for (AI ai : listOfAI) {
-                for (Cell cell : p.getCells().getAllCells()) {
-                    if (ai.absorbPlayer(cell)){
-
-                        p.eraseCell();
-                        pv.delete(worldPane);
-                        world.removeEntity(cell);
-                        p.getCells().removeCell(cell);
-                        break;
-                    }
-                }
-
-                for (Entity entity : entities) {
-                    if (ai.absorb(entity)) {
-
-                        worldPane.getChildren().remove(entity);
-                        if (linkModelView.get(entity) != null)
-                            linkModelView.get(entity).delete(worldPane);
+                            worldPane.getChildren().remove(entity);
+                            if (linkModelView.get(entity) != null)
+                                linkModelView.get(entity).delete(worldPane);
+                        }
                     }
                 }
             }
-
-        }
 
             // Move the entire game world (simulating a camera)
             gameRoot.setTranslateX(Config.SCREEN_WIDTH / 2.0 - newPos.getX());
