@@ -241,7 +241,7 @@ public class Game extends Application {
 
             //player absorb entities
             for (Entity entity : entities) {
-                if (p.absorb(entity)) {
+                if (p.absorb(world, entity)) {
                     if(local == false){
                         client.sendAbsorbedEntityUpdate(entity);
                     }
@@ -263,7 +263,7 @@ public class Game extends Application {
             }
             if (local) {
                 for (AI ai : listOfAI) {
-                    if (p.absorb(ai.getCells())) {
+                    if (p.absorb(world, ai.getCells())) {
                         for (Cell cell : ai.getCells().getAllCells()) {
                             ai.eraseCell();
                             world.removeEntity(cell);

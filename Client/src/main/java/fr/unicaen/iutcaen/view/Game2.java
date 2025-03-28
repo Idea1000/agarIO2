@@ -50,6 +50,8 @@ public class Game2 extends Application{
     
     List<Entity> entities; 
     
+    Point vector; 
+    
     
     public Game2(Client client, World world, Player player, boolean local) {
     	this.local = local; 
@@ -89,6 +91,7 @@ public class Game2 extends Application{
         worldPane.setOnMouseMoved(mouseEvent -> {
             mX = mouseEvent.getX();
             mY = mouseEvent.getY();
+            vector = new Point(mX - player.getCenter().getX(), mY - player.getCenter().getY()); 
         });
         
         worldPane.setOnKeyPressed(keyEvent -> {
@@ -131,12 +134,12 @@ public class Game2 extends Application{
 		
          timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
         	
-        	player.movePlayer(new Point(mX - player.getCenter().getX(), mY - player.getCenter().getY()));  
+        	player.moveWithvector(vector);  
         	drawBoundary(); 
         	
         	for (Entity entity : entities) {
         	    if (entity != player.getCells() && isColliding(player.getCells(), entity)) {
-        	        player.absorb(entity);
+        	        player.absorb(world, entity);
         	    }
         	}
         	

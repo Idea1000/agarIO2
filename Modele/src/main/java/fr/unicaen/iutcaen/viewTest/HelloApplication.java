@@ -194,7 +194,7 @@ public class HelloApplication extends Application {
 
             //player absorb entities
             for (Entity entity : entities) {
-                if (p.absorb(entity)) {
+                if (p.absorb(world, entity)) {
 
                     worldPane.getChildren().remove(entity);
                     if (linkModelView.get(entity) != null)
@@ -214,7 +214,7 @@ public class HelloApplication extends Application {
             }
 
             for (AI ai : listOfAI) {
-                if (p.absorb(ai.getCells())) {
+                if (p.absorb(world, ai.getCells())) {
                     for (Cell cell : ai.getCells().getAllCells()) {
                         ai.eraseCell();
                         world.removeEntity(cell);

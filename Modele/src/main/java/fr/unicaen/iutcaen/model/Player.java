@@ -30,8 +30,7 @@ public class Player {
      * tries to absorb the entity by removing it from the world and adding it's size to the current cell size
      * @param entity
      */
-    public boolean absorb(Entity entity) {
-    	World world = World.getInstence();
+    public boolean absorb(World world, Entity entity) {
     	
 		System.out.println("1 : "+world.containsEntity(entity)+"\n 2 : "+world.containsPlayer(this));
 		
@@ -76,7 +75,7 @@ public class Player {
     public Point getCenter(){return cells.getCenter(); }
 
     public void moveWithvector(Point vector){
-        this.moveWithvector(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
+        this.movePlayer(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
     }
 
 

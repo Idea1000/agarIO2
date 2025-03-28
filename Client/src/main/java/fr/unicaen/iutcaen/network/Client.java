@@ -269,7 +269,7 @@ public class Client extends Thread{
             //Receiving player instance
             boolean received = receivePlayer();
             if(received)
-            	System.out.println("instance du joueur reçu : "+ getId()); 
+            	System.out.println("instance du joueur reçu : "+ player.getId()); 
             else
             	System.out.println("erreur de reception de l'instance du joueur"); 
             
