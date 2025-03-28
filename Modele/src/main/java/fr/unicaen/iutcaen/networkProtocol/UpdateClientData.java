@@ -55,6 +55,7 @@ public class UpdateClientData extends ProtocolData{
 			entitiesAround.add(entityData.convertToEntity()); 
 		}
 		
+		
 		return entitiesAround; 
 	}
 	

@@ -228,7 +228,7 @@ public class Game2 extends Application{
 	        c.setCenterX(cell.getPosition().xProperty().get());
 	        c.setCenterY(cell.getPosition().yProperty().get());
 	        c.setRadius(cell.getSize());
-	        c.setFill(cell.getColor());
+	        c.setFill(Color.RED);
 	        cameraGroup.getChildren().add(c);
 		}
 		
@@ -243,7 +243,7 @@ public class Game2 extends Application{
 	        Circle c = new Circle();
 	        c.setCenterX(entity.getPosition().xProperty().get());;
 	        c.setCenterY(entity.getPosition().yProperty().get());
-	        c.setRadius(Config.SIZE_RATIO_PELLET *Math.sqrt(entity.getMassProperty().getValue()));
+	        c.setRadius(entity.getSize());
 	        c.setFill(entity.getColor());
 	        cameraGroup.getChildren().add(c);
 		}
