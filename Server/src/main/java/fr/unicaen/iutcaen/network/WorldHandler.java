@@ -9,6 +9,7 @@ import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.networkProtocol.EntityData;
 import fr.unicaen.iutcaen.networkProtocol.Message;
 import fr.unicaen.iutcaen.networkProtocol.PlayerData;
+import fr.unicaen.iutcaen.networkProtocol.RemoveEntityData;
 import fr.unicaen.iutcaen.networkProtocol.UpdateClientData;
 
 public class WorldHandler extends Thread{
@@ -81,6 +82,11 @@ public class WorldHandler extends Thread{
 	public void absorbEntity(Player player, EntityData data) {
 		Entity entity = data.convertToEntity(); 
 		boolean absorbed = player.absorb(world, entity); 
+	}
+
+	public void removeEntity(RemoveEntityData data) {
+		Entity ent = data.getData().convertToEntity(); 
+		world.removeEntity(ent); 
 	}
 	
 	

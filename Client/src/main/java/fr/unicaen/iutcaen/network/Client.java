@@ -12,6 +12,7 @@ import fr.unicaen.iutcaen.model.World;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.networkProtocol.EntityData;
 import fr.unicaen.iutcaen.networkProtocol.PlayerData;
+import fr.unicaen.iutcaen.networkProtocol.RemoveEntityData;
 import fr.unicaen.iutcaen.networkProtocol.TextData;
 import fr.unicaen.iutcaen.networkProtocol.UpdateClientData;
 import fr.unicaen.iutcaen.networkProtocol.WorldData;
@@ -21,7 +22,7 @@ import javafx.application.Platform;
 
 public class Client extends Thread{
 
-    public static String SERVERIP = "localhost";
+    public static String SERVERIP = "10.42.17.156";
     public static int PORT = 8000;
     private Socket socket;
     private ObjectInputStream in;
@@ -239,6 +240,8 @@ public class Client extends Thread{
 			out.flush();
 		} catch (IOException e) {
 			System.err.println("Impossible d'envoyer la MAJ du joueur au serveur  "+socket.getRemoteSocketAddress()+" : " + e.getMessage());
+			e.printStackTrace();
+			System.exit(0);
 		} 
     	
     }
@@ -329,4 +332,14 @@ public class Client extends Thread{
 			e.printStackTrace();
         }
     }
+
+	public void sendRemoveEntity(Entity entity) {
+		RemoveEntityData data = new RemoveEntityData(entity); 
+    	try {
+			out.writeObject(data);
+			out.flush();
+		} catch (IOException e) {
+			System.err.println("Impossible d'envoyer la MAJ de mort du joueur au serveur  "+socket.getRemoteSocketAddress()+" : " + e.getMessage());
+		} 
+	}
 }

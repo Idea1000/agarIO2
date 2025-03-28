@@ -12,6 +12,7 @@ import fr.unicaen.iutcaen.model.factories.IdDistributor;
 import fr.unicaen.iutcaen.networkProtocol.EntityData;
 import fr.unicaen.iutcaen.networkProtocol.Message;
 import fr.unicaen.iutcaen.networkProtocol.PlayerData;
+import fr.unicaen.iutcaen.networkProtocol.RemoveEntityData;
 import fr.unicaen.iutcaen.networkProtocol.TextData;
 import fr.unicaen.iutcaen.networkProtocol.UpdateClientData;
 import fr.unicaen.iutcaen.networkProtocol.WorldData;
@@ -166,6 +167,11 @@ public class ClientHandler extends Thread {
     	if(object instanceof EntityData) {
     		EntityData data = (EntityData) object; 
     		worldHandler.absorbEntity(player, data); 
+    	}
+    	
+    	else if (object instanceof RemoveEntityData) {
+    		RemoveEntityData data = (RemoveEntityData) object; 
+    		worldHandler.removeEntity(data); 
     	}
     	
     }

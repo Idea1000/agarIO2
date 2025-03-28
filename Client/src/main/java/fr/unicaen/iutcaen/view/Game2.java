@@ -8,10 +8,12 @@ import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.Point;
 import fr.unicaen.iutcaen.model.World;
 import fr.unicaen.iutcaen.model.entities.Pellet;
+import fr.unicaen.iutcaen.model.entities.Virus;
 import fr.unicaen.iutcaen.model.factories.FactoryPellet;
 import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.network.Client;
+import fr.unicaen.iutcaen.networkProtocol.PlayerData;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -142,15 +144,23 @@ public class Game2 extends Application{
 		drawBoundary(); 
 		
          timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
-        	
-        	player.moveWithvector(vector);  
+        	 
+        	if (vector != null)
+        		player.moveWithvector(vector);  
         	drawBoundary(); 
         	
         	for (Entity entity : entities) {
         	    if (entity != player.getCells() && isColliding(player.getCells(), entity)) {
         	        boolean absorbed = player.absorb(world, entity);
         	        if(absorbed) {
-        	        	client.sendAbsorbedEntityUpdate(entity); 
+        	        	if(local == false) {
+        	        		if(!(entity instanceof Virus) )
+        	        			client.sendAbsorbedEntityUpdate(entity); 
+        	        		else {
+        	        			client.sendPlayerUpdate(new PlayerData(player)); 
+        	        			client.sendRemoveEntity(entity); 
+        	        		}
+        	        	}
         	        }
         	    }
         	}
