@@ -17,8 +17,8 @@ public class Config {
     public final static int UPDATE = 33;
     public static final int WORLD_WIDTH = 1000;
     public static final int WORLD_HEIGHT = 1000;
-    public static final int SCREEN_WIDTH = 900;
-    public static final int SCREEN_HEIGHT = 450;
+    public static final int SCREEN_WIDTH = 1500;
+    public static final int SCREEN_HEIGHT = 900;
 
     public static final int AI_NUM = 15;
 

@@ -150,7 +150,7 @@ public class Game2 extends Application{
          timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
         	 
         	if (vector != null)
-        		player.moveWithvector(vector);  
+        		player.movePlayer(new Point(mX, mY)) ; 
         	drawBoundary(); 
         	
         	for (Entity entity : entities) {

@@ -77,7 +77,6 @@ public class Client extends Thread{
     public void processMessage(Object object) {
     	
     	if(object instanceof UpdateClientData) {
-    		System.out.println("MAJ reçue du serveur"); 
     		UpdateClientData update = (UpdateClientData) object; 
     		updateWorld(update); 
     	}
