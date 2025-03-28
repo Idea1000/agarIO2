@@ -1,13 +1,8 @@
 package fr.unicaen.iutcaen.model;
 
-import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.CellPack;
 import fr.unicaen.iutcaen.model.entities.Entity;
-import fr.unicaen.iutcaen.model.entities.Pellet;
 import fr.unicaen.iutcaen.model.factories.FactoryCellPack;
-import javafx.geometry.Point2D;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class Player {
@@ -15,7 +10,7 @@ public class Player {
     private CellPack cells;
 
     public Player(Point position, double mass, Color color) {
-        cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
+        cells = (CellPack) new FactoryCellPack().build(position, mass, color);
     }
 
     /**

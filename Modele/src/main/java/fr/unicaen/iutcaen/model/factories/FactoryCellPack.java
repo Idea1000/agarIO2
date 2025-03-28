@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public class FactoryCellPack extends FactoryEntity{
     @Override
-    public Entity fabrique(Point position, double mass, Color color) {
+    public Entity build(Point position, double mass, Color color) {
         return new CellPack(IdDistributor.getInstance().getNextId(), position, mass, color);
     }
 }

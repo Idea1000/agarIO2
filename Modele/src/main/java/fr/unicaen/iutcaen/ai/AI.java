@@ -35,7 +35,7 @@ public class AI {
     private Entity target = null;
 
     public AI(Point position, double mass, Color color) {
-        cells = (CellPack) new FactoryCellPack().fabrique(position, mass, color);
+        cells = (CellPack) new FactoryCellPack().build(position, mass, color);
     }
 
     /**

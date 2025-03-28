@@ -12,14 +12,12 @@ import javafx.scene.paint.Color;
 public class FactoryPellet extends FactoryEntity {
 
     @Override
-    public Entity fabrique(Point position, double mass, Color color) {
+    public Entity build(Point position, double mass, Color color) {
         return new Pellet(IdDistributor.getInstance().getNextId(), position, mass, color);
     }
     
     /**
      * Generates and returns a pellet with random values.
-     * @param mapLength the length of the map of the game
-     * @param mapWidth this width of the map of the game
      * @return Pellet the generated pellet
      */
     public Pellet randomPellet() {

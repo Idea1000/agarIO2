@@ -11,25 +11,52 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The QuadTree is composed of four other QuadTree
+ * They may be referred as "Nodes"
+ * It's used to store the elements in the map
+ */
 public class  QuadTree {
+
+
+    /**
+     * the boundary covered by the Node
+     */
     private Boundary boundary;
+
+    /**
+     * the entites contained in the node
+     * empty if the {@link #depth} isn't the DEPTH_MAX_QT_TREE
+     */
     private List<Entity> entities;
 
+    /**
+     * the depth of the current Node (0 if root)
+     */
     private int depth;
 
-    // Sous-quadtrees (NE, NW, SE, SW)
+    // Children Nodes (NE, NW, SE, SW)
     private QuadTree northeast;
     private QuadTree northwest;
     private QuadTree southeast;
     private QuadTree southwest;
 
+    /**
+     * creates a new Node with no children
+     * @param boundary the zone covered by the Node
+     * @param depth the depth of the Node
+     */
     public QuadTree(Boundary boundary, int depth) {
         this.boundary = boundary;
         entities = new ArrayList<>();
         this.depth = depth;
     }
 
-    // Insère une entité dans le QuadTree
+    /**
+     * Inserts a Entity in the right Node
+     * @param entity the entity you wish to insert
+     * @return true if the entity is successfully inserted
+     */
     public boolean insert(Entity entity) {
         if (depth >= Config.DEPTH_MAX_QT_TREE) {
             if (!boundary.contains(entity)) {
@@ -53,7 +80,11 @@ public class  QuadTree {
     }
 
 
-    // Retourne la liste des entités dans une zone donnée
+    /**
+     * Gives the entities in the boundary given
+     * @param range the zone where the entities will come from
+     * @return a list of entities found in the tree
+     */
     public List<Entity> query(Boundary range) {
         ArrayList<Entity> entitiesInRange = new ArrayList<>();
 
@@ -79,7 +110,10 @@ public class  QuadTree {
         return entitiesInRange;
     }
 
-    // Divise la zone en quatre sous-zones
+    /**
+     * Creates the children of the current Node
+     * Shouldn't be called on nodes that are at DEPTH_MAX_QT_TREE
+     */
     public void subdivide() {
         double x = boundary.getX();
         double y = boundary.getY();
@@ -93,9 +127,9 @@ public class  QuadTree {
     }
 
     /**
-     * returns a list of entities that are visible by the entity passsed by the parameter
+     * returns a list of entities that are visible by the entity passed by the parameter
      * @param entity
-     * @return
+     * @return all the entities that are in the same node
      */
     public List<Entity> getEntitiesAround(Entity entity){
 
@@ -122,8 +156,8 @@ public class  QuadTree {
 
     /**
      * removes the entity from world
-     * @param entity
-     * @return
+     * @param entity the entity removed
+     * @return true if the entity is successfully removed
      */
     public boolean removeEntity(Entity entity) {
 
@@ -167,20 +201,4 @@ public class  QuadTree {
 
         return false;
     }
-
-//    public static void main(String[] args) {
-//        QuadTree q = new QuadTree(new Boundary(0, 0, 128, 128),0);
-//        FactoryPellet f = new FactoryPellet();
-//        q.insert(f.fabrique(new Point(5.0, 12.0), 2, Color.ALICEBLUE));
-//        q.insert(f.fabrique(new Point(6.0, 12.0), 2, Color.ALICEBLUE));
-//        q.insert(f.fabrique(new Point(7.0, 12.0), 2, Color.ALICEBLUE));
-//        q.insert(f.fabrique(new Point(8.0, 12.0), 2, Color.ALICEBLUE));
-//        q.insert(f.fabrique(new Point(9.0, 12.0), 2, Color.ALICEBLUE));
-//        q.insert(f.fabrique(new Point(10.0, 12.0), 2, Color.ALICEBLUE));
-//        q.insert(f.fabrique(new Point(11.0, 12.0), 2, Color.ALICEBLUE));
-//        q.insert(f.fabrique(new Point(12.0, 12.0), 2, Color.ALICEBLUE));
-//
-//        System.out.println(q.query(new Boundary(4.0, 0.0, 10.0, 60.0)).size());
-//        System.out.println(q.entities.size());
-//    }
 }
