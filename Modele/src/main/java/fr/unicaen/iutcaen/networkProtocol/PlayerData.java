@@ -24,6 +24,7 @@ public class PlayerData extends ProtocolData {
 		for(Cell cell : cells) {
 			cellsPackData.add(new EntityData(cell)); 
 		}
+		
 	}
 	
 	public Player convertToPlayer() {
