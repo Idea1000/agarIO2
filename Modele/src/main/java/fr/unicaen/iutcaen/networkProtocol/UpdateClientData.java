@@ -19,31 +19,31 @@ public class UpdateClientData extends ProtocolData{
 	double windowHight; 
 	
 	public UpdateClientData(World world, Player player, double windowWidth, double windowHight) {
+		
 		entitiesAroundData = new ArrayList<EntityData>(); 
 		this.windowWidth = windowWidth; 
-		this.windowHight = windowHight; 
-		
-		double paneWidth = windowWidth; 
-		double paneHeight = windowHight; 
-		
-		double posCameraX = player.getPosition().getX() - paneWidth  / 2;  
-		double posCameraY = player.getPosition().getY() - paneHeight  / 2;
+		this.windowHight = windowHight;
+		 posCameraX = player.getPosition().getX() - windowWidth  / 2;  
+		 posCameraY = player.getPosition().getY() - windowHight  / 2;
 
 		double margin = 100;
+		
 
 		Boundary viewBoundary = new Boundary(
 				posCameraX,
 				posCameraY,
-				posCameraX + paneWidth + margin,
-				posCameraY + paneHeight + margin
+				posCameraX + windowWidth + margin,
+				posCameraY + windowHight + margin
 		);
 		
 
 		List<Entity> entitiesAround = world.getEntitiesAround(viewBoundary); 
 		
+		
 		for(Entity entity : entitiesAround) {
 			entitiesAroundData.add(new EntityData(entity)); 
 		}
+		
 	}
 	
 	

@@ -215,4 +215,9 @@ public class CellPack extends Cell{
         }
         return sum;
     }
+    
+    @Override
+    public Point getPosition() {
+    	return this.getCenter(); 
+    }
 }

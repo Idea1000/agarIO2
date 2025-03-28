@@ -137,7 +137,7 @@ public class ClientHandler extends Thread {
 		if(type.equalsIgnoreCase("WindowSize")) {
 			String[] stringValues = data.getContent().split(","); 
 			windowWidth = Double.parseDouble(stringValues[0]); 
-			windowHight = Double.parseDouble(stringValues[1]); 
+			windowHight = Double.parseDouble(stringValues[2]);
 		}
 		
 		else if (type.equalsIgnoreCase("Dead")) {
@@ -161,7 +161,7 @@ public class ClientHandler extends Thread {
     	
     	if(object instanceof PlayerData) { 
     		PlayerData playerData = (PlayerData) object; 
-    		worldHandler.updatePlayer(playerData); 
+    		worldHandler.updatePlayer(player, playerData); 
     	}
     	
     	if(object instanceof EntityData) {
