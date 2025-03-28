@@ -31,6 +31,7 @@ public class MiniMap extends Pane {
         Rectangle mapBg = new Rectangle(mapX, mapY, Config.MAP_SIZE, Config.MAP_SIZE);
         root.getChildren().add(mapBg);
 
+
         Rectangle pPosition = new Rectangle();
         pPosition.setFill(Color.RED);
         worldGroup.translateXProperty().addListener((observableValue, number, t1) -> {
@@ -38,20 +39,15 @@ public class MiniMap extends Pane {
             double y = p.getPosition().getY() - stage.getHeight()/2;
             pPosition.setX(mapX +  (p.getPosition().getX() - stage.getWidth() / 2) / Config.MAP_WIDTH * Config.MAP_SIZE);
             pPosition.setY(mapY + (p.getPosition().getY() - stage.getHeight() / 2 )/ Config.MAP_HEIGHT * Config.MAP_SIZE);
-//            pPosition.setX(mapX +(x/Config.WORLD_WIDTH*Config.MAP_SIZE));
-//            pPosition.setY(mapY +(y/Config.WORLD_HEIGHT*Config.MAP_SIZE));
+
             pPosition.setWidth(stage.getWidth() / Config.MAP_WIDTH * Config.MAP_SIZE);
             pPosition.setHeight(stage.getHeight() / Config.MAP_HEIGHT * Config.MAP_SIZE);
-//            pPosition.setHeight(Screen.getPrimary().getBounds().getHeight());
-//            System.out.println(pPosition.getX());
+
         });
         root.getChildren().add(pPosition);
 
-//        world.getEntitiesAround(new Boundary(worldGroup.getLayoutX(), worldGroup.getLayoutY(), worldGroup.(), worldGroup.getHeight());
     }
 
-    // Met à jour l'affichage de la mini-map en fonction du monde
     public void update() {
-        // Affiche les positions des joueurs dans la zone réduite
     }
 }

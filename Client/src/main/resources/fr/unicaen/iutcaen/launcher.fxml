@@ -18,7 +18,6 @@
                </font>
             </Text>
             <Button fx:id="local" layoutX="99.0" layoutY="186.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" text="Jeu en local" onAction="#onLocal" />
-            <Button fx:id="online" layoutX="311.0" layoutY="186.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" text="Jeu en ligne" onAction="#onOnLine"/>
             <TextField fx:id="nickname" layoutX="184.0" layoutY="126.0" promptText="Entrez votre pseudo" />
          </children>
       </Pane>
