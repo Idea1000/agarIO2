@@ -22,7 +22,7 @@ import javafx.application.Platform;
 
 public class Client extends Thread{
 
-    public static String SERVERIP = "10.42.17.156";
+    public static String SERVERIP = "10.42.17.158";
     public static int PORT = 8000;
     private Socket socket;
     private ObjectInputStream in;
