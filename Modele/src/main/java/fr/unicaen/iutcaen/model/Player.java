@@ -33,8 +33,9 @@ public class Player {
     public boolean absorb(Entity entity) {
     	World world = World.getInstence();
     	
+		System.out.println("1 : "+world.containsEntity(entity)+"\n 2 : "+world.containsPlayer(this));
+		
     	if(world.containsEntity(entity) && world.containsPlayer(this)) {
-
     		boolean absorbed = cells.absorbEntity(entity); 
     		if(absorbed) {
     			world.removeEntity(entity);
@@ -75,7 +76,7 @@ public class Player {
     public Point getCenter(){return cells.getCenter(); }
 
     public void moveWithvector(Point vector){
-        this.movePlayer(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
+        this.moveWithvector(new Point(this.getCenter().getX() + vector.getX(), this.getCenter().getY() + vector.getY()));
     }
 
 
@@ -103,6 +104,20 @@ public class Player {
     
     public void setCellPack(CellPack cellPack) {
     	this.cells = cellPack; 
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if(this == obj) {
+    		return true; 
+    	}
+    	
+    	if(obj instanceof Player) {
+    		Player p = (Player) obj; 
+    		return this.id == p.id; 
+    	}
+    	
+    	return false; 
     }
 
 }

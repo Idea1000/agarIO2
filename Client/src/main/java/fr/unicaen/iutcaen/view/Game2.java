@@ -131,7 +131,7 @@ public class Game2 extends Application{
 		
          timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
         	
-        	player.moveWithvector(new Point(mX - player.getCenter().getX(), mY - player.getCenter().getY()));  
+        	player.movePlayer(new Point(mX - player.getCenter().getX(), mY - player.getCenter().getY()));  
         	drawBoundary(); 
         	
         	for (Entity entity : entities) {

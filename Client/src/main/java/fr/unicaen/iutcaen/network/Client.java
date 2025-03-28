@@ -16,6 +16,7 @@ import fr.unicaen.iutcaen.networkProtocol.TextData;
 import fr.unicaen.iutcaen.networkProtocol.UpdateClientData;
 import fr.unicaen.iutcaen.networkProtocol.WorldData;
 import fr.unicaen.iutcaen.view.Game;
+import fr.unicaen.iutcaen.view.Game2;
 import javafx.application.Platform;
 
 public class Client extends Thread{
@@ -291,7 +292,7 @@ public class Client extends Thread{
                 	world.addPlayer(player);
                 	
                 	//showing the fxml view + sending the window size + setting the window size in the world handler
-                	Game.startGame(this, world, player, false);
+                	Game2.startGame(this, world, player, false);
                 	this.sendWindowSize(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
                 	worldHandler.setWidth(Config.SCREEN_WIDTH);
                 	worldHandler.setHight(Config.SCREEN_HEIGHT);
