@@ -5,12 +5,14 @@ import java.util.List;
 import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.World;
+import fr.unicaen.iutcaen.model.entities.Cell;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.networkProtocol.EntityData;
 import fr.unicaen.iutcaen.networkProtocol.Message;
 import fr.unicaen.iutcaen.networkProtocol.PlayerData;
 import fr.unicaen.iutcaen.networkProtocol.RemoveEntityData;
 import fr.unicaen.iutcaen.networkProtocol.UpdateClientData;
+import javafx.collections.ObservableList;
 
 public class WorldHandler extends Thread{
 	
@@ -65,8 +67,18 @@ public class WorldHandler extends Thread{
 	
     public void updatePlayer(PlayerData playerData) {
 		Player player = playerData.convertToPlayer(); 
-		System.out.println("player "+player.getId()+" position : "+player.getPosition().getX() + " : "+player.getPosition().getY()); 
-		getWorld().getPlayer(player.getId()).setCellPack(player.getCells());
+		Player player2 = getWorld().getPlayer(player.getId());
+		
+		ObservableList<Cell> cells = player.getCells().getAllCells(); 
+		ObservableList<Cell> cells2 = player.getCells().getAllCells(); 
+		
+		cells2.clear();
+		
+		for(Cell cell : cells) {
+			cells2.add(cell); 
+		}
+		
+		System.out.println("nb cellules "+ player2.getId() + " : "+cells2.size()); 
 	}
 
 	public void updateWorld(UpdateClientData update) {

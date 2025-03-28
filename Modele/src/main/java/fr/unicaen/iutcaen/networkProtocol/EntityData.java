@@ -33,8 +33,6 @@ public class EntityData extends ProtocolData{
     	
     	type = entity.getClass().getSimpleName();  
     	
-    	if(type.equalsIgnoreCase("virus"))
-    		System.out.println("virus transfromé en data"); 
     	
     	if(entity instanceof CellPack) {
     		cellsData = new ArrayList<EntityData>(); 

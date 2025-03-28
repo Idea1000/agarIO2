@@ -1,5 +1,6 @@
 package fr.unicaen.iutcaen.networkProtocol;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.unicaen.iutcaen.config.Config;
@@ -12,19 +13,28 @@ import javafx.collections.ObservableList;
 
 public class PlayerData extends ProtocolData {
 	
-	private EntityData cellsPackData; 
+	private List<EntityData> cellsPackData; 
 	private int id; 
 	
 	public PlayerData(Player player) {
-		cellsPackData = new EntityData(player.getCells()); 
+		cellsPackData = new ArrayList<EntityData>(); 
+		ObservableList<Cell> cells = player.getCells().getAllCells(); 
 		id = player.getId(); 
+		
+		for(Cell cell : cells) {
+			cellsPackData.add(new EntityData(cell)); 
+		}
 	}
 	
 	public Player convertToPlayer() {
 		Player player = FactoryPlayer.fabriquePlayer();
 		
 		player.setId(id);	
-		player.setCellPack((CellPack) cellsPackData.convertToEntity());
+		ObservableList<Cell> cells = player.getCells().getAllCells(); 
+		
+		for( EntityData data : cellsPackData) {
+			cells.add((Cell) data.convertToEntity());
+		}
 		
 		return player;
 	}
