@@ -149,6 +149,10 @@ public class Game2 extends Application{
 		
          timeline = new Timeline(new KeyFrame(Duration.millis(33), event -> {
         	 
+        	 if(player.isDead()) {
+        		System.exit(0);  
+        	 }
+        	 
         	if (vector != null)
         		player.movePlayer(new Point(mX, mY)) ; 
         	drawBoundary(); 

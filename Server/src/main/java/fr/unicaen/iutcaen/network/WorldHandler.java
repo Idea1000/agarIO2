@@ -44,10 +44,20 @@ public class WorldHandler extends Thread{
 	
 	public void sendUpdate() {
 		UpdateClientData update; 
-		for(ClientHandler client : clientHandlers) {
+		int nb = clientHandlers.size(); 
+		
+		for(int i = 0 ; nb > i ; i++) {
+			
+			ClientHandler client = clientHandlers.get(i); 
+			
 			if(client.isReady()) {
-				update = new UpdateClientData(this.getWorld(), client.getPlayer(), client.getWindowWidth(), client.getWindowHight()); 
-				client.sendUpdate(update);
+				if(client.getPlayer().isDead()) {
+					clientHandlers.remove(client); 
+				}
+				else {
+					update = new UpdateClientData(this.getWorld(), client.getPlayer(), client.getWindowWidth(), client.getWindowHight()); 
+					client.sendUpdate(update);
+				}
 			}
 		}
 	}
