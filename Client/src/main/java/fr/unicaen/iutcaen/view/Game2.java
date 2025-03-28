@@ -117,6 +117,15 @@ public class Game2 extends Application{
                 System.exit(0);
         });
         
+        worldPane.widthProperty().addListener((obs, _old, _new)->{
+        	client.sendWindowSize((double)_new, (double) worldPane.getHeight()); 
+        });
+        
+        worldPane.heightProperty().addListener((obs, _old, _new)->{
+        	client.sendWindowSize((double) worldPane.getWidth(), (double)_new); 
+        });
+        
+        
         worldPane.setStyle("-fx-background-color: white;");
 
         stage.setTitle("Agar.io Clone");
@@ -139,7 +148,10 @@ public class Game2 extends Application{
         	
         	for (Entity entity : entities) {
         	    if (entity != player.getCells() && isColliding(player.getCells(), entity)) {
-        	        player.absorb(world, entity);
+        	        boolean absorbed = player.absorb(world, entity);
+        	        if(absorbed) {
+        	        	client.sendAbsorbedEntityUpdate(entity); 
+        	        }
         	    }
         	}
         	

@@ -6,6 +6,7 @@ import fr.unicaen.iutcaen.model.Boundary;
 import fr.unicaen.iutcaen.model.Player;
 import fr.unicaen.iutcaen.model.World;
 import fr.unicaen.iutcaen.model.entities.Entity;
+import fr.unicaen.iutcaen.networkProtocol.EntityData;
 import fr.unicaen.iutcaen.networkProtocol.Message;
 import fr.unicaen.iutcaen.networkProtocol.PlayerData;
 import fr.unicaen.iutcaen.networkProtocol.UpdateClientData;
@@ -76,6 +77,12 @@ public class WorldHandler extends Thread{
 		Player player = getWorld().getPlayer(playerID); 
 		getWorld().removePlayer(player); 
 	}
+
+	public void absorbEntity(Player player, EntityData data) {
+		Entity entity = data.convertToEntity(); 
+		boolean absorbed = player.absorb(world, entity); 
+	}
+	
 	
 	
 	

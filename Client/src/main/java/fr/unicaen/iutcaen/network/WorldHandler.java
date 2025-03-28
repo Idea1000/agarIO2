@@ -49,10 +49,10 @@ public class WorldHandler extends Thread{
     }
     
 	public void sendUpdate() {
-		UpdateClientData EntitiesUpdate;
+		//UpdateClientData EntitiesUpdate;
 		PlayerData playerUpdate = new PlayerData(client.getPlayer()); 
-		EntitiesUpdate = new UpdateClientData(client.getWorld(), client.getPlayer(), width, hight); 
-		client.sendRegularUpdate(EntitiesUpdate);
+		//EntitiesUpdate = new UpdateClientData(client.getWorld(), client.getPlayer(), width, hight); 
+		//client.sendRegularUpdate(EntitiesUpdate);
 		client.sendPlayerUpdate(playerUpdate);
 		
 	}

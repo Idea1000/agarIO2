@@ -9,6 +9,7 @@ import fr.unicaen.iutcaen.model.World;
 import fr.unicaen.iutcaen.model.entities.Entity;
 import fr.unicaen.iutcaen.model.factories.FactoryPlayer;
 import fr.unicaen.iutcaen.model.factories.IdDistributor;
+import fr.unicaen.iutcaen.networkProtocol.EntityData;
 import fr.unicaen.iutcaen.networkProtocol.Message;
 import fr.unicaen.iutcaen.networkProtocol.PlayerData;
 import fr.unicaen.iutcaen.networkProtocol.TextData;
@@ -70,7 +71,7 @@ public class ClientHandler extends Thread {
         	//If the ID was sent successfully
         	if(result) {
         		
-        		System.out.println("Client "+socket.getRemoteSocketAddress() +" : ID envoyé avec succès"); 
+        		System.out.println("Client "+socket.getRemoteSocketAddress() +" : ID envoyé avec succès "+player.getId()); 
         		
         		//Sending the world information
             	WorldData worldData = new WorldData(worldHandler.getWorld());
@@ -85,12 +86,11 @@ public class ClientHandler extends Thread {
             		
             		System.out.println("Client "+socket.getRemoteSocketAddress() +" : Monde envoyé avec succès");
             		
-            		System.out.println("Couleur joueur : "+player.getCells().getColor()); 
             		//Getting the windowSize
             		result  = receiveWindowSize(); 
             		sendResult(result); 
             		
-            		/*
+            		
             		if(result) {
             			System.out.println("Client "+socket.getRemoteSocketAddress() +" : taille fenêtre reçu avec succès");
                 		worldHandler.addPlayer(player); //Adding the player instance to the world
@@ -99,16 +99,15 @@ public class ClientHandler extends Thread {
                 		//Waiting for updates from the client
                         while (!socket.isClosed()) {
                             Object obj = in.readObject();
-                            if (obj instanceof TextData textData) {
                             	processMessage(obj); 
-                            }
+
                         }//Waiting for updates from the client
                         
             		}//Getting the windowSize
             		
             		else {
             			System.err.println("impossible de recevoir la taille de la fenêtre du client : " + socket.getRemoteSocketAddress()); 
-            		}*/
+            		}
                     
             	}//If the world was sent successfully
             	
@@ -159,12 +158,18 @@ public class ClientHandler extends Thread {
     		processTextData(textData); 
     	}
     	
-    	if(object instanceof PlayerData) {
+    	if(object instanceof PlayerData) { 
     		PlayerData playerData = (PlayerData) object; 
     		worldHandler.updatePlayer(playerData); 
     	}
     	
+    	if(object instanceof EntityData) {
+    		EntityData data = (EntityData) object; 
+    		worldHandler.absorbEntity(player, data); 
+    	}
+    	
     }
+    
     
     
     public synchronized void sendUpdate(UpdateClientData update) {

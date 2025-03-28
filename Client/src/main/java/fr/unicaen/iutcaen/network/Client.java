@@ -95,12 +95,12 @@ public class Client extends Thread{
     public void cleanup() {
         try {
             socket.close();
-            worldHandler.stop();
-			this.stop();
+            worldHandler.interrupt();;
+			this.interrupt();
 			Platform.runLater(() -> {
-				Game.stopCurrentGame();
+				Game2.stopCurrentGame();
+				System.exit(0);
 			});
-			System.exit(0);
         } catch (IOException ignored) {}
         System.out.println("Déconnexion du serveur.");
     }
@@ -250,6 +250,7 @@ public class Client extends Thread{
 			out.flush();
 		} catch (IOException e) {
 			System.err.println("Impossible d'envoyer la MAJ d'absorption d'une entité au serveur "+socket.getRemoteSocketAddress()+" : " + e.getMessage());
+			e.printStackTrace();
 		} 
     }
     
@@ -304,7 +305,7 @@ public class Client extends Thread{
                 		System.out.println("Confirmation reçue du serveur. Début de la partie.");
                 		
                 		//start(); //Starting the client thread that receive updates from the server
-                		//worldHandler.start(); //Starting the thread that sends an update to the server every 33 millisecondes
+                		worldHandler.start(); //Starting the thread that sends an update to the server every 33 millisecondes
                 		
                 	}//If we have the server confirmation
                 	

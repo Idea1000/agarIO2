@@ -31,8 +31,6 @@ public class Player {
      * @param entity
      */
     public boolean absorb(World world, Entity entity) {
-    	
-		System.out.println("1 : "+world.containsEntity(entity)+"\n 2 : "+world.containsPlayer(this));
 		
     	if(world.containsEntity(entity) && world.containsPlayer(this)) {
     		boolean absorbed = cells.absorbEntity(entity); 
