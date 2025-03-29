@@ -35,7 +35,7 @@ finaly run ```mvn -pl Client javafx:run``` to start the game
 #### For the Server
 
 run ```mvn install```<br>
-then start the ```Launcher.java``` file located in the directory ```Client/src/main/java/fr/unicaen/iutcaen/launcher```
+then start the ```Launcher.java``` file located in the directory ```Server/src/main/java/fr/unicaen/iutcaen/launcher```
 
 ## :star2: Functionality
 
